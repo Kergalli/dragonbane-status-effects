@@ -1,1 +1,1 @@
-# dragonbane-status-effect
+# dragonbane-status-effects
