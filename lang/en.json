@@ -5,7 +5,52 @@
         "name": "Replace Default Status Effects",
         "hint": "Replace all default Foundry status effects with Dragonbane-themed effects. Dragonbane and YZE Combat will add their own effects separately. Requires reload."
       },
+      "showSpellEffects": {
+        "name": "Show Spell Effects",
+        "hint": "Include spell-related status effects in the available effects list. Requires reload."
+      },
+      "showHeroicAbilities": {
+        "name": "Show Heroic Abilities",
+        "hint": "Include Heroic Ability status effects in the available effects list. Requires reload."
+      },
       "reloadRequired": "Setting changed. Please reload the world for changes to take effect."
     }
+  },
+  "EFFECT": {
+    "_comment": "Status effect names - some may use DoD.* keys in future if added to core Dragonbane",
+    
+    "_general_effects": "=== GENERAL STATUS EFFECTS ===",
+    "StatusBlind": "Blind",
+    "StatusBurning": "Burning", 
+    "StatusCold": "Cold",
+    "StatusConcentration": "Concentration",
+    "StatusDead": "Dead",
+    "StatusDisease": "Disease",
+    "StatusEncumbered": "Encumbered",
+    "StatusEnsnared": "Ensnared", 
+    "StatusFamished": "Famished",
+    "StatusFlight": "Flight",
+    "StatusInvisible": "Invisible",
+    "StatusParalyzed": "Paralyzed",
+    "StatusPoison": "Poison",
+    "StatusProne": "Prone",
+    "StatusRage": "Rage",
+    "StatusAsleep": "Asleep",
+    "StatusSleepDeprived": "Sleep Deprived",
+    "StatusUnconscious": "Unconscious",
+    "StatusWildPanic": "Wild Panic",
+    
+    "_spell_effects": "=== SPELL STATUS EFFECTS ===",
+    "StatusBirdsong": "Birdsong",
+    "StatusFloralTrail": "Floral Trail",
+    "StatusHeat": "Heat",
+    "StatusLongstrider": "Longstrider",
+    "StatusPowerFist": "Power Fist",
+    "StatusProtector": "Protector", 
+    "StatusStoneSkin": "Stone Skin",
+    
+    "_ability_effects": "=== ABILITY STATUS EFFECTS ===",
+    "StatusBerserk": "Berserk",
+    "StatusWolfkinPrey": "Wolfkin Prey"
   }
 }
