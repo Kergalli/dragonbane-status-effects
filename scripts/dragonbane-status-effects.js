@@ -51,11 +51,6 @@ function setupStatusEffects() {
     
     console.log(`${MODULE_ID} | Loaded ${CUSTOM_STATUS_EFFECTS.length} custom status effects`);
     console.log(`${MODULE_ID} | Dragonbane system will add its condition effects next`);
-    
-    // Log the current effects for debugging
-    if (game.settings.get("core", "debug")) {
-        console.log(`${MODULE_ID} | Current CONFIG.statusEffects:`, CONFIG.statusEffects);
-    }
 }
 
 /**
