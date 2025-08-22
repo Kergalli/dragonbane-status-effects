@@ -1,0 +1,11 @@
+{
+  "DRAGONBANE_STATUS": {
+    "settings": {
+      "replaceAll": {
+        "name": "Replace Default Status Effects",
+        "hint": "Replace all default Foundry status effects with Dragonbane-themed effects. Dragonbane and YZE Combat will add their own effects separately. Requires reload."
+      },
+      "reloadRequired": "Setting changed. Please reload the world for changes to take effect."
+    }
+  }
+}
