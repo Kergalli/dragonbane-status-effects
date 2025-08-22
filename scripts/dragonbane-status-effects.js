@@ -40,17 +40,30 @@ function registerSettings() {
  * Setup custom status effects
  */
 function setupStatusEffects() {
-    // Replace all or merge with existing effects
+    // Preserve any existing Dragonbane condition effects
+    const existingDragonbaneEffects = CONFIG.statusEffects.filter(effect => 
+        effect.id && effect.id.startsWith('dragonbane.condition.')
+    );
+    
+    // Preserve any existing YZE Combat action effects
+    const existingYzeEffects = CONFIG.statusEffects.filter(effect =>
+        effect.statuses && effect.statuses.some(status => status.match(/^action\d+$/))
+    );
+    
     if (game.settings.get(MODULE_ID, "replaceAll")) {
-        CONFIG.statusEffects = [...CUSTOM_STATUS_EFFECTS];
-        console.log(`${MODULE_ID} | Replaced default Foundry status effects with custom Dragonbane effects`);
+        // Replace defaults but preserve Dragonbane and YZE effects
+        CONFIG.statusEffects = [
+            ...CUSTOM_STATUS_EFFECTS,
+            ...existingDragonbaneEffects,
+            ...existingYzeEffects
+        ];
+        console.log(`${MODULE_ID} | Replaced default Foundry status effects, preserved ${existingDragonbaneEffects.length} Dragonbane conditions and ${existingYzeEffects.length} YZE actions`);
     } else {
         CONFIG.statusEffects.push(...CUSTOM_STATUS_EFFECTS);
         console.log(`${MODULE_ID} | Added custom Dragonbane status effects to existing effects`);
     }
     
-    console.log(`${MODULE_ID} | Loaded ${CUSTOM_STATUS_EFFECTS.length} custom status effects`);
-    console.log(`${MODULE_ID} | Dragonbane system will add its condition effects next`);
+    console.log(`${MODULE_ID} | Total status effects loaded: ${CONFIG.statusEffects.length}`);
 }
 
 /**
