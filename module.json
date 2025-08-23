@@ -18,7 +18,7 @@
         "id": "dragonbane",
         "type": "system",
         "compatibility": {
-          "minimum": "2.0.0"
+          "minimum": "1.9.0"
         }
       }
     ]
@@ -31,6 +31,11 @@
       "lang": "en",
       "name": "English",
       "path": "lang/en.json"
+    },
+    {
+      "lang": "sv",
+      "name": "Svenska",
+      "path": "lang/sv.json"
     }
   ],
   "url": "https://github.com/Kergalli/dragonbane-status-effects",

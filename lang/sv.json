@@ -1,0 +1,85 @@
+{
+  "DRAGONBANE_STATUS": {
+    "settings": {
+      "replaceAll": {
+        "name": "Ersätt Standardstatuseffekter",
+        "hint": "Ersätt alla Foundrys standardstatuseffekter med Drakar och Demoner-tematiserade effekter. Drakar och Demoner och YZE Combat lägger till sina egna effekter separat. Kräver omladdning."
+      },
+      "showSpellEffects": {
+        "name": "Visa Besvärjelseeffekter",
+        "hint": "Inkludera besvärjelserelaterade statuseffekter i listan över tillgängliga effekter. Kräver omladdning."
+      },
+      "showHeroicAbilities": {
+        "name": "Visa Hjälteförmågor",
+        "hint": "Inkludera hjälteförmåga-statuseffekter i listan över tillgängliga effekter. Kräver omladdning."
+      },
+      "enableTokenHudStyling": {
+        "name": "Förbättrad Token HUD-layout",
+        "hint": "Aktivera 6-kolumns rutnätslayout med sektionsrubriker för token HUD-statuseffekter. Inaktivera om du föredrar Foundrys standardlayout eller vill använda anpassad CSS."
+      },
+      "customStatusEffects": {
+        "name": "Anpassade Statuseffekter (JSON)",
+        "hint": "Definiera anpassade statuseffekter som JSON-array. Exempel: [{'id':'min-effekt','name':'Min Effekt','img':'icons/svg/example.svg','category':'general'}]. Giltiga kategorier: general, spell, ability",
+        "placeholder": "[{\"id\":\"anpassad-bedövad\",\"name\":\"Anpassad Bedövad\",\"img\":\"icons/svg/daze.svg\",\"category\":\"general\"},{\"id\":\"magisk-sköld\",\"name\":\"Magisk Sköld\",\"img\":\"icons/svg/shield.svg\",\"category\":\"spell\"}]"
+      },
+      "reloadRequired": "Inställning ändrad. Ladda om världen för att ändringarna ska träda i kraft."
+    },
+    "sections": {
+      "attributeConditions": "EGENSKAPSTILLSTÅND",
+      "generalEffects": "ALLMÄNNA EFFEKTER",
+      "spellEffects": "BESVÄRJELSEEFFEKTER",
+      "heroicAbilities": "HJÄLTEFÖRMÅGOR"
+    },
+    "errors": {
+      "systemRequired": "Drakar och Demoner Statuseffekter | Denna modul kräver Drakar och Demoner-systemet.",
+      "invalidFormat": "Anpassade Statuseffekter: Ogiltigt format - måste vara en array av effekter",
+      "invalidJSON": "Anpassade Statuseffekter: Ogiltigt JSON-format"
+    },
+    "warnings": {
+      "systemCompatibility": "Drakar och Demoner Statuseffekter-modulen är designad för Drakar och Demoner-systemet. Vissa statuseffekter kanske inte fungerar som förväntat."
+    },
+    "notifications": {
+      "customEffectsCleared": "Anpassade effekter rensade. Ladda om världen för att tillämpa ändringarna."
+    }
+  },
+  "EFFECT": {
+    "_comment": "Statuseffektnamn - vissa kan använda DoD.* nycklar i framtiden om de läggs till i kärnsystemet",
+    
+    "_general_effects": "=== ALLMÄNNA STATUSEFFEKTER ===",
+    "StatusBlind": "Blind",
+    "StatusBurning": "Brinnande", 
+    "StatusCold": "Frusen",
+    "StatusConcentration": "Koncentration",
+    "StatusDead": "Död",
+    "StatusDisease": "Sjukdom",
+    "StatusDrowning": "Drunknande",
+    "StatusEncumbered": "Överbelastad",
+    "StatusEnsnared": "Infångad", 
+    "StatusFamished": "Svältande",
+    "StatusFlight": "Flygande",
+    "StatusInvisible": "Osynlig",
+    "StatusParalyzed": "Förlamad",
+    "StatusPoisonLethal": "Gift (Dödlig)",
+    "StatusPoisonParalyzing": "Gift (Förlamande)",
+    "StatusPoisonSleeping": "Gift (Sovande)",
+    "StatusProne": "Liggande",
+    "StatusRage": "Raseri",
+    "StatusAsleep": "Sovande",
+    "StatusSleepDeprived": "Sömnbrist",
+    "StatusUnconscious": "Medvetslös",
+    "StatusWildPanic": "Vild Panik",
+    
+    "_spell_effects": "=== BESVÄRJELSESTATUSEFFEKTER ===",
+    "StatusBirdsong": "Fågelsång",
+    "StatusFloralTrail": "Blomspår",
+    "StatusHeat": "Hetta",
+    "StatusLongstrider": "Långstegsresare",
+    "StatusPowerFist": "Kraftnäve",
+    "StatusProtector": "Beskyddare", 
+    "StatusStoneSkin": "Stenhud",
+    
+    "_ability_effects": "=== FÖRMÅGOSTATUSEFFEKTER ===",
+    "StatusBerserk": "Bärsärk",
+    "StatusWolfkinPrey": "Vargättlingsbyte"
+  }
+}
