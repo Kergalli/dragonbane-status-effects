@@ -3,7 +3,7 @@
  * Handles Dragonbane-specific condition functionality
  */
 
-import { MODULE_ID, DRAGONBANE_ATTRIBUTES, DRAGONBANE_CONDITION_ICONS, SELECTORS, UI_CONFIG } from '../constants.js';
+import { MODULE_ID, DRAGONBANE_ATTRIBUTES, DRAGONBANE_CONDITION_ICONS, SELECTORS } from '../constants.js';
 
 /**
  * Get the proper Dragonbane icon for a condition
@@ -24,7 +24,7 @@ function createConditionButton(attribute, name, icon, isActive, toggleCallback) 
              data-status-id="dragonbane.condition.${attribute}" 
              data-category="attribute" 
              data-attribute="${attribute}"
-             title="${name}">
+             data-tooltip="${name}">
             <img src="${icon}" 
                  width="40" height="40" 
                  alt="${name}"
@@ -143,6 +143,6 @@ export function setupActorUpdateMonitoring() {
             if (tokenHUD) {
                 updateDragonbaneConditionStates($(tokenHUD));
             }
-        }, UI_CONFIG.UPDATE_DELAY); // Use constant for debounce delay
+        }, 100); // 100ms debounce
     });
 }
