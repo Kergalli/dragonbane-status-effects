@@ -46,8 +46,10 @@
     "_comment": "Status effect names - some may use DoD.* keys in future if added to core Dragonbane",
     
     "_general_effects": "=== GENERAL STATUS EFFECTS ===",
+    "StatusAmnesia": "Amnesia",
     "StatusBlind": "Blind",
     "StatusBurning": "Burning", 
+    "StatusChill": "Chill",
     "StatusCold": "Cold",
     "StatusConcentration": "Concentration",
     "StatusDead": "Dead",
@@ -57,7 +59,10 @@
     "StatusEnsnared": "Ensnared", 
     "StatusFamished": "Famished",
     "StatusFlight": "Flight",
+    "StatusFrozen": "Frozen",
+    "StatusGrappled": "Grappled",
     "StatusInvisible": "Invisible",
+    "StatusMounted": "Mounted",
     "StatusParalyzed": "Paralyzed",
     "StatusPoisonLethal": "Poison (Lethal)",
     "StatusPoisonParalyzing": "Poison (Paralyzing)",
@@ -71,6 +76,7 @@
     
     "_spell_effects": "=== SPELL STATUS EFFECTS ===",
     "StatusBirdsong": "Birdsong",
+    "StatusEnchantedWeapon": "Enchanted Weapon",
     "StatusFloralTrail": "Floral Trail",
     "StatusHeat": "Heat",
     "StatusLongstrider": "Longstrider",
@@ -80,6 +86,9 @@
     
     "_ability_effects": "=== ABILITY STATUS EFFECTS ===",
     "StatusBerserk": "Berserk",
+    "StatusDisguised": "Disguised",
+    "StatusMusicianBane": "Musician (Bane)",
+    "StatusMusicianBoon": "Musician (Boon)",
     "StatusWolfkinPrey": "Wolfkin Prey"
   }
 }

@@ -3,8 +3,7 @@
  * Handles all settings registration and change notifications
  */
 
-import { MODULE_ID } from '../constants.js';
-import { parseUserCustomEffects } from './effects-manager.js';
+import { MODULE_ID, UI_CONFIG } from '../constants.js';
 
 // Debounced notification to prevent spam when changing multiple settings
 let reloadNotificationTimeout;
@@ -12,16 +11,7 @@ function showReloadNotification() {
     clearTimeout(reloadNotificationTimeout);
     reloadNotificationTimeout = setTimeout(() => {
         ui.notifications.info(game.i18n.localize("DRAGONBANE_STATUS.settings.reloadRequired"));
-    }, 500); // Show notification 500ms after last setting change
-}
-
-/**
- * Custom onChange handler for customStatusEffects setting that validates JSON
- */
-function onCustomEffectsChange(value) {
-    // Validate the JSON and show errors immediately on setting change
-    parseUserCustomEffects(true); // Show errors = true for settings changes
-    showReloadNotification();
+    }, UI_CONFIG.DEBOUNCE_DELAY); // Show notification after last setting change
 }
 
 /**
@@ -34,36 +24,31 @@ export function registerSettings() {
             key: "replaceAll",
             type: Boolean,
             default: true,
-            localized: true,
-            onChange: showReloadNotification
+            localized: true
         },
         {
             key: "showSpellEffects", 
             type: Boolean,
             default: false,
-            localized: true,
-            onChange: showReloadNotification
+            localized: true
         },
         {
             key: "showHeroicAbilities",
             type: Boolean, 
             default: false,
-            localized: true,
-            onChange: showReloadNotification
+            localized: true
         },
         {
             key: "enableTokenHudStyling",
             type: Boolean,
             default: true,
-            localized: true,
-            onChange: showReloadNotification
+            localized: true
         },
         {
             key: "customStatusEffects",
             type: String,
             default: "",
-            localized: true,
-            onChange: onCustomEffectsChange // Special handler for JSON validation
+            localized: true
         }
     ];
 
@@ -75,7 +60,7 @@ export function registerSettings() {
             type: setting.type,
             default: setting.default,
             requiresReload: true,
-            onChange: setting.onChange
+            onChange: showReloadNotification // Use debounced notification
         };
 
         // Add localized name/hint if specified

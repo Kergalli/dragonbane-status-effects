@@ -46,9 +46,10 @@
     "_comment": "Statuseffektnamn - vissa kan använda DoD.* nycklar i framtiden om de läggs till i kärnsystemet",
     
     "_general_effects": "=== ALLMÄNNA STATUSEFFEKTER ===",
+    "StatusAmnesia": "Minnesförlust",
     "StatusBlind": "Blind",
     "StatusBurning": "Brinnande", 
-    "StatusCold": "Frusen",
+    "StatusCold": "Kall",
     "StatusConcentration": "Koncentration",
     "StatusDead": "Död",
     "StatusDisease": "Sjukdom",
@@ -57,7 +58,10 @@
     "StatusEnsnared": "Infångad", 
     "StatusFamished": "Svältande",
     "StatusFlight": "Flygande",
+    "StatusFrozen": "Frusen",
+    "StatusGrappled": "Gripen",
     "StatusInvisible": "Osynlig",
+    "StatusMounted": "Ridande",
     "StatusParalyzed": "Förlamad",
     "StatusPoisonLethal": "Gift (Dödlig)",
     "StatusPoisonParalyzing": "Gift (Förlamande)",
@@ -71,6 +75,8 @@
     
     "_spell_effects": "=== BESVÄRJELSESTATUSEFFEKTER ===",
     "StatusBirdsong": "Fågelsång",
+    "StatusChill": "Kyla",
+    "StatusEnchantedWeapon": "Förtrollat Vapen",
     "StatusFloralTrail": "Blomspår",
     "StatusHeat": "Hetta",
     "StatusLongstrider": "Långstegsresare",
@@ -80,6 +86,9 @@
     
     "_ability_effects": "=== FÖRMÅGOSTATUSEFFEKTER ===",
     "StatusBerserk": "Bärsärk",
+    "StatusDisguised": "Förklädnad",
+    "StatusMusicianBane": "Musikant (Förbannelse)",
+    "StatusMusicianBoon": "Musikant (Välsignelse)",
     "StatusWolfkinPrey": "Vargättlingsbyte"
   }
 }

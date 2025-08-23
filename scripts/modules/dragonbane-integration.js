@@ -3,7 +3,7 @@
  * Handles Dragonbane-specific condition functionality
  */
 
-import { MODULE_ID, DRAGONBANE_ATTRIBUTES, DRAGONBANE_CONDITION_ICONS, SELECTORS } from '../constants.js';
+import { MODULE_ID, DRAGONBANE_ATTRIBUTES, DRAGONBANE_CONDITION_ICONS, SELECTORS, UI_CONFIG } from '../constants.js';
 
 /**
  * Get the proper Dragonbane icon for a condition
@@ -24,7 +24,6 @@ function createConditionButton(attribute, name, icon, isActive, toggleCallback) 
              data-status-id="dragonbane.condition.${attribute}" 
              data-category="attribute" 
              data-attribute="${attribute}"
-             data-tooltip="${name}"
              title="${name}">
             <img src="${icon}" 
                  width="40" height="40" 
@@ -72,22 +71,28 @@ export function addDragonbaneConditionsToHUD(html, data) {
         return;
     }
     
-    // Create and add condition buttons using Dragonbane's localization keys
+    // Map attributes to condition names for better icons and labels
+    const attributeMapping = {
+        "STR": { condition: "exhausted", icon: DRAGONBANE_CONDITION_ICONS["str"] },
+        "CON": { condition: "sickly", icon: DRAGONBANE_CONDITION_ICONS["con"] },
+        "AGL": { condition: "dazed", icon: DRAGONBANE_CONDITION_ICONS["agl"] },
+        "INT": { condition: "angry", icon: DRAGONBANE_CONDITION_ICONS["int"] },
+        "WIL": { condition: "scared", icon: DRAGONBANE_CONDITION_ICONS["wil"] },
+        "CHA": { condition: "disheartened", icon: DRAGONBANE_CONDITION_ICONS["cha"] }
+    };
+    
+    // Create and add condition buttons
     DRAGONBANE_ATTRIBUTES.forEach(attr => {
         const attrLower = attr.toLowerCase();
         const isActive = actor.hasCondition(attrLower);
-        
-        // Use Dragonbane's own localization keys for condition names
         const conditionName = game.i18n.localize(`DoD.conditions.${attrLower}`);
-        
-        // Get the appropriate icon for this attribute
-        const conditionIcon = getConditionIcon(attrLower);
+        const mapping = attributeMapping[attr];
         
         // Create condition button using template
         const conditionButton = createConditionButton(
             attrLower, 
             conditionName, 
-            conditionIcon, 
+            mapping.icon, 
             isActive,
             (currentState) => actor.updateCondition(attrLower, !currentState)
         );
@@ -138,6 +143,6 @@ export function setupActorUpdateMonitoring() {
             if (tokenHUD) {
                 updateDragonbaneConditionStates($(tokenHUD));
             }
-        }, 100); // 100ms debounce
+        }, UI_CONFIG.UPDATE_DELAY); // Use constant for debounce delay
     });
 }

@@ -6,6 +6,20 @@ export const MODULE_ID = "dragonbane-status-effects";
 
 export const DRAGONBANE_ATTRIBUTES = ["STR", "CON", "AGL", "INT", "WIL", "CHA"];
 
+// UI Configuration Constants
+export const UI_CONFIG = {
+    // Timing
+    DEBOUNCE_DELAY: 500,
+    UPDATE_DELAY: 100,
+    
+    // Token HUD Layout
+    COLUMNS: 6,
+    ICON_SIZE: 40,
+    MIN_WIDTH: 320,
+    GAP: 6,
+    PADDING: '14px 18px 14px 14px'
+};
+
 // Dragonbane attribute condition icons
 export const DRAGONBANE_CONDITION_ICONS = {
     "str": "systems/dragonbane/art/icons/back-pain.webp",
@@ -26,7 +40,13 @@ export const SELECTORS = {
 
 // Custom Status Effects Data
 export const CUSTOM_STATUS_EFFECTS = [
-    // General Effects
+    // General Effects (alphabetical order)
+    {
+        id: "amnesia",
+        name: "EFFECT.StatusAmnesia",
+        img: "icons/svg/daze.svg",
+        category: "general"
+    },
     {
         id: "blind",
         name: "EFFECT.StatusBlind",
@@ -42,7 +62,7 @@ export const CUSTOM_STATUS_EFFECTS = [
     {
         id: "cold",
         name: "EFFECT.StatusCold",
-        img: "icons/svg/frozen.svg",
+        img: "modules/dragonbane-status-effects/assets/icons/thermometer-cold.svg",
         category: "general"
     },
     {
@@ -94,9 +114,27 @@ export const CUSTOM_STATUS_EFFECTS = [
         category: "general"
     },
     {
+        id: "frozen",
+        name: "EFFECT.StatusFrozen",
+        img: "icons/svg/frozen.svg",
+        category: "general"
+    },
+    {
+        id: "grappled",
+        name: "EFFECT.StatusGrappled",
+        img: "modules/dragonbane-status-effects/assets/icons/grab.svg",
+        category: "general"
+    },
+    {
         id: "invisible",
         name: "EFFECT.StatusInvisible",
         img: "icons/svg/invisible.svg",
+        category: "general"
+    },
+    {
+        id: "mounted",
+        name: "EFFECT.StatusMounted",
+        img: "modules/dragonbane-status-effects/assets/icons/cavalry.svg",
         category: "general"
     },
     {
@@ -160,11 +198,23 @@ export const CUSTOM_STATUS_EFFECTS = [
         category: "general"
     },
     
-    // Spell Effects (appear at bottom if enabled)
+    // Spell Effects (alphabetical order)
     {
         id: "birdsong",
         name: "EFFECT.StatusBirdsong",
         img: "modules/dragonbane-status-effects/assets/icons/bird-twitter.svg",
+        category: "spell"
+    },
+    {
+        id: "chill",
+        name: "EFFECT.StatusChill",
+        img: "modules/dragonbane-status-effects/assets/icons/ice-spell-cast.svg",
+        category: "spell"
+    },
+    {
+        id: "enchanted-weapon",
+        name: "EFFECT.StatusEnchantedWeapon",
+        img: "modules/dragonbane-status-effects/assets/icons/magic-axe.svg",
         category: "spell"
     },
     {
@@ -204,11 +254,29 @@ export const CUSTOM_STATUS_EFFECTS = [
         category: "spell"
     },
     
-    // Heroic Ability Effects
+    // Heroic Ability Effects (alphabetical order)
     {
         id: "berserk",
         name: "EFFECT.StatusBerserk",
         img: "modules/dragonbane-status-effects/assets/icons/mighty-force.svg",
+        category: "ability"
+    },
+    {
+        id: "disguised",
+        name: "EFFECT.StatusDisguised",
+        img: "modules/dragonbane-status-effects/assets/icons/domino-mask.svg",
+        category: "ability"
+    },
+    {
+        id: "musician-bane",
+        name: "EFFECT.StatusMusicianBane",
+        img: "modules/dragonbane-status-effects/assets/icons/shouting.svg",
+        category: "ability"
+    },
+    {
+        id: "musician-boon",
+        name: "EFFECT.StatusMusicianBoon",
+        img: "modules/dragonbane-status-effects/assets/icons/music-spell.svg",
         category: "ability"
     },
     {

@@ -3,7 +3,7 @@
  * Handles Token HUD styling, organization, and enhancement
  */
 
-import { MODULE_ID, SELECTORS } from '../constants.js';
+import { MODULE_ID, SELECTORS, UI_CONFIG } from '../constants.js';
 import { categorizeEffect } from './effects-manager.js';
 import { addDragonbaneConditionsToHUD } from './dragonbane-integration.js';
 
@@ -17,31 +17,39 @@ export function initializeTokenHudStyling() {
     }
     
     const css = `
-        /* Status effects container - clean 6-column grid */
+        /* ONLY target the status effects container - don't touch anything else */
         #token-hud .col.right .status-effects {
             display: grid !important;
-            grid-template-columns: repeat(6, 40px) !important;
-            gap: 6px !important;
-            padding: 12px !important;
-            background: rgba(0, 0, 0, 0.45) !important;
+            grid-template-columns: repeat(${UI_CONFIG.COLUMNS}, minmax(${UI_CONFIG.ICON_SIZE}px, 1fr)) !important;
+            gap: ${UI_CONFIG.GAP}px !important;
+            padding: ${UI_CONFIG.PADDING} !important; /* More padding on right side */
+            background: rgba(0, 0, 0, 0.45) !important; /* Dark background matching default Foundry styling */
             border-radius: 6px !important;
             width: 100% !important;
-            min-width: 295px !important; /* Fine-tuned width */
+            max-width: none !important;
+            min-width: ${UI_CONFIG.MIN_WIDTH}px !important; /* Increased to accommodate columns + padding */
             box-sizing: border-box !important;
             justify-items: center !important;
             align-items: center !important;
+            margin-right: 2px !important; /* Small adjustment to balance container */
         }
 
-        /* Status effect icons - simplified */
+        /* Only status effect icons */
         #token-hud .col.right .status-effects .effect-control {
-            width: 40px !important;
-            height: 40px !important;
+            width: ${UI_CONFIG.ICON_SIZE}px !important;
+            height: ${UI_CONFIG.ICON_SIZE}px !important;
+            min-width: ${UI_CONFIG.ICON_SIZE}px !important;
+            min-height: ${UI_CONFIG.ICON_SIZE}px !important;
             border: 1px solid rgba(255, 255, 255, 0.3) !important;
             border-radius: 4px !important;
-            background: rgba(0, 0, 0, 0.7) !important;
+            background: rgba(0, 0, 0, 0.7) !important; /* Much darker background for better contrast */
             transition: transform 0.2s ease !important;
             cursor: pointer !important;
-            filter: brightness(1.5) contrast(1.1) !important; /* Keep brighter icons */
+            display: block !important;
+            position: relative !important;
+            flex-shrink: 0 !important;
+            object-fit: contain !important;
+            filter: brightness(1.5) contrast(1.1) !important; /* Even brighter, more white icons */
         }
 
         #token-hud .col.right .status-effects .effect-control:hover {
@@ -51,15 +59,14 @@ export function initializeTokenHudStyling() {
         }
 
         #token-hud .col.right .status-effects .effect-control.active {
-            border-color: #e93031 !important;
-            box-shadow: 0 0 8px rgba(233, 48, 49, 0.8) !important;
-            background: rgba(233, 48, 49, 0.35) !important;
+            border-color: #00604d !important;
+            box-shadow: 0 0 8px rgba(0, 96, 77, 0.8) !important;
+            background: rgba(0, 96, 77, 0.35) !important;
         }
 
-        /* Section headers - keep the good original styling, ensure 100% width */
+        /* Only section headers within status effects */
         #token-hud .col.right .status-effects .status-section-header {
             grid-column: 1 / -1 !important;
-            width: 100% !important;
             background: linear-gradient(135deg, #2c5530, #4a7c59) !important;
             color: #ffffff !important;
             font-family: "Signika", Arial, sans-serif !important;
@@ -77,6 +84,8 @@ export function initializeTokenHudStyling() {
                 0 2px 4px rgba(0, 0, 0, 0.5) !important;
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8) !important;
             line-height: 1.2 !important;
+            display: block !important;
+            width: 100% !important;
             box-sizing: border-box !important;
         }
 
@@ -101,8 +110,11 @@ export function initializeTokenHudStyling() {
             border-color: #33291a !important;
         }
 
-        /* Category border colors - consolidated similar colors */
-        #token-hud .col.right .status-effects .effect-control[data-category="attribute"],
+        /* Category Styling - Only within status effects */
+        #token-hud .col.right .status-effects .effect-control[data-category="attribute"] {
+            border-color: rgba(74, 124, 89, 0.5) !important;
+        }
+
         #token-hud .col.right .status-effects .effect-control[data-category="general"] {
             border-color: rgba(74, 124, 89, 0.5) !important;
         }
@@ -114,6 +126,8 @@ export function initializeTokenHudStyling() {
         #token-hud .col.right .status-effects .effect-control[data-category="ability"] {
             border-color: rgba(140, 122, 74, 0.5) !important;
         }
+
+
     `;
     
     const style = document.createElement('style');
