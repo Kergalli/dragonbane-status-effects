@@ -71,28 +71,22 @@ export function addDragonbaneConditionsToHUD(html, data) {
         return;
     }
     
-    // Map attributes to condition names for better icons and labels
-    const attributeMapping = {
-        "STR": { condition: "exhausted", icon: DRAGONBANE_CONDITION_ICONS["str"] },
-        "CON": { condition: "sickly", icon: DRAGONBANE_CONDITION_ICONS["con"] },
-        "AGL": { condition: "dazed", icon: DRAGONBANE_CONDITION_ICONS["agl"] },
-        "INT": { condition: "angry", icon: DRAGONBANE_CONDITION_ICONS["int"] },
-        "WIL": { condition: "scared", icon: DRAGONBANE_CONDITION_ICONS["wil"] },
-        "CHA": { condition: "disheartened", icon: DRAGONBANE_CONDITION_ICONS["cha"] }
-    };
-    
-    // Create and add condition buttons
+    // Create and add condition buttons using Dragonbane's localization keys
     DRAGONBANE_ATTRIBUTES.forEach(attr => {
         const attrLower = attr.toLowerCase();
         const isActive = actor.hasCondition(attrLower);
+        
+        // Use Dragonbane's own localization keys for condition names
         const conditionName = game.i18n.localize(`DoD.conditions.${attrLower}`);
-        const mapping = attributeMapping[attr];
+        
+        // Get the appropriate icon for this attribute
+        const conditionIcon = getConditionIcon(attrLower);
         
         // Create condition button using template
         const conditionButton = createConditionButton(
             attrLower, 
             conditionName, 
-            mapping.icon, 
+            conditionIcon, 
             isActive,
             (currentState) => actor.updateCondition(attrLower, !currentState)
         );

@@ -7,10 +7,10 @@ import { MODULE_ID, CUSTOM_STATUS_EFFECTS } from '../constants.js';
 
 /**
  * Parse and validate user-defined custom effects from settings
- * @param {boolean} showErrors - Whether to show error notifications (default: true)
+ * @param {boolean} showErrors - Whether to show error notifications (default: false for world load, true for settings changes)
  * @returns {Array} Array of valid user-defined effects
  */
-export function parseUserCustomEffects(showErrors = true) {
+export function parseUserCustomEffects(showErrors = false) {
     const userCustomEffectsJson = game.settings.get(MODULE_ID, "customStatusEffects");
     if (!userCustomEffectsJson || !userCustomEffectsJson.trim()) {
         return [];
@@ -54,7 +54,7 @@ export function parseUserCustomEffects(showErrors = true) {
  * @param {boolean} showErrors - Whether to show error notifications for user effects
  * @returns {Array} Combined array of all effects
  */
-export function getAllEffects(applySettingsFilter = false, showErrors = true) {
+export function getAllEffects(applySettingsFilter = false, showErrors = false) {
     const builtInEffects = [...CUSTOM_STATUS_EFFECTS];
     const userEffects = parseUserCustomEffects(showErrors);
     const allEffects = [...builtInEffects, ...userEffects];
@@ -94,8 +94,8 @@ export function categorizeEffect(effectId, allEffects = null) {
  * Initialize status effects - main entry point
  */
 export function initializeStatusEffects() {
-    // Get all effects with settings filtering applied
-    const allCustomEffects = getAllEffects(true, true);
+    // Get all effects with settings filtering applied - no error notifications on world load
+    const allCustomEffects = getAllEffects(true, false);
     
     // Create localized effect objects
     const customEffects = allCustomEffects.map(effect => {

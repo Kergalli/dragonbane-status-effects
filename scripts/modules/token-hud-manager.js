@@ -17,39 +17,31 @@ export function initializeTokenHudStyling() {
     }
     
     const css = `
-        /* ONLY target the status effects container - don't touch anything else */
+        /* Status effects container - clean 6-column grid */
         #token-hud .col.right .status-effects {
             display: grid !important;
-            grid-template-columns: repeat(6, minmax(40px, 1fr)) !important;
+            grid-template-columns: repeat(6, 40px) !important;
             gap: 6px !important;
-            padding: 14px 18px 14px 14px !important; /* More padding on right side */
-            background: rgba(0, 0, 0, 0.45) !important; /* Dark background matching default Foundry styling */
+            padding: 12px !important;
+            background: rgba(0, 0, 0, 0.45) !important;
             border-radius: 6px !important;
             width: 100% !important;
-            max-width: none !important;
-            min-width: 320px !important; /* Increased from 280px to accommodate 6 columns + padding */
+            min-width: 295px !important; /* Fine-tuned width */
             box-sizing: border-box !important;
             justify-items: center !important;
             align-items: center !important;
-            margin-right: 2px !important; /* Small adjustment to balance container */
         }
 
-        /* Only status effect icons */
+        /* Status effect icons - simplified */
         #token-hud .col.right .status-effects .effect-control {
             width: 40px !important;
             height: 40px !important;
-            min-width: 40px !important;
-            min-height: 40px !important;
             border: 1px solid rgba(255, 255, 255, 0.3) !important;
             border-radius: 4px !important;
-            background: rgba(0, 0, 0, 0.7) !important; /* Much darker background for better contrast */
+            background: rgba(0, 0, 0, 0.7) !important;
             transition: transform 0.2s ease !important;
             cursor: pointer !important;
-            display: block !important;
-            position: relative !important;
-            flex-shrink: 0 !important;
-            object-fit: contain !important;
-            filter: brightness(1.5) contrast(1.1) !important; /* Even brighter, more white icons */
+            filter: brightness(1.5) contrast(1.1) !important; /* Keep brighter icons */
         }
 
         #token-hud .col.right .status-effects .effect-control:hover {
@@ -64,9 +56,10 @@ export function initializeTokenHudStyling() {
             background: rgba(0, 96, 77, 0.35) !important;
         }
 
-        /* Only section headers within status effects */
+        /* Section headers - keep the good original styling, ensure 100% width */
         #token-hud .col.right .status-effects .status-section-header {
             grid-column: 1 / -1 !important;
+            width: 100% !important;
             background: linear-gradient(135deg, #2c5530, #4a7c59) !important;
             color: #ffffff !important;
             font-family: "Signika", Arial, sans-serif !important;
@@ -84,8 +77,6 @@ export function initializeTokenHudStyling() {
                 0 2px 4px rgba(0, 0, 0, 0.5) !important;
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8) !important;
             line-height: 1.2 !important;
-            display: block !important;
-            width: 100% !important;
             box-sizing: border-box !important;
         }
 
@@ -110,13 +101,8 @@ export function initializeTokenHudStyling() {
             border-color: #33291a !important;
         }
 
-        /* Only section dividers within status effects - REMOVED */
-
-        /* Category Styling - Only within status effects */
-        #token-hud .col.right .status-effects .effect-control[data-category="attribute"] {
-            border-color: rgba(74, 124, 89, 0.5) !important;
-        }
-
+        /* Category border colors - consolidated similar colors */
+        #token-hud .col.right .status-effects .effect-control[data-category="attribute"],
         #token-hud .col.right .status-effects .effect-control[data-category="general"] {
             border-color: rgba(74, 124, 89, 0.5) !important;
         }
@@ -127,43 +113,6 @@ export function initializeTokenHudStyling() {
 
         #token-hud .col.right .status-effects .effect-control[data-category="ability"] {
             border-color: rgba(140, 122, 74, 0.5) !important;
-        }
-
-        /* Responsive Design - Only status effects */
-        @media (max-width: 1200px) {
-            #token-hud .col.right .status-effects {
-                grid-template-columns: repeat(4, minmax(36px, 1fr)) !important;
-                gap: 5px !important;
-                padding: 12px 16px 12px 12px !important; /* Consistent even padding */
-                min-width: 220px !important; /* Increased to accommodate 4 columns properly */
-            }
-            
-            #token-hud .col.right .status-effects .effect-control {
-                width: 36px !important;
-                height: 36px !important;
-                min-width: 36px !important;
-                min-height: 36px !important;
-                background: rgba(0, 0, 0, 0.7) !important; /* Match darker background */
-                filter: brightness(1.5) contrast(1.1) !important; /* Match brighter icons */
-            }
-        }
-
-        @media (max-width: 900px) {
-            #token-hud .col.right .status-effects {
-                grid-template-columns: repeat(3, minmax(32px, 1fr)) !important;
-                gap: 4px !important;
-                padding: 10px 14px 10px 10px !important; /* Consistent even padding */
-                min-width: 170px !important; /* Increased to accommodate 3 columns properly */
-            }
-            
-            #token-hud .col.right .status-effects .effect-control {
-                width: 32px !important;
-                height: 32px !important;
-                min-width: 32px !important;
-                min-height: 32px !important;
-                background: rgba(0, 0, 0, 0.7) !important; /* Match darker background */
-                filter: brightness(1.5) contrast(1.1) !important; /* Match brighter icons */
-            }
         }
     `;
     
