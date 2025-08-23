@@ -3,7 +3,8 @@
  * Handles all settings registration and change notifications
  */
 
-import { MODULE_ID, UI_CONFIG } from '../constants.js';
+import { MODULE_ID } from '../constants.js';
+import { StatusEffectDescriptionEditor } from './description-editor.js';
 
 // Debounced notification to prevent spam when changing multiple settings
 let reloadNotificationTimeout;
@@ -11,7 +12,7 @@ function showReloadNotification() {
     clearTimeout(reloadNotificationTimeout);
     reloadNotificationTimeout = setTimeout(() => {
         ui.notifications.info(game.i18n.localize("DRAGONBANE_STATUS.settings.reloadRequired"));
-    }, UI_CONFIG.DEBOUNCE_DELAY); // Show notification after last setting change
+    }, 500); // Show notification 500ms after last setting change
 }
 
 /**
@@ -49,18 +50,26 @@ export function registerSettings() {
             type: String,
             default: "",
             localized: true
+        },
+        {
+            key: "effectDescriptions",
+            type: Object,
+            default: {},
+            localized: false,
+            scope: "world",
+            config: false // Hidden setting for storing descriptions
         }
     ];
 
     // Register all settings with shared configuration
     settings.forEach(setting => {
         const config = {
-            scope: "world",
-            config: true,
+            scope: setting.scope || "world",
+            config: setting.config !== undefined ? setting.config : true,
             type: setting.type,
             default: setting.default,
-            requiresReload: true,
-            onChange: showReloadNotification // Use debounced notification
+            requiresReload: setting.key !== "effectDescriptions", // Descriptions don't need reload
+            onChange: setting.key !== "effectDescriptions" ? showReloadNotification : undefined
         };
 
         // Add localized name/hint if specified
@@ -70,6 +79,16 @@ export function registerSettings() {
         }
 
         game.settings.register(MODULE_ID, setting.key, config);
+    });
+
+    // Register the description editor button
+    game.settings.registerMenu(MODULE_ID, "descriptionEditor", {
+        name: "DRAGONBANE_STATUS.settings.descriptionEditor.name",
+        hint: "DRAGONBANE_STATUS.settings.descriptionEditor.hint", 
+        label: "DRAGONBANE_STATUS.settings.descriptionEditor.label",
+        icon: "fas fa-edit",
+        type: StatusEffectDescriptionEditor,
+        restricted: true
     });
 }
 

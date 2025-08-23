@@ -22,6 +22,11 @@
         "hint": "Define custom status effects as JSON array. Example: [{'id':'my-effect','name':'My Effect','img':'icons/svg/example.svg','category':'general'}]. Valid categories: general, spell, ability",
         "placeholder": "[{\"id\":\"custom-stunned\",\"name\":\"Custom Stunned\",\"img\":\"icons/svg/daze.svg\",\"category\":\"general\"},{\"id\":\"magic-shield\",\"name\":\"Magic Shield\",\"img\":\"icons/svg/shield.svg\",\"category\":\"spell\"}]"
       },
+      "descriptionEditor": {
+        "name": "Edit Status Effect Descriptions",
+        "hint": "Open the description editor to add custom descriptions to status effects. Useful for modules like Visual Active Effects.",
+        "label": "Open Description Editor"
+      },
       "reloadRequired": "Setting changed. Please reload the world for changes to take effect."
     },
     "sections": {
@@ -29,6 +34,22 @@
       "generalEffects": "GENERAL EFFECTS",
       "spellEffects": "SPELL EFFECTS",
       "heroicAbilities": "HEROIC ABILITIES"
+    },
+    "editor": {
+      "title": "Status Effect Description Editor",
+      "instructions": "Add custom descriptions to your status effects. These descriptions will be used by Visual Active Effects and other modules that display status effect information. You can drag items, actors, or journal entries from Foundry directly into the description fields to create clickable links. Note: After saving, existing effects on tokens need to be removed and reapplied to show the new descriptions.",
+      "placeholder": "Enter a description for this status effect... You can also drag items, spells, or journal entries here to create links.",
+      "save": "Save All Descriptions",
+      "reset": "Reset to Saved",
+      "clearAll": "Clear All Descriptions",
+      "saved": "Status effect descriptions saved successfully!",
+      "reapplyEffects": "Remove and reapply existing effects to tokens to see updated descriptions.",
+      "resetComplete": "Descriptions reset to last saved state.",
+      "cleared": "All descriptions cleared successfully!",
+      "resetTitle": "Reset Descriptions?",
+      "resetContent": "This will discard any unsaved changes and reload the last saved descriptions. Are you sure?",
+      "clearAllTitle": "Clear All Descriptions?",
+      "clearAllContent": "This will permanently delete all status effect descriptions. Are you sure you want to continue?"
     },
     "errors": {
       "systemRequired": "Dragonbane Status Effects | This module requires the Dragonbane system.",

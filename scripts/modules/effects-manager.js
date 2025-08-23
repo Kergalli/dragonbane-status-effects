@@ -76,11 +76,74 @@ export function getAllEffects(applySettingsFilter = false, showErrors = true) {
 }
 
 /**
- * Get the category for a specific effect ID
- * @param {string} effectId - The effect ID to categorize
- * @param {Array} allEffects - Optional array of all effects (will be fetched if not provided)
- * @returns {string} The effect category ('general', 'spell', 'ability', or 'unknown')
+ * Get user-defined description for an effect
+ * @param {string} effectId - The effect ID
+ * @returns {string} User-defined description or empty string
  */
+export function getUserDescription(effectId) {
+    const descriptions = game.settings.get(MODULE_ID, "effectDescriptions") || {};
+    return descriptions[effectId] || "";
+}
+
+/**
+ * Save user-defined description for an effect
+ * @param {string} effectId - The effect ID
+ * @param {string} description - The description text
+ */
+export function saveUserDescription(effectId, description) {
+    const descriptions = game.settings.get(MODULE_ID, "effectDescriptions") || {};
+    
+    if (description && description.trim()) {
+        descriptions[effectId] = description.trim();
+    } else {
+        delete descriptions[effectId];
+    }
+    
+    return game.settings.set(MODULE_ID, "effectDescriptions", descriptions);
+}
+
+/**
+ * Get all effects with their current descriptions for the editor
+ * @returns {Object} Effects grouped by category with descriptions
+ */
+export function getAllEffectsWithDescriptions() {
+    const allEffects = getAllEffects(true, false); // Get filtered effects, no error notifications
+    const descriptions = game.settings.get(MODULE_ID, "effectDescriptions") || {};
+    
+    // Group by category
+    const groupedEffects = {
+        general: [],
+        spell: [],
+        ability: []
+    };
+    
+    allEffects.forEach(effect => {
+        const effectData = {
+            id: effect.id,
+            name: effect.name.startsWith("EFFECT.") ? game.i18n.localize(effect.name) : effect.name,
+            img: effect.img,
+            category: effect.category,
+            description: descriptions[effect.id] || ""
+        };
+        
+        if (groupedEffects[effect.category]) {
+            groupedEffects[effect.category].push(effectData);
+        }
+    });
+    
+    // Sort each category alphabetically
+    Object.keys(groupedEffects).forEach(category => {
+        groupedEffects[category].sort((a, b) => 
+            a.name.localeCompare(b.name, game.i18n.lang || 'en', { 
+                sensitivity: 'base',
+                numeric: true,
+                caseFirst: 'lower'
+            })
+        );
+    });
+    
+    return groupedEffects;
+}
 export function categorizeEffect(effectId, allEffects = null) {
     if (!allEffects) {
         allEffects = getAllEffects(false, false); // Get all effects, no filtering, no error notifications
@@ -146,6 +209,7 @@ export function initializeStatusEffects() {
             id: effect.id,
             label: effect.name.startsWith("EFFECT.") ? game.i18n.localize(effect.name) : effect.name,
             icon: effect.img,
+            description: getUserDescription(effect.id) || effect.description || "", // User description takes priority
             changes: [],
             flags: {
                 [MODULE_ID]: {

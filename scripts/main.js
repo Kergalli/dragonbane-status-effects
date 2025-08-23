@@ -10,15 +10,22 @@ import { initializeTokenHudStyling, setupTokenHudEnhancement } from './modules/t
 import { setupActorUpdateMonitoring } from './modules/dragonbane-integration.js';
 
 /**
- * Validate system compatibility - early exit if not Dragonbane
+ * Validate system compatibility
  */
 function validateSystem() {
     if (game.system.id !== "dragonbane") {
-        console.error(`${MODULE_ID} | This module is designed exclusively for the Dragonbane system. Current system: ${game.system.id}`);
+        console.error(`${MODULE_ID} | This module requires the Dragonbane system. Current system: ${game.system.id}`);
         ui.notifications.error(game.i18n.localize("DRAGONBANE_STATUS.errors.systemRequired"));
-        return false;
     }
-    return true;
+}
+
+/**
+ * Show system compatibility warning if not using Dragonbane
+ */
+function showSystemCompatibilityWarning() {
+    if (game.system.id !== "dragonbane") {
+        ui.notifications.warn(game.i18n.localize("DRAGONBANE_STATUS.warnings.systemCompatibility"));
+    }
 }
 
 /* ------------------------------------------ */
@@ -26,31 +33,21 @@ function validateSystem() {
 /* ------------------------------------------ */
 
 Hooks.once('init', () => {
-    // Early system validation - exit immediately if not Dragonbane
-    if (!validateSystem()) {
-        return; // Stop all initialization
-    }
-    
-    // Continue with normal initialization only for Dragonbane
+    // Early initialization - validate system and register settings
+    validateSystem();
     registerSettings();
 });
 
 Hooks.once('ready', () => {
-    // Double-check system compatibility (in case something changed)
-    if (!validateSystem()) {
-        return; // Stop all initialization
-    }
-    
-    // Main initialization - only runs on Dragonbane system
+    // Main initialization after all modules are loaded
     initializeStatusEffects();
     initializeTokenHudStyling();
+    showSystemCompatibilityWarning();
     
     // Setup UI enhancements
     enhanceSettingsUI();
     setupTokenHudEnhancement();
     setupActorUpdateMonitoring();
-    
-    console.log(`${MODULE_ID} | Module loaded successfully on Dragonbane system`);
 });
 
-console.log(`${MODULE_ID} | Module loaded`);
+console.log(`${MODULE_ID} | Module loaded successfully`);

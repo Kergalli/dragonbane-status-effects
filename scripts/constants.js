@@ -47,7 +47,7 @@ export const CUSTOM_STATUS_EFFECTS = [
         img: "icons/svg/daze.svg",
         category: "general"
     },
-    {
+{
         id: "blind",
         name: "EFFECT.StatusBlind",
         img: "icons/svg/blind.svg",

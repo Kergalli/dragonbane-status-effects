@@ -1,0 +1,91 @@
+<!-- Description Editor Template: templates/description-editor.html -->
+<form class="description-editor-form">
+    <div class="editor-header">
+        <p>{{localize "DRAGONBANE_STATUS.editor.instructions"}}</p>
+    </div>
+
+    <div class="editor-content">
+        {{#if hasGeneral}}
+        <section class="effect-category" data-category="general">
+            <h3 class="category-header">{{categories.general}}</h3>
+            <div class="effects-list">
+                {{#each effects.general}}
+                <div class="effect-item">
+                    <div class="effect-info">
+                        <img src="{{this.img}}" alt="{{this.name}}" class="effect-icon" width="64" height="64">
+                        <label class="effect-name" for="description-{{this.id}}">{{this.name}}</label>
+                    </div>
+                    <div class="effect-description">
+                        <textarea 
+                            name="description-{{this.id}}" 
+                            id="description-{{this.id}}"
+                            placeholder="{{localize 'DRAGONBANE_STATUS.editor.placeholder'}}"
+                            rows="2">{{this.description}}</textarea>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </section>
+        {{/if}}
+
+        {{#if hasSpell}}
+        <section class="effect-category" data-category="spell">
+            <h3 class="category-header">{{categories.spell}}</h3>
+            <div class="effects-list">
+                {{#each effects.spell}}
+                <div class="effect-item">
+                    <div class="effect-info">
+                        <img src="{{this.img}}" alt="{{this.name}}" class="effect-icon" width="64" height="64">
+                        <label class="effect-name" for="description-{{this.id}}">{{this.name}}</label>
+                    </div>
+                    <div class="effect-description">
+                        <textarea 
+                            name="description-{{this.id}}" 
+                            id="description-{{this.id}}"
+                            placeholder="{{localize 'DRAGONBANE_STATUS.editor.placeholder'}}"
+                            rows="2">{{this.description}}</textarea>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </section>
+        {{/if}}
+
+        {{#if hasAbility}}
+        <section class="effect-category" data-category="ability">
+            <h3 class="category-header">{{categories.ability}}</h3>
+            <div class="effects-list">
+                {{#each effects.ability}}
+                <div class="effect-item">
+                    <div class="effect-info">
+                        <img src="{{this.img}}" alt="{{this.name}}" class="effect-icon" width="64" height="64">
+                        <label class="effect-name" for="description-{{this.id}}">{{this.name}}</label>
+                    </div>
+                    <div class="effect-description">
+                        <textarea 
+                            name="description-{{this.id}}" 
+                            id="description-{{this.id}}"
+                            placeholder="{{localize 'DRAGONBANE_STATUS.editor.placeholder'}}"
+                            rows="2">{{this.description}}</textarea>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </section>
+        {{/if}}
+    </div>
+
+    <div class="editor-footer">
+        <div class="button-group">
+            <button type="button" data-action="save" class="save-button">
+                <i class="fas fa-save"></i> {{localize "DRAGONBANE_STATUS.editor.save"}}
+            </button>
+            <button type="button" data-action="reset" class="reset-button">
+                <i class="fas fa-undo"></i> {{localize "DRAGONBANE_STATUS.editor.reset"}}
+            </button>
+            <button type="button" data-action="clear-all" class="clear-button">
+                <i class="fas fa-trash"></i> {{localize "DRAGONBANE_STATUS.editor.clearAll"}}
+            </button>
+        </div>
+    </div>
+</form>
