@@ -24,11 +24,11 @@
     ]
   },
   "esmodules": [
-    "scripts/dragonbane-status-effects.js"
+    "scripts/main.js"
   ],
   "languages": [
     {
-      "lang": "en", 
+      "lang": "en",
       "name": "English",
       "path": "lang/en.json"
     }

@@ -13,7 +13,33 @@
         "name": "Show Heroic Abilities",
         "hint": "Include Heroic Ability status effects in the available effects list. Requires reload."
       },
+      "enableTokenHudStyling": {
+        "name": "Enhanced Token HUD Layout",
+        "hint": "Enable 6-column grid layout with section headers for the token HUD status effects. Disable if you prefer the default Foundry layout or want to use custom CSS."
+      },
+      "customStatusEffects": {
+        "name": "Custom Status Effects (JSON)",
+        "hint": "Define custom status effects as JSON array. Example: [{'id':'my-effect','name':'My Effect','img':'icons/svg/example.svg','category':'general'}]. Valid categories: general, spell, ability",
+        "placeholder": "[{\"id\":\"custom-stunned\",\"name\":\"Custom Stunned\",\"img\":\"icons/svg/daze.svg\",\"category\":\"general\"},{\"id\":\"magic-shield\",\"name\":\"Magic Shield\",\"img\":\"icons/svg/shield.svg\",\"category\":\"spell\"}]"
+      },
       "reloadRequired": "Setting changed. Please reload the world for changes to take effect."
+    },
+    "sections": {
+      "attributeConditions": "ATTRIBUTE CONDITIONS",
+      "generalEffects": "GENERAL EFFECTS",
+      "spellEffects": "SPELL EFFECTS",
+      "heroicAbilities": "HEROIC ABILITIES"
+    },
+    "errors": {
+      "systemRequired": "Dragonbane Status Effects | This module requires the Dragonbane system.",
+      "invalidFormat": "Custom Status Effects: Invalid format - must be an array of effects",
+      "invalidJSON": "Custom Status Effects: Invalid JSON format"
+    },
+    "warnings": {
+      "systemCompatibility": "Dragonbane Status Effects module is designed for the Dragonbane system. Some status effects may not work as expected."
+    },
+    "notifications": {
+      "customEffectsCleared": "Custom effects cleared. Reload the world to apply changes."
     }
   },
   "EFFECT": {
@@ -26,16 +52,19 @@
     "StatusConcentration": "Concentration",
     "StatusDead": "Dead",
     "StatusDisease": "Disease",
+    "StatusDrowning": "Drowning",
     "StatusEncumbered": "Encumbered",
     "StatusEnsnared": "Ensnared", 
     "StatusFamished": "Famished",
     "StatusFlight": "Flight",
     "StatusInvisible": "Invisible",
     "StatusParalyzed": "Paralyzed",
-    "StatusPoison": "Poison",
+    "StatusPoisonLethal": "Poison (Lethal)",
+    "StatusPoisonParalyzing": "Poison (Paralyzing)",
+    "StatusPoisonSleeping": "Poison (Sleeping)",
     "StatusProne": "Prone",
     "StatusRage": "Rage",
-    "StatusAsleep": "Asleep",
+    "StatusAsleep": "Sleeping",
     "StatusSleepDeprived": "Sleep Deprived",
     "StatusUnconscious": "Unconscious",
     "StatusWildPanic": "Wild Panic",
