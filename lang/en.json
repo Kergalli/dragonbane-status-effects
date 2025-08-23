@@ -17,23 +17,81 @@
         "name": "Enhanced Token HUD Layout",
         "hint": "Enable 6-column grid layout with section headers for token HUD status effects. Disable if you prefer Foundry's default layout or want to use custom CSS."
       },
-      "customStatusEffects": {
-        "name": "Custom Status Effects (JSON)",
-        "hint": "Define custom status effects as a JSON array. Example: [{'id':'my-effect','name':'My Effect','img':'icons/svg/example.svg','category':'general'}]. Valid categories: general, spell, ability",
-        "placeholder": "[{\"id\":\"custom-stunned\",\"name\":\"Custom Stunned\",\"img\":\"icons/svg/daze.svg\",\"category\":\"general\"},{\"id\":\"magic-shield\",\"name\":\"Magic Shield\",\"img\":\"icons/svg/shield.svg\",\"category\":\"spell\"}]"
+      "customEffectsEditor": {
+        "name": "Manage Custom Status Effects",
+        "hint": "Open the visual editor to create, edit, and manage custom status effects. Much easier than editing JSON manually.",
+        "label": "Open Custom Effects Editor"
       },
       "descriptionEditor": {
         "name": "Edit Status Effect Descriptions",
         "hint": "Open the description editor to add custom descriptions to status effects. Useful for modules like Visual Active Effects.",
         "label": "Open Description Editor"
-      },
-      "reloadRequired": "Setting changed. Reload the world for changes to take effect."
+      }
     },
     "sections": {
       "attributeConditions": "ATTRIBUTE CONDITIONS",
       "generalEffects": "GENERAL EFFECTS", 
       "spellEffects": "SPELL EFFECTS",
       "heroicAbilities": "HEROIC ABILITIES"
+    },
+    "customEditor": {
+      "title": "Custom Status Effects Editor",
+      "instructions": "Create and manage your custom status effects using this visual editor. Add new effects, edit existing ones, and organize your collection. Changes are saved automatically to your world settings. You can add descriptions to saved status effects in the Description Editor.",
+      "effectsList": "Your Custom Effects",
+      "addEffect": "Add Effect",
+      "editEffect": "Edit",
+      "deleteEffect": "Delete",
+      "noEffects": "No custom effects yet. Click 'Add Effect' to create your first one!",
+      "addNewEffect": "Add New Effect",
+      "editExistingEffect": "Edit Effect",
+      "selectOrAdd": "Select an effect to edit or use the Add Effect button above",
+      "addFirstEffect": "Add Your First Effect",
+      "effectId": "Effect ID",
+      "effectName": "Effect Name",
+      "effectCategory": "Category",
+      "effectImage": "Image Path",
+      "browse": "Browse",
+      "saveEffect": "Save Effect",
+      "cancel": "Cancel",
+      "saveAll": "Save All Effects",
+      "clearAll": "Clear All Effects",
+      "import": "Import",
+      "export": "Export",
+      "validation": {
+        "required": "Effect ID, Name, and Image are required.",
+        "duplicateId": "An effect with this ID already exists."
+      },
+      "dialogs": {
+        "delete": {
+          "title": "Delete Custom Effect",
+          "content": "Are you sure you want to delete the effect '{name}'? This action cannot be undone."
+        },
+        "clearAll": {
+          "title": "Clear All Custom Effects",
+          "content": "Are you sure you want to delete all custom effects? This action cannot be undone."
+        },
+        "import": {
+          "title": "Import Custom Status Effects",
+          "warning": "This will <strong>replace all current custom effects</strong> with the imported ones.",
+          "details": "Import Details:",
+          "totalEffects": "Total effects:",
+          "source": "Source:",
+          "confirm": "Are you sure you want to continue?"
+        }
+      },
+      "notifications": {
+        "saved": "Effect saved successfully!",
+        "savedReloading": "Effect saved! Reloading world to make it available...",
+        "allSavedReloading": "All effects saved! Reloading world to make them available...",
+        "saveError": "Failed to save custom effects. Please try again.",
+        "exportFailed": "Failed to export custom effects. Please try again.",
+        "importSuccess": "Successfully imported {count} custom effects!",
+        "importFailed": "Failed to import custom effects: {error}",
+        "importError": "Failed to import custom effects. Please try again."
+      },
+      "errors": {
+        "invalidFile": "Invalid file format: missing or invalid effects array"
+      }
     },
     "editor": {
       "title": "Status Effect Description Editor",

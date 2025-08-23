@@ -17,23 +17,81 @@
         "name": "Förbättrad Token HUD-layout",
         "hint": "Aktivera 6-kolumns rutnätslayout med sektionsrubriker för token HUD-statuseffekter. Inaktivera om du föredrar Foundrys standardlayout eller vill använda anpassad CSS."
       },
-      "customStatusEffects": {
-        "name": "Anpassade Statuseffekter (JSON)",
-        "hint": "Definiera anpassade statuseffekter som JSON-array. Exempel: [{'id':'min-effekt','name':'Min Effekt','img':'icons/svg/example.svg','category':'general'}]. Giltiga kategorier: general, spell, ability",
-        "placeholder": "[{\"id\":\"anpassad-bedövad\",\"name\":\"Anpassad Bedövad\",\"img\":\"icons/svg/daze.svg\",\"category\":\"general\"},{\"id\":\"magisk-sköld\",\"name\":\"Magisk Sköld\",\"img\":\"icons/svg/shield.svg\",\"category\":\"spell\"}]"
+      "customEffectsEditor": {
+        "name": "Hantera Anpassade Statuseffekter",
+        "hint": "Öppna den visuella redigeraren för att skapa, redigera och hantera anpassade statuseffekter. Mycket lättare än att redigera JSON manuellt.",
+        "label": "Öppna Anpassad Effektredigerare"
       },
       "descriptionEditor": {
         "name": "Redigera Statuseffektbeskrivningar",
         "hint": "Öppna beskrivningsredigeraren för att lägga till anpassade beskrivningar till statuseffekter. Användbart för moduler som Visual Active Effects.",
         "label": "Öppna Beskrivningsredigerare"
-      },
-      "reloadRequired": "Inställning ändrad. Ladda om världen för att ändringarna ska träda i kraft."
+      }
     },
     "sections": {
       "attributeConditions": "EGENSKAPSTILLSTÅND",
       "generalEffects": "ALLMÄNNA EFFEKTER",
       "spellEffects": "BESVÄRJELSEEFFEKTER",
       "heroicAbilities": "HJÄLTEFÖRMÅGOR"
+    },
+    "customEditor": {
+      "title": "Anpassad Statuseffektredigerare",
+      "instructions": "Skapa och hantera dina anpassade statuseffekter med denna visuella redigerare. Lägg till nya effekter, redigera befintliga och organisera din samling. Ändringar sparas automatiskt till dina världsinställningar. Du kan lägga till beskrivningar till sparade statuseffekter i Beskrivningsredigeraren.",
+      "effectsList": "Dina Anpassade Effekter",
+      "addEffect": "Lägg till Effekt",
+      "editEffect": "Redigera",
+      "deleteEffect": "Radera",
+      "noEffects": "Inga anpassade effekter än. Klicka på 'Lägg till Effekt' för att skapa din första!",
+      "addNewEffect": "Lägg till Ny Effekt",
+      "editExistingEffect": "Redigera Effekt",
+      "selectOrAdd": "Välj en effekt att redigera eller använd knappen Lägg till Effekt ovan",
+      "addFirstEffect": "Lägg till Din Första Effekt",
+      "effectId": "Effekt-ID",
+      "effectName": "Effektnamn",
+      "effectCategory": "Kategori",
+      "effectImage": "Bildsökväg",
+      "browse": "Bläddra",
+      "saveEffect": "Spara Effekt",
+      "cancel": "Avbryt",
+      "saveAll": "Spara Alla Effekter",
+      "clearAll": "Rensa Alla Effekter",
+      "import": "Importera",
+      "export": "Exportera",
+      "validation": {
+        "required": "Effekt-ID, Namn och Bild krävs.",
+        "duplicateId": "En effekt med detta ID finns redan."
+      },
+      "dialogs": {
+        "delete": {
+          "title": "Radera Anpassad Effekt",
+          "content": "Är du säker på att du vill radera effekten '{name}'? Denna åtgärd kan inte ångras."
+        },
+        "clearAll": {
+          "title": "Rensa Alla Anpassade Effekter",
+          "content": "Är du säker på att du vill radera alla anpassade effekter? Denna åtgärd kan inte ångras."
+        },
+        "import": {
+          "title": "Importera Anpassade Statuseffekter",
+          "warning": "Detta kommer att <strong>ersätta alla nuvarande anpassade effekter</strong> med de importerade.",
+          "details": "Importdetaljer:",
+          "totalEffects": "Totala effekter:",
+          "source": "Källa:",
+          "confirm": "Är du säker på att du vill fortsätta?"
+        }
+      },
+      "notifications": {
+        "saved": "Effekt sparad framgångsrikt!",
+        "savedReloading": "Effekt sparad! Laddar om världen för att göra den tillgänglig...",
+        "allSavedReloading": "Alla effekter sparade! Laddar om världen för att göra dem tillgängliga...",
+        "saveError": "Misslyckades spara anpassade effekter. Försök igen.",
+        "exportFailed": "Misslyckades exportera anpassade effekter. Försök igen.",
+        "importSuccess": "Importerade framgångsrikt {count} anpassade effekter!",
+        "importFailed": "Misslyckades importera anpassade effekter: {error}",
+        "importError": "Misslyckades importera anpassade effekter. Försök igen."
+      },
+      "errors": {
+        "invalidFile": "Ogiltigt filformat: saknas eller ogiltig effektarray"
+      }
     },
     "editor": {
       "title": "Statuseffekt Beskrivningsredigerare",
@@ -73,7 +131,7 @@
         "linkFailed": "Misslyckades skapa länk från släppt föremål"
       },
       "errors": {
-        "invalidFile": "Ogiltigt filformat: saknar eller ogiltigt beskrivningsobjekt"
+        "invalidFile": "Ogiltigt filformat: saknas eller ogiltigt beskrivningsobjekt"
       }
     },
     "validation": {

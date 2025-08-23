@@ -22,7 +22,7 @@ export function parseUserCustomEffects(showErrors = true) {
         if (!Array.isArray(userCustomEffects)) {
             if (showErrors) {
                 console.error(`${MODULE_ID} | Custom status effects must be an array`);
-                ui.notifications.error(game.i18n.localize("DRAGONBANE_STATUS.errors.invalidFormat"));
+                ui.notifications.error(game.i18n.localize("DRAGONBANE_STATUS.validation.errors.invalidFormat"));
             }
             return [];
         }
@@ -42,7 +42,7 @@ export function parseUserCustomEffects(showErrors = true) {
     } catch (error) {
         if (showErrors) {
             console.error(`${MODULE_ID} | Error parsing custom status effects JSON:`, error);
-            ui.notifications.error(game.i18n.localize("DRAGONBANE_STATUS.errors.invalidJSON") + ` - ${error.message}`);
+            ui.notifications.error(game.i18n.localize("DRAGONBANE_STATUS.validation.errors.invalidJSON") + ` - ${error.message}`);
         }
         return [];
     }

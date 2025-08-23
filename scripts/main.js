@@ -49,5 +49,3 @@ Hooks.once('ready', () => {
     setupTokenHudEnhancement();
     setupActorUpdateMonitoring();
 });
-
-console.log(`${MODULE_ID} | Module loaded successfully`);

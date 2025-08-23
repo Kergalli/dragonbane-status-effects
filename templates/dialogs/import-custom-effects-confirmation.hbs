@@ -1,0 +1,22 @@
+<!-- Import Custom Effects Confirmation Dialog Template -->
+<div class="import-confirmation">
+    <p style="margin-bottom: 1rem;">
+        {{{localize "DRAGONBANE_STATUS.customEditor.dialogs.import.warning"}}}
+    </p>
+    
+    <div class="import-details" style="margin-bottom: 1rem;">
+        <p><strong>{{localize "DRAGONBANE_STATUS.customEditor.dialogs.import.details"}}</strong></p>
+        <ul style="margin: 0.5rem 0 0 1.5rem; list-style-type: disc;">
+            <li>{{localize "DRAGONBANE_STATUS.customEditor.dialogs.import.totalEffects"}} <strong>{{effectCount}}</strong></li>
+            {{#if sourceModule}}
+            <li>{{localize "DRAGONBANE_STATUS.customEditor.dialogs.import.source"}} <strong>{{sourceModule}}</strong> v{{sourceVersion}}</li>
+            {{/if}}
+        </ul>
+    </div>
+    
+    <div class="confirmation-question" style="margin-top: 1rem;">
+        <p style="margin: 0; font-weight: bold;">
+            {{localize "DRAGONBANE_STATUS.customEditor.dialogs.import.confirm"}}
+        </p>
+    </div>
+</div>
