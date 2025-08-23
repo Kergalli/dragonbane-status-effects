@@ -91,14 +91,17 @@
 
     <!-- Footer Section -->
     <div class="editor-footer" style="flex-shrink: 0; padding: 1rem 0.5rem; background: rgba(0,0,0,0.05); border-radius: 4px;">
+        <!-- Hidden file input for import (still needed) -->
+        <input type="file" id="import-file-input" accept=".json" style="display: none;">
+        
         <div class="button-group" style="display: flex; gap: 0.75rem; justify-content: flex-end;">
-            <button type="button" data-action="save" style="padding: 0.5rem 1rem; background: #4a7c59; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 500; text-align: center;">
+            <button type="button" data-action="save" style="padding: 0.35rem 1rem; background: #4a7c59; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 500; text-align: center;">
                 {{localize "DRAGONBANE_STATUS.editor.save"}}
             </button>
-            <button type="button" data-action="reset" style="padding: 0.5rem 1rem; background: #7c7c4a; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 500; text-align: center;">
+            <button type="button" data-action="reset" style="padding: 0.35rem 1rem; background: #7c7c4a; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 500; text-align: center;">
                 {{localize "DRAGONBANE_STATUS.editor.reset"}}
             </button>
-            <button type="button" data-action="clear-all" style="padding: 0.5rem 1rem; background: #7c4a4a; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 500; text-align: center;">
+            <button type="button" data-action="clear-all" style="padding: 0.35rem 1rem; background: #7c4a4a; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 500; text-align: center;">
                 {{localize "DRAGONBANE_STATUS.editor.clearAll"}}
             </button>
         </div>

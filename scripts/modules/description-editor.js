@@ -58,6 +58,9 @@ export class StatusEffectDescriptionEditor extends FormApplication {
         // Clear all button
         html.find('[data-action="clear-all"]').click(this._onClearAll.bind(this));
         
+        // Handle file input change (still needed for import)
+        html.find('#import-file-input').change(this._onFileSelected.bind(this));
+        
         // Auto-resize textareas
         html.find('textarea').on('input', function() {
             this.style.height = 'auto';
@@ -69,6 +72,32 @@ export class StatusEffectDescriptionEditor extends FormApplication {
         html.find('textarea').on('drop', this._onDrop.bind(this));
         html.find('textarea').on('dragenter', this._onDragEnter.bind(this));
         html.find('textarea').on('dragleave', this._onDragLeave.bind(this));
+    }
+
+    /** @override */
+    _getHeaderButtons() {
+        let buttons = super._getHeaderButtons();
+
+        buttons.unshift(
+            {
+                label: "Import",
+                class: "import",
+                icon: "fas fa-file-import",
+                onclick: async (ev) => {
+                    this._onImport(ev);
+                }
+            },
+            {
+                label: "Export", 
+                class: "export",
+                icon: "fas fa-file-export",
+                onclick: async (ev) => {
+                    this._onExport(ev);
+                }
+            }
+        );
+
+        return buttons;
     }
 
     /**
@@ -168,10 +197,8 @@ export class StatusEffectDescriptionEditor extends FormApplication {
         const formData = new FormData(this.form);
         const data = {};
         
-        // Convert FormData to object
-        for (let [key, value] of formData.entries()) {
-            data[key] = value;
-        }
+        // Convert FormData to object using foundry utility
+        foundry.utils.mergeObject(data, Object.fromEntries(formData.entries()));
         
         await this._saveDescriptions(data);
         
@@ -185,11 +212,12 @@ export class StatusEffectDescriptionEditor extends FormApplication {
     async _saveDescriptions(data) {
         const promises = [];
         
-        // Process all effects
+        // Process all effects using foundry.utils for safe property access
         ['general', 'spell', 'ability'].forEach(category => {
-            if (this.effectsData[category]) {
-                this.effectsData[category].forEach(effect => {
-                    const description = data[`description-${effect.id}`] || "";
+            const categoryEffects = foundry.utils.getProperty(this.effectsData, category);
+            if (categoryEffects && categoryEffects.length > 0) {
+                categoryEffects.forEach(effect => {
+                    const description = foundry.utils.getProperty(data, `description-${effect.id}`) || "";
                     promises.push(saveUserDescription(effect.id, description));
                 });
             }
@@ -215,7 +243,6 @@ export class StatusEffectDescriptionEditor extends FormApplication {
             const { initializeStatusEffects } = await import('./effects-manager.js');
             initializeStatusEffects();
             
-            console.log("Dragonbane Status Effects | CONFIG.statusEffects refreshed with updated descriptions");
         } catch (error) {
             console.error("Dragonbane Status Effects | Error refreshing status effects:", error);
         }
@@ -254,8 +281,9 @@ export class StatusEffectDescriptionEditor extends FormApplication {
                 // Clear all descriptions and save immediately
                 const promises = [];
                 ['general', 'spell', 'ability'].forEach(category => {
-                    if (this.effectsData[category]) {
-                        this.effectsData[category].forEach(effect => {
+                    const categoryEffects = foundry.utils.getProperty(this.effectsData, category);
+                    if (categoryEffects && categoryEffects.length > 0) {
+                        categoryEffects.forEach(effect => {
                             promises.push(saveUserDescription(effect.id, ""));
                         });
                     }
@@ -277,6 +305,202 @@ export class StatusEffectDescriptionEditor extends FormApplication {
                 console.error("Dragonbane Status Effects | Error clearing descriptions:", error);
                 ui.notifications.error("Failed to clear descriptions. Please try again.");
             }
+        }
+    }
+
+    /**
+     * Handle export button - create and download JSON file with all descriptions
+     */
+    async _onExport(event) {
+        event.preventDefault();
+        
+        try {
+            // Get current descriptions data (includes all effects, even empty ones)
+            const effectsData = getAllEffectsWithDescriptions();
+            
+            // Flatten all descriptions into a single object using foundry.utils
+            const descriptions = {};
+            ['general', 'spell', 'ability'].forEach(category => {
+                const categoryEffects = foundry.utils.getProperty(effectsData, category);
+                if (categoryEffects && categoryEffects.length > 0) {
+                    categoryEffects.forEach(effect => {
+                        foundry.utils.setProperty(descriptions, effect.id, effect.description || "");
+                    });
+                }
+            });
+            
+            // Create export object with metadata using foundry.utils
+            const baseExportData = {
+                module: MODULE_ID,
+                version: foundry.utils.getProperty(game.modules.get(MODULE_ID), "version"),
+                exportDate: new Date().toISOString(),
+                foundryVersion: game.version
+            };
+            
+            const exportData = foundry.utils.mergeObject(baseExportData, { descriptions });
+            
+            const dataStr = JSON.stringify(exportData, null, 2);
+            const filename = `dragonbane-status-descriptions-${new Date().toISOString().split('T')[0]}.json`;
+            
+            // Use Foundry's native file save function
+            if (typeof saveDataToFile === 'function') {
+                saveDataToFile(dataStr, "text/json", filename);
+                ui.notifications.info("Status effect descriptions exported successfully!");
+            } else {
+                this._fallbackExport(dataStr, filename);
+            }
+            
+        } catch (error) {
+            console.error("Dragonbane Status Effects | Error exporting descriptions:", error);
+            ui.notifications.error("Failed to export descriptions. Please try again.");
+        }
+    }
+
+    /**
+     * Fallback export using copy-to-clipboard dialog
+     */
+    _fallbackExport(dataStr, filename) {
+        const dialog = new Dialog({
+            title: "Export Status Effect Descriptions",
+            content: `<div style="margin-bottom: 1rem;">
+                        <p>Copy the JSON below and save it as <code>${filename}</code>:</p>
+                      </div>
+                      <textarea readonly onclick="this.select()" style="width: 100%; height: 350px; font-family: 'Courier New', monospace; font-size: 11px; padding: 8px; border: 1px solid #ccc;">${dataStr}</textarea>`,
+            buttons: {
+                copy: {
+                    icon: '<i class="fas fa-copy"></i>',
+                    label: "Copy to Clipboard",
+                    callback: () => {
+                        navigator.clipboard.writeText(dataStr).then(() => {
+                            ui.notifications.info("JSON copied to clipboard!");
+                        }).catch(() => {
+                            ui.notifications.warn("Could not copy to clipboard - please select and copy manually.");
+                        });
+                    }
+                },
+                close: {
+                    icon: '<i class="fas fa-times"></i>',
+                    label: "Close"
+                }
+            },
+            default: "copy"
+        }, {
+            width: 650,
+            height: 500
+        });
+        
+        dialog.render(true);
+    }
+
+    /**
+     * Handle import button - trigger file selection
+     */
+    _onImport(event) {
+        event.preventDefault();
+        
+        // Trigger the hidden file input
+        const fileInput = this.element.find('#import-file-input')[0];
+        if (fileInput) {
+            fileInput.click();
+        }
+    }
+
+    /**
+     * Handle file selection for import
+     */
+    async _onFileSelected(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        
+        try {
+            let jsonText;
+            
+            // Try Foundry's native file reader, fallback to standard method
+            if (typeof readTextFromFile === 'function') {
+                jsonText = await readTextFromFile(file);
+            } else {
+                jsonText = await file.text();
+            }
+            
+            const importData = JSON.parse(jsonText);
+            
+            // Basic validation using foundry.utils
+            const descriptions = foundry.utils.getProperty(importData, "descriptions");
+            if (!descriptions || typeof descriptions !== 'object') {
+                throw new Error("Invalid file format: missing or invalid descriptions object");
+            }
+            
+            // Show confirmation dialog with details
+            const effectCount = Object.keys(descriptions).length;
+            const nonEmptyCount = Object.values(descriptions).filter(desc => desc && desc.trim()).length;
+            
+            const confirm = await Dialog.confirm({
+                title: "Import Status Effect Descriptions",
+                content: `<p>This will <strong>replace all current descriptions</strong> with the imported ones.</p>
+                         <p><strong>Import Details:</strong></p>
+                         <ul>
+                           <li>Total effects: ${effectCount}</li>
+                           <li>With descriptions: ${nonEmptyCount}</li>
+                           <li>Empty templates: ${effectCount - nonEmptyCount}</li>
+                           ${foundry.utils.getProperty(importData, "module") ? `<li>Source: ${importData.module} v${foundry.utils.getProperty(importData, "version") || 'unknown'}</li>` : ''}
+                         </ul>
+                         <p>Are you sure you want to continue?</p>`
+            });
+            
+            if (confirm) {
+                await this._performImport(descriptions);
+                
+                // Clear the file input
+                event.target.value = '';
+            }
+            
+        } catch (error) {
+            console.error("Dragonbane Status Effects | Error importing descriptions:", error);
+            ui.notifications.error(`Failed to import descriptions: ${error.message}`);
+            
+            // Clear the file input
+            event.target.value = '';
+        }
+    }
+
+    /**
+     * Perform the actual import of descriptions
+     */
+    async _performImport(descriptions) {
+        try {
+            // First clear all existing descriptions using foundry.utils
+            const clearPromises = [];
+            ['general', 'spell', 'ability'].forEach(category => {
+                const categoryEffects = foundry.utils.getProperty(this.effectsData, category);
+                if (categoryEffects && categoryEffects.length > 0) {
+                    categoryEffects.forEach(effect => {
+                        clearPromises.push(saveUserDescription(effect.id, ""));
+                    });
+                }
+            });
+            
+            await Promise.all(clearPromises);
+            
+            // Then import all new descriptions (including empty ones)
+            const importPromises = [];
+            for (const [effectId, description] of Object.entries(descriptions)) {
+                importPromises.push(saveUserDescription(effectId, description || ""));
+            }
+            
+            await Promise.all(importPromises);
+            
+            // Refresh CONFIG.statusEffects and form
+            await this._refreshStatusEffects();
+            this.render(true);
+            
+            const effectCount = Object.keys(descriptions).length;
+            const nonEmptyCount = Object.values(descriptions).filter(desc => desc && desc.trim()).length;
+            
+            ui.notifications.info(`Successfully imported ${effectCount} effects (${nonEmptyCount} with descriptions)!`);
+            
+        } catch (error) {
+            console.error("Dragonbane Status Effects | Error during import:", error);
+            ui.notifications.error("Failed to import descriptions. Please try again.");
         }
     }
 }
