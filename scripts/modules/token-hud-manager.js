@@ -32,8 +32,9 @@ export function initializeTokenHudStyling() {
             align-items: center !important;
         }
 
-        /* Status effect icons - targeted approach that preserves what works */
-        #token-hud .col.right .status-effects .effect-control {
+        /* Status effect icons - apply the working attribute styling to ALL effects */
+        #token-hud .col.right .status-effects .effect-control,
+        #token-hud .col.right .status-effects .dragonbane-condition {
             width: 40px !important;
             height: 40px !important;
             min-width: 40px !important;
@@ -51,8 +52,9 @@ export function initializeTokenHudStyling() {
             box-sizing: border-box !important;
         }
 
-        /* Force images inside effect controls to be properly sized and centered */
-        #token-hud .col.right .status-effects .effect-control img {
+        /* Apply the working image styling to ALL effect images */
+        #token-hud .col.right .status-effects .effect-control img,
+        #token-hud .col.right .status-effects .dragonbane-condition img {
             width: 40px !important;
             height: 40px !important;
             object-fit: contain !important;
@@ -65,26 +67,11 @@ export function initializeTokenHudStyling() {
             left: 0 !important;
         }
 
-        /* Ensure Dragonbane condition buttons stay correct */
-        #token-hud .col.right .status-effects .dragonbane-condition {
-            width: 40px !important;
-            height: 40px !important;
-            min-width: 40px !important;
-            min-height: 40px !important;
-            display: block !important;
-            position: relative !important;
-        }
-
-        #token-hud .col.right .status-effects .dragonbane-condition img {
-            width: 40px !important;
-            height: 40px !important;
-            object-fit: contain !important;
-            display: block !important;
-            margin: 0 !important;
-            padding: 0 !important;
-            position: absolute !important;
-            top: 0 !important;
-            left: 0 !important;
+        /* Ensure tooltips work properly by forcing proper display */
+        #token-hud .col.right .status-effects .effect-control[title],
+        #token-hud .col.right .status-effects .dragonbane-condition[title] {
+            pointer-events: auto !important;
+            z-index: 1 !important;
         }
 
         #token-hud .col.right .status-effects .effect-control:hover {
