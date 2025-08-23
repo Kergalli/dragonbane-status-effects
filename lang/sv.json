@@ -64,7 +64,7 @@
       "dialogs": {
         "delete": {
           "title": "Radera Anpassad Effekt",
-          "content": "Är du säker på att du vill radera effekten '{name}'? Denna åtgärd kan inte ångras."
+          "content": "Är du säker på att du vill radera effekten '{name}'? Denna åtgärd kan inte ångras.<br/><br/>Se till att spara alla effekter när du är klar med redigering av effekter.<div style=\"height: 15px;\"></div>"
         },
         "clearAll": {
           "title": "Rensa Alla Anpassade Effekter",
@@ -81,8 +81,8 @@
       },
       "notifications": {
         "saved": "Effekt sparad framgångsrikt!",
-        "savedReloading": "Effekt sparad! Laddar om världen för att göra den tillgänglig...",
-        "allSavedReloading": "Alla effekter sparade! Laddar om världen för att göra dem tillgängliga...",
+        "allSaved": "Alla effekter sparade framgångsrikt!",
+        "deleted": "Effekt '{name}' raderad framgångsrikt!",
         "saveError": "Misslyckades spara anpassade effekter. Försök igen.",
         "exportFailed": "Misslyckades exportera anpassade effekter. Försök igen.",
         "importSuccess": "Importerade framgångsrikt {count} anpassade effekter!",
@@ -192,7 +192,7 @@
     
     "_ability_effects": "=== FÖRMÅGOSTATUSEFFEKTER ===",
     "StatusBerserk": "Bärsärk",
-    "StatusDisguised": "Förklädnad",
+    "StatusDisguised": "Förklädning",
     "StatusMusicianBane": "Musikant (Förbannelse)",
     "StatusMusicianBoon": "Musikant (Välsignelse)",
     "StatusWolfkinPrey": "Vargättlingsbyte"

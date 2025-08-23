@@ -34,8 +34,18 @@ export class CustomStatusEffectsEditor extends FormApplication {
         // Load current custom effects
         this.customEffects = parseUserCustomEffects(false) || []; // Don't show errors in editor
         
+        // Sort effects alphabetically by name
+        const sortedEffects = [...this.customEffects].sort((a, b) => 
+            a.name.localeCompare(b.name, game.i18n.lang || 'en', { 
+                sensitivity: 'base',
+                numeric: true,
+                caseFirst: 'lower'
+            })
+        );
+        
         return {
-            effects: this.customEffects,
+            effects: sortedEffects,
+            customEffects: this.customEffects, // Keep original order for indexing
             categories: [
                 { key: "general", label: game.i18n.localize("DRAGONBANE_STATUS.sections.generalEffects") },
                 { key: "spell", label: game.i18n.localize("DRAGONBANE_STATUS.sections.spellEffects") },
@@ -122,9 +132,15 @@ export class CustomStatusEffectsEditor extends FormApplication {
      */
     _onEditEffect(event) {
         event.preventDefault();
-        const index = parseInt(event.currentTarget.dataset.index);
-        this.editingIndex = index;
-        this.render(true);
+        const sortedIndex = parseInt(event.currentTarget.dataset.index);
+        const effectId = event.currentTarget.dataset.effectId;
+        
+        // Find the actual index in the original customEffects array
+        const actualIndex = this.customEffects.findIndex(effect => effect.id === effectId);
+        if (actualIndex >= 0) {
+            this.editingIndex = actualIndex;
+            this.render(true);
+        }
     }
 
     /**
@@ -132,22 +148,57 @@ export class CustomStatusEffectsEditor extends FormApplication {
      */
     async _onDeleteEffect(event) {
         event.preventDefault();
-        const index = parseInt(event.currentTarget.dataset.index);
-        const effect = this.customEffects[index];
         
-        const confirm = await Dialog.confirm({
-            title: game.i18n.localize("DRAGONBANE_STATUS.customEditor.dialogs.delete.title"),
-            content: game.i18n.format("DRAGONBANE_STATUS.customEditor.dialogs.delete.content", { name: effect.name })
-        });
-        
-        if (confirm) {
-            this.customEffects.splice(index, 1);
-            if (this.editingIndex === index) {
-                this.editingIndex = null; // Cancel editing if we deleted the effect being edited
-            } else if (this.editingIndex > index) {
-                this.editingIndex--; // Adjust index if we deleted an effect before the one being edited
+        try {
+            const button = event.currentTarget;
+            const sortedIndex = parseInt(button.dataset.index);
+            const effectId = button.getAttribute('data-effect-id'); // More reliable than dataset
+            
+            // Find the actual index and effect in the original customEffects array
+            const actualIndex = this.customEffects.findIndex(effect => effect.id === effectId);
+            
+            if (actualIndex < 0) {
+                console.error('Effect not found in customEffects array:', effectId);
+                ui.notifications.error('Effect not found');
+                return;
             }
-            this.render(true);
+            
+            const effect = this.customEffects[actualIndex];
+            
+            const confirm = await Dialog.confirm({
+                title: game.i18n.localize("DRAGONBANE_STATUS.customEditor.dialogs.delete.title"),
+                content: game.i18n.format("DRAGONBANE_STATUS.customEditor.dialogs.delete.content", { name: effect.name })
+            });
+            
+            if (confirm) {
+                // Remove from array
+                this.customEffects.splice(actualIndex, 1);
+                
+                // Save the updated array to settings immediately
+                try {
+                    const jsonString = JSON.stringify(this.customEffects, null, 2);
+                    await game.settings.set(MODULE_ID, "customStatusEffects", jsonString);
+                    
+                    ui.notifications.info(game.i18n.format("DRAGONBANE_STATUS.customEditor.notifications.deleted", { name: effect.name }));
+                } catch (saveError) {
+                    console.error("Error saving after delete:", saveError);
+                    ui.notifications.error(game.i18n.localize("DRAGONBANE_STATUS.customEditor.notifications.saveError"));
+                    return;
+                }
+                
+                // Adjust editing index if needed
+                if (this.editingIndex === actualIndex) {
+                    this.editingIndex = null; // Cancel editing if we deleted the effect being edited
+                } else if (this.editingIndex > actualIndex) {
+                    this.editingIndex--; // Adjust index if we deleted an effect before the one being edited
+                }
+                
+                // Re-render the form
+                this.render(true);
+            }
+        } catch (error) {
+            console.error('Error in _onDeleteEffect:', error);
+            ui.notifications.error('Error deleting effect: ' + error.message);
         }
     }
 
@@ -195,19 +246,16 @@ export class CustomStatusEffectsEditor extends FormApplication {
             this.customEffects.push(effect);
         }
         
-        // Save to settings automatically and reload world
+        // Save to settings (individual effect save - no restart needed)
         try {
             const jsonString = JSON.stringify(this.customEffects, null, 2);
             await game.settings.set(MODULE_ID, "customStatusEffects", jsonString);
             
-            // Close the editor
-            this.close();
+            ui.notifications.info(game.i18n.localize("DRAGONBANE_STATUS.customEditor.notifications.saved"));
             
-            // Show notification and reload
-            ui.notifications.info(game.i18n.localize("DRAGONBANE_STATUS.customEditor.notifications.savedReloading"));
-            setTimeout(() => {
-                window.location.reload();
-            }, 1000); // 1 second delay to show the notification
+            // Cancel editing mode and refresh the form
+            this.editingIndex = null;
+            this.render(true);
             
         } catch (error) {
             console.error("Dragonbane Status Effects | Error saving custom effect to settings:", error);
@@ -237,11 +285,9 @@ export class CustomStatusEffectsEditor extends FormApplication {
             // Close the editor
             this.close();
             
-            // Show notification and reload
-            ui.notifications.info(game.i18n.localize("DRAGONBANE_STATUS.customEditor.notifications.allSavedReloading"));
-            setTimeout(() => {
-                window.location.reload();
-            }, 1000); // 1 second delay to show the notification
+            // Show Foundry's built-in reload confirmation dialog
+            ui.notifications.info(game.i18n.localize("DRAGONBANE_STATUS.customEditor.notifications.allSaved"));
+            SettingsConfig.reloadConfirm({world: true});
             
         } catch (error) {
             console.error("Dragonbane Status Effects | Error saving custom effects:", error);

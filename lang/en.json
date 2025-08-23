@@ -64,7 +64,7 @@
       "dialogs": {
         "delete": {
           "title": "Delete Custom Effect",
-          "content": "Are you sure you want to delete the effect '{name}'? This action cannot be undone."
+          "content": "Are you sure you want to delete the effect '{name}'? This action cannot be undone.<br/><br/>Make sure to Save All Effects when you are done editing effects.<div style=\"height: 15px;\"></div>"
         },
         "clearAll": {
           "title": "Clear All Custom Effects",
@@ -81,8 +81,8 @@
       },
       "notifications": {
         "saved": "Effect saved successfully!",
-        "savedReloading": "Effect saved! Reloading world to make it available...",
-        "allSavedReloading": "All effects saved! Reloading world to make them available...",
+        "allSaved": "All effects saved successfully!",
+        "deleted": "Effect '{name}' deleted successfully!",
         "saveError": "Failed to save custom effects. Please try again.",
         "exportFailed": "Failed to export custom effects. Please try again.",
         "importSuccess": "Successfully imported {count} custom effects!",
