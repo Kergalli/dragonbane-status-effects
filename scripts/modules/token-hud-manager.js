@@ -32,8 +32,13 @@ export function initializeTokenHudStyling() {
             align-items: center !important;
         }
 
-        /* Status effect icons - aggressive override for module conflicts */
-        #token-hud .col.right .status-effects .effect-control {
+        /* Status effect icons - target ALL possible selectors aggressively */
+        #token-hud .col.right .status-effects .effect-control,
+        #token-hud .col.right .status-effects .status-effect,
+        #token-hud .col.right .status-effects .condition,
+        #token-hud .col.right .status-effects [data-status-id],
+        #token-hud .col.right .status-effects [data-overlay],
+        #token-hud .col.right .status-effects [data-effect] {
             width: 40px !important;
             height: 40px !important;
             min-width: 40px !important;
@@ -43,45 +48,65 @@ export function initializeTokenHudStyling() {
             background: rgba(0, 0, 0, 0.7) !important;
             transition: transform 0.2s ease !important;
             cursor: pointer !important;
-            display: block !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
             position: relative !important;
             flex-shrink: 0 !important;
-            object-fit: contain !important;
             filter: brightness(1.5) contrast(1.1) !important;
             overflow: hidden !important;
             box-sizing: border-box !important;
         }
 
-        /* Force icon images to fill containers - aggressive override */
+        /* Force ALL icon content to fill containers properly */
         #token-hud .col.right .status-effects .effect-control img,
         #token-hud .col.right .status-effects .effect-control > *,
-        #token-hud .col.right .status-effects .effect-control::before {
-            width: 100% !important;
-            height: 100% !important;
-            max-width: 100% !important;
-            max-height: 100% !important;
-            min-width: 38px !important;
-            min-height: 38px !important;
+        #token-hud .col.right .status-effects .status-effect img,
+        #token-hud .col.right .status-effects .status-effect > *,
+        #token-hud .col.right .status-effects .condition img,
+        #token-hud .col.right .status-effects .condition > *,
+        #token-hud .col.right .status-effects [data-status-id] img,
+        #token-hud .col.right .status-effects [data-status-id] > *,
+        #token-hud .col.right .status-effects [data-overlay] img,
+        #token-hud .col.right .status-effects [data-overlay] > *,
+        #token-hud .col.right .status-effects [data-effect] img,
+        #token-hud .col.right .status-effects [data-effect] > * {
+            width: 36px !important;
+            height: 36px !important;
+            max-width: 36px !important;
+            max-height: 36px !important;
+            min-width: 36px !important;
+            min-height: 36px !important;
             object-fit: contain !important;
             display: block !important;
-            margin: 0 !important;
+            margin: 0 auto !important;
             padding: 0 !important;
             border: none !important;
             background-size: contain !important;
             background-repeat: no-repeat !important;
             background-position: center !important;
+            flex-shrink: 0 !important;
         }
 
-        /* Override any font-awesome or other icon systems */
+        /* Override any font-awesome or other icon systems for all selectors */
         #token-hud .col.right .status-effects .effect-control i,
         #token-hud .col.right .status-effects .effect-control .fa,
         #token-hud .col.right .status-effects .effect-control .fas,
-        #token-hud .col.right .status-effects .effect-control .far {
+        #token-hud .col.right .status-effects .effect-control .far,
+        #token-hud .col.right .status-effects .status-effect i,
+        #token-hud .col.right .status-effects .status-effect .fa,
+        #token-hud .col.right .status-effects .status-effect .fas,
+        #token-hud .col.right .status-effects .status-effect .far,
+        #token-hud .col.right .status-effects .condition i,
+        #token-hud .col.right .status-effects .condition .fa,
+        #token-hud .col.right .status-effects .condition .fas,
+        #token-hud .col.right .status-effects .condition .far {
             font-size: 24px !important;
-            line-height: 38px !important;
+            line-height: 36px !important;
             text-align: center !important;
-            width: 100% !important;
-            height: 100% !important;
+            width: 36px !important;
+            height: 36px !important;
+            margin: 0 auto !important;
         }
 
         #token-hud .col.right .status-effects .effect-control:hover {
