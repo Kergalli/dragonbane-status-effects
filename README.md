@@ -78,6 +78,19 @@ Define your own status effects using JSON format:
 
 **Custom effects error**: Validate your JSON syntax using an online JSON validator.
 
+## Known Issues
+
+### Module Conflicts
+
+Some modules can interfere with the Enhanced Token HUD Layout feature. If you experience issues with status effect icons appearing incorrectly sized, misaligned, or not responding to mouse interactions:
+
+#### **Monk's Little Details**
+**Issue**: Status effect icons may appear too small, left-justified, or unresponsive to styling
+**Solution**: In Monk's Little Details settings, **disable** the following options:
+- "Alter the Token HUD status effects"  
+- "Clear All"
+- "Highlight Token HUD status effects"
+
 ## 📝 Changelog
 
 See [CHANGELOG.md](CHANGELOG.md) for detailed version history.

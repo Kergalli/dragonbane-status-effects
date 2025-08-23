@@ -24,6 +24,7 @@ function createConditionButton(attribute, name, icon, isActive, toggleCallback) 
              data-status-id="dragonbane.condition.${attribute}" 
              data-category="attribute" 
              data-attribute="${attribute}"
+             data-tooltip="${name}"
              title="${name}">
             <img src="${icon}" 
                  width="40" height="40" 

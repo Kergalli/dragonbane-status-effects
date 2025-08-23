@@ -32,25 +32,17 @@ export function initializeTokenHudStyling() {
             align-items: center !important;
         }
 
-        /* Status effect icons - restore original sizing that worked */
+        /* Status effect icons - simplified */
         #token-hud .col.right .status-effects .effect-control {
             width: 40px !important;
             height: 40px !important;
-            min-width: 40px !important;
-            min-height: 40px !important;
             border: 1px solid rgba(255, 255, 255, 0.3) !important;
             border-radius: 4px !important;
             background: rgba(0, 0, 0, 0.7) !important;
             transition: transform 0.2s ease !important;
             cursor: pointer !important;
-            display: block !important;
-            position: relative !important;
-            flex-shrink: 0 !important;
-            object-fit: contain !important;
-            filter: brightness(1.5) contrast(1.1) !important;
+            filter: brightness(1.5) contrast(1.1) !important; /* Keep brighter icons */
         }
-
-        /* Remove the separate img sizing - let the container handle it */
 
         #token-hud .col.right .status-effects .effect-control:hover {
             transform: scale(1.1) !important;
