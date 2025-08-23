@@ -32,46 +32,16 @@ export function initializeTokenHudStyling() {
             align-items: center !important;
         }
 
-        /* Status effect icons - apply the working attribute styling to ALL effects */
-        #token-hud .col.right .status-effects .effect-control,
-        #token-hud .col.right .status-effects .dragonbane-condition {
+        /* Status effect icons - simplified */
+        #token-hud .col.right .status-effects .effect-control {
             width: 40px !important;
             height: 40px !important;
-            min-width: 40px !important;
-            min-height: 40px !important;
             border: 1px solid rgba(255, 255, 255, 0.3) !important;
             border-radius: 4px !important;
             background: rgba(0, 0, 0, 0.7) !important;
             transition: transform 0.2s ease !important;
             cursor: pointer !important;
-            display: block !important;
-            position: relative !important;
-            flex-shrink: 0 !important;
-            object-fit: contain !important;
-            filter: brightness(1.5) contrast(1.1) !important;
-            box-sizing: border-box !important;
-        }
-
-        /* Apply the working image styling to ALL effect images */
-        #token-hud .col.right .status-effects .effect-control img,
-        #token-hud .col.right .status-effects .dragonbane-condition img {
-            width: 40px !important;
-            height: 40px !important;
-            object-fit: contain !important;
-            display: block !important;
-            margin: 0 !important;
-            padding: 0 !important;
-            border: none !important;
-            position: absolute !important;
-            top: 0 !important;
-            left: 0 !important;
-        }
-
-        /* Ensure tooltips work properly by forcing proper display */
-        #token-hud .col.right .status-effects .effect-control[title],
-        #token-hud .col.right .status-effects .dragonbane-condition[title] {
-            pointer-events: auto !important;
-            z-index: 1 !important;
+            filter: brightness(1.5) contrast(1.1) !important; /* Keep brighter icons */
         }
 
         #token-hud .col.right .status-effects .effect-control:hover {
