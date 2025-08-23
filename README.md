@@ -86,10 +86,10 @@ Some modules can interfere with the Enhanced Token HUD Layout feature. If you ex
 
 #### **Monk's Little Details**
 **Issue**: Status effect icons may appear too small, left-justified, or unresponsive to styling
-- In Monk's Little Details settings, **disable** the following options:
-  - "Alter the Token HUD status effects"  
-  - "Clear All"
-  - "Highlight Token HUD status effects"
+In Monk's Little Details settings, **disable** the following options:
+- "Alter the Token HUD status effects"  
+- "Clear All"
+- "Highlight Token HUD status effects"
 
 ## 📝 Changelog
 
