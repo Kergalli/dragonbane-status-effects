@@ -239,7 +239,7 @@ export class StatusEffectDescriptionEditor extends FormApplication {
     }
 
     /**
-     * Handle clear all button - clear all descriptions
+     * Handle clear all button - clear all descriptions and save immediately
      */
     async _onClearAll(event) {
         event.preventDefault();
@@ -250,19 +250,33 @@ export class StatusEffectDescriptionEditor extends FormApplication {
         });
         
         if (confirm) {
-            // Clear all descriptions
-            const promises = [];
-            ['general', 'spell', 'ability'].forEach(category => {
-                if (this.effectsData[category]) {
-                    this.effectsData[category].forEach(effect => {
-                        promises.push(saveUserDescription(effect.id, ""));
-                    });
-                }
-            });
-            
-            await Promise.all(promises);
-            this.render(true); // Re-render to show cleared state
-            ui.notifications.info(game.i18n.localize("DRAGONBANE_STATUS.editor.cleared"));
+            try {
+                // Clear all descriptions and save immediately
+                const promises = [];
+                ['general', 'spell', 'ability'].forEach(category => {
+                    if (this.effectsData[category]) {
+                        this.effectsData[category].forEach(effect => {
+                            promises.push(saveUserDescription(effect.id, ""));
+                        });
+                    }
+                });
+                
+                // Wait for all saves to complete
+                await Promise.all(promises);
+                
+                // Refresh CONFIG.statusEffects with cleared descriptions
+                await this._refreshStatusEffects();
+                
+                // Re-render form to show cleared state
+                this.render(true);
+                
+                // Clear success feedback
+                ui.notifications.info(game.i18n.localize("DRAGONBANE_STATUS.editor.cleared"));
+                
+            } catch (error) {
+                console.error("Dragonbane Status Effects | Error clearing descriptions:", error);
+                ui.notifications.error("Failed to clear descriptions. Please try again.");
+            }
         }
     }
 }

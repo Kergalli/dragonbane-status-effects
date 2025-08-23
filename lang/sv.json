@@ -22,6 +22,11 @@
         "hint": "Definiera anpassade statuseffekter som JSON-array. Exempel: [{'id':'min-effekt','name':'Min Effekt','img':'icons/svg/example.svg','category':'general'}]. Giltiga kategorier: general, spell, ability",
         "placeholder": "[{\"id\":\"anpassad-bedövad\",\"name\":\"Anpassad Bedövad\",\"img\":\"icons/svg/daze.svg\",\"category\":\"general\"},{\"id\":\"magisk-sköld\",\"name\":\"Magisk Sköld\",\"img\":\"icons/svg/shield.svg\",\"category\":\"spell\"}]"
       },
+      "descriptionEditor": {
+        "name": "Redigera Statuseffektbeskrivningar",
+        "hint": "Öppna beskrivningsredigeraren för att lägga till anpassade beskrivningar till statuseffekter. Användbart för moduler som Visual Active Effects.",
+        "label": "Öppna Beskrivningsredigerare"
+      },
       "reloadRequired": "Inställning ändrad. Ladda om världen för att ändringarna ska träda i kraft."
     },
     "sections": {
@@ -29,6 +34,22 @@
       "generalEffects": "ALLMÄNNA EFFEKTER",
       "spellEffects": "BESVÄRJELSEEFFEKTER",
       "heroicAbilities": "HJÄLTEFÖRMÅGOR"
+    },
+    "editor": {
+      "title": "Statuseffekt Beskrivningsredigerare",
+      "instructions": "Lägg till anpassade beskrivningar till dina statuseffekter. Dessa beskrivningar kommer att användas av Visual Active Effects och andra moduler som visar statuseffektinformation. Du kan dra föremål, aktörer eller journalanteckningar från Foundry direkt in i beskrivningsfälten för att skapa klickbara länkar. Observera: Efter att ha sparat måste befintliga effekter på token tas bort och appliceras igen för att visa de nya beskrivningarna.",
+      "placeholder": "Ange en beskrivning för denna statuseffekt... Du kan också dra föremål, besvärjelser eller journalanteckningar hit för att skapa länkar.",
+      "save": "Spara Alla Beskrivningar",
+      "reset": "Återställ till Sparade",
+      "clearAll": "Rensa Alla Beskrivningar",
+      "saved": "Statuseffektbeskrivningar sparade framgångsrikt!",
+      "reapplyEffects": "Ta bort och applicera om befintliga effekter på token för att se uppdaterade beskrivningar.",
+      "resetComplete": "Beskrivningar återställda till senast sparade tillstånd.",
+      "cleared": "Alla beskrivningar rensade framgångsrikt!",
+      "resetTitle": "Återställ Beskrivningar?",
+      "resetContent": "Detta kommer att kassera alla osparade ändringar och ladda om de senast sparade beskrivningarna. Är du säker?",
+      "clearAllTitle": "Rensa Alla Beskrivningar?",
+      "clearAllContent": "Detta kommer att permanent ta bort alla statuseffektbeskrivningar. Är du säker på att du vill fortsätta?"
     },
     "errors": {
       "systemRequired": "Drakar och Demoner Statuseffekter | Denna modul kräver Drakar och Demoner-systemet.",
@@ -48,7 +69,8 @@
     "_general_effects": "=== ALLMÄNNA STATUSEFFEKTER ===",
     "StatusAmnesia": "Minnesförlust",
     "StatusBlind": "Blind",
-    "StatusBurning": "Brinnande", 
+    "StatusBurning": "Brinnande",
+    "StatusChill": "Kyla",
     "StatusCold": "Kall",
     "StatusConcentration": "Koncentration",
     "StatusDead": "Död",
@@ -75,7 +97,6 @@
     
     "_spell_effects": "=== BESVÄRJELSESTATUSEFFEKTER ===",
     "StatusBirdsong": "Fågelsång",
-    "StatusChill": "Kyla",
     "StatusEnchantedWeapon": "Förtrollat Vapen",
     "StatusFloralTrail": "Blomspår",
     "StatusHeat": "Hetta",
