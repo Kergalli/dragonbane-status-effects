@@ -51,9 +51,9 @@ export function initializeTokenHudStyling() {
         }
 
         #token-hud .col.right .status-effects .effect-control.active {
-            border-color: #00604d !important;
-            box-shadow: 0 0 8px rgba(0, 96, 77, 0.8) !important;
-            background: rgba(0, 96, 77, 0.35) !important;
+            border-color: #e93031 !important;
+            box-shadow: 0 0 8px rgba(233, 48, 49, 0.8) !important;
+            background: rgba(233, 48, 49, 0.35) !important;
         }
 
         /* Section headers - keep the good original styling, ensure 100% width */
