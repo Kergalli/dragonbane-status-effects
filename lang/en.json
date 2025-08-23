@@ -3,23 +3,23 @@
     "settings": {
       "replaceAll": {
         "name": "Replace Default Status Effects",
-        "hint": "Replace all default Foundry status effects with Dragonbane-themed effects. Dragonbane and YZE Combat will add their own effects separately. Requires reload."
+        "hint": "Replace all of Foundry's default status effects with Dragonbane-themed effects. Dragonbane and YZE Combat add their own effects separately. Requires reload."
       },
       "showSpellEffects": {
-        "name": "Show Spell Effects",
-        "hint": "Include spell-related status effects in the available effects list. Requires reload."
+        "name": "Show Spell Effects", 
+        "hint": "Include spell-related status effects in the list of available effects. Requires reload."
       },
       "showHeroicAbilities": {
         "name": "Show Heroic Abilities",
-        "hint": "Include Heroic Ability status effects in the available effects list. Requires reload."
+        "hint": "Include heroic ability status effects in the list of available effects. Requires reload."
       },
       "enableTokenHudStyling": {
         "name": "Enhanced Token HUD Layout",
-        "hint": "Enable 6-column grid layout with section headers for the token HUD status effects. Disable if you prefer the default Foundry layout or want to use custom CSS."
+        "hint": "Enable 6-column grid layout with section headers for token HUD status effects. Disable if you prefer Foundry's default layout or want to use custom CSS."
       },
       "customStatusEffects": {
         "name": "Custom Status Effects (JSON)",
-        "hint": "Define custom status effects as JSON array. Example: [{'id':'my-effect','name':'My Effect','img':'icons/svg/example.svg','category':'general'}]. Valid categories: general, spell, ability",
+        "hint": "Define custom status effects as a JSON array. Example: [{'id':'my-effect','name':'My Effect','img':'icons/svg/example.svg','category':'general'}]. Valid categories: general, spell, ability",
         "placeholder": "[{\"id\":\"custom-stunned\",\"name\":\"Custom Stunned\",\"img\":\"icons/svg/daze.svg\",\"category\":\"general\"},{\"id\":\"magic-shield\",\"name\":\"Magic Shield\",\"img\":\"icons/svg/shield.svg\",\"category\":\"spell\"}]"
       },
       "descriptionEditor": {
@@ -27,34 +27,61 @@
         "hint": "Open the description editor to add custom descriptions to status effects. Useful for modules like Visual Active Effects.",
         "label": "Open Description Editor"
       },
-      "reloadRequired": "Setting changed. Please reload the world for changes to take effect."
+      "reloadRequired": "Setting changed. Reload the world for changes to take effect."
     },
     "sections": {
       "attributeConditions": "ATTRIBUTE CONDITIONS",
-      "generalEffects": "GENERAL EFFECTS",
+      "generalEffects": "GENERAL EFFECTS", 
       "spellEffects": "SPELL EFFECTS",
       "heroicAbilities": "HEROIC ABILITIES"
     },
     "editor": {
       "title": "Status Effect Description Editor",
-      "instructions": "Add custom descriptions to your status effects. These descriptions will be used by Visual Active Effects and other modules that display status effect information. You can drag items, actors, or journal entries from Foundry directly into the description fields to create clickable links. Note: After saving, existing effects on tokens need to be removed and reapplied to show the new descriptions.",
+      "instructions": "Add custom descriptions to your status effects. These descriptions will be used by Visual Active Effects and other modules that display status effect information. You can drag items, actors, or journal entries from Foundry directly into the description fields to create clickable links. Note: After saving, existing effects on tokens must be removed and reapplied to show the new descriptions.",
       "placeholder": "Enter a description for this status effect... You can also drag items, spells, or journal entries here to create links.",
       "save": "Save All Descriptions",
-      "reset": "Reset to Saved",
       "clearAll": "Clear All Descriptions",
-      "saved": "Status effect descriptions saved successfully!",
-      "reapplyEffects": "Remove and reapply existing effects to tokens to see updated descriptions.",
-      "resetComplete": "Descriptions reset to last saved state.",
-      "cleared": "All descriptions cleared successfully!",
-      "resetTitle": "Reset Descriptions?",
-      "resetContent": "This will discard any unsaved changes and reload the last saved descriptions. Are you sure?",
-      "clearAllTitle": "Clear All Descriptions?",
-      "clearAllContent": "This will permanently delete all status effect descriptions. Are you sure you want to continue?"
+      "import": "Import",
+      "export": "Export",
+      "buttons": {
+        "close": "Close"
+      },
+      "dialogs": {
+        "import": {
+          "title": "Import Status Effect Descriptions",
+          "warning": "This will <strong>replace all current descriptions</strong> with the imported ones.",
+          "details": "Import Details:",
+          "totalEffects": "Total effects:",
+          "withDescriptions": "With descriptions:", 
+          "emptyTemplates": "Empty templates:",
+          "source": "Source:",
+          "confirm": "Are you sure you want to continue?"
+        },
+        "clearAll": {
+          "title": "Clear All Descriptions",
+          "content": "Are you sure you want to clear all status effect descriptions? This action cannot be undone."
+        }
+      },
+      "notifications": {
+        "saved": "All descriptions saved successfully!",
+        "cleared": "All descriptions cleared.",
+        "exportFailed": "Failed to export descriptions. Please try again.",
+        "importSuccess": "Successfully imported {count} effects ({nonEmpty} with descriptions)!",
+        "importFailed": "Failed to import descriptions: {error}",
+        "importError": "Failed to import descriptions. Please try again.",
+        "linkAdded": "Added link to {name}",
+        "linkFailed": "Failed to create link from dropped item"
+      },
+      "errors": {
+        "invalidFile": "Invalid file format: missing or invalid descriptions object"
+      }
     },
-    "errors": {
-      "systemRequired": "Dragonbane Status Effects | This module requires the Dragonbane system.",
-      "invalidFormat": "Custom Status Effects: Invalid format - must be an array of effects",
-      "invalidJSON": "Custom Status Effects: Invalid JSON format"
+    "validation": {
+      "errors": {
+        "notArray": "Custom Status Effects: Must be an array of effects",
+        "invalidFormat": "Custom Status Effects: Invalid format - must be an array of effects", 
+        "invalidJSON": "Custom Status Effects: Invalid JSON format"
+      }
     },
     "warnings": {
       "systemCompatibility": "Dragonbane Status Effects module is designed for the Dragonbane system. Some status effects may not work as expected."

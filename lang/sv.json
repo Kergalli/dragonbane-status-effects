@@ -40,21 +40,48 @@
       "instructions": "Lägg till anpassade beskrivningar till dina statuseffekter. Dessa beskrivningar kommer att användas av Visual Active Effects och andra moduler som visar statuseffektinformation. Du kan dra föremål, aktörer eller journalanteckningar från Foundry direkt in i beskrivningsfälten för att skapa klickbara länkar. Observera: Efter att ha sparat måste befintliga effekter på token tas bort och appliceras igen för att visa de nya beskrivningarna.",
       "placeholder": "Ange en beskrivning för denna statuseffekt... Du kan också dra föremål, besvärjelser eller journalanteckningar hit för att skapa länkar.",
       "save": "Spara Alla Beskrivningar",
-      "reset": "Återställ till Sparade",
-      "clearAll": "Rensa Alla Beskrivningar",
-      "saved": "Statuseffektbeskrivningar sparade framgångsrikt!",
-      "reapplyEffects": "Ta bort och applicera om befintliga effekter på token för att se uppdaterade beskrivningar.",
-      "resetComplete": "Beskrivningar återställda till senast sparade tillstånd.",
-      "cleared": "Alla beskrivningar rensade framgångsrikt!",
-      "resetTitle": "Återställ Beskrivningar?",
-      "resetContent": "Detta kommer att kassera alla osparade ändringar och ladda om de senast sparade beskrivningarna. Är du säker?",
-      "clearAllTitle": "Rensa Alla Beskrivningar?",
-      "clearAllContent": "Detta kommer att permanent ta bort alla statuseffektbeskrivningar. Är du säker på att du vill fortsätta?"
+      "clearAll": "Rensa Alla Beskrivningar", 
+      "import": "Importera",
+      "export": "Exportera",
+      "buttons": {
+        "close": "Stäng"
+      },
+      "dialogs": {
+        "import": {
+          "title": "Importera Statuseffektbeskrivningar",
+          "warning": "Detta kommer att <strong>ersätta alla nuvarande beskrivningar</strong> med de importerade.",
+          "details": "Importdetaljer:",
+          "totalEffects": "Totala effekter:",
+          "withDescriptions": "Med beskrivningar:",
+          "emptyTemplates": "Tomma mallar:",
+          "source": "Källa:",
+          "confirm": "Är du säker på att du vill fortsätta?"
+        },
+        "clearAll": {
+          "title": "Rensa Alla Beskrivningar",
+          "content": "Är du säker på att du vill rensa alla statuseffektbeskrivningar? Denna åtgärd kan inte ångras."
+        }
+      },
+      "notifications": {
+        "saved": "Alla beskrivningar sparade framgångsrikt!",
+        "cleared": "Alla beskrivningar rensade.",
+        "exportFailed": "Misslyckades exportera beskrivningar. Försök igen.",
+        "importSuccess": "Importerade framgångsrikt {count} effekter ({nonEmpty} med beskrivningar)!",
+        "importFailed": "Misslyckades importera beskrivningar: {error}",
+        "importError": "Misslyckades importera beskrivningar. Försök igen.",
+        "linkAdded": "Lade till länk till {name}",
+        "linkFailed": "Misslyckades skapa länk från släppt föremål"
+      },
+      "errors": {
+        "invalidFile": "Ogiltigt filformat: saknar eller ogiltigt beskrivningsobjekt"
+      }
     },
-    "errors": {
-      "systemRequired": "Drakar och Demoner Statuseffekter | Denna modul kräver Drakar och Demoner-systemet.",
-      "invalidFormat": "Anpassade Statuseffekter: Ogiltigt format - måste vara en array av effekter",
-      "invalidJSON": "Anpassade Statuseffekter: Ogiltigt JSON-format"
+    "validation": {
+      "errors": {
+        "notArray": "Anpassade Statuseffekter: Måste vara en array av effekter",
+        "invalidFormat": "Anpassade Statuseffekter: Ogiltigt format - måste vara en array av effekter",
+        "invalidJSON": "Anpassade Statuseffekter: Ogiltigt JSON-format"
+      }
     },
     "warnings": {
       "systemCompatibility": "Drakar och Demoner Statuseffekter-modulen är designad för Drakar och Demoner-systemet. Vissa statuseffekter kanske inte fungerar som förväntat."
