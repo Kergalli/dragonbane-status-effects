@@ -2,67 +2,45 @@
 
 All notable changes to the Dragonbane Status Effects module will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
-
 ## [1.0.0] - 2025-08-22
 
-### Added
-- Initial release of Dragonbane Status Effects module
-- **Test Effect**: Single test status effect to validate functionality
-  - ID: `test-effect`
-  - Name: "Test Effect" 
-  - Description: "This is a test effect to see if things work"
-  - Icon: `icons/svg/anchor.svg`
-- Module settings for customization:
-  - Toggle to replace all status effects vs. add to existing
-- **Clean separation approach**: Module only handles theming, not functional effects
-- Dragonbane system dependency validation
-- English language support for module settings
-- Compatibility with Foundry v11+ (verified v12)
+### 🎉 Major Release - Complete Status Effects System
 
-### Design Philosophy
-- **Focused scope**: Replace default Foundry status effects with Dragonbane-themed versions
-- **Non-interference**: Allow Dragonbane system to add its own condition effects
-- **YZE Combat compatible**: Allow YZE Combat to add its own action tracking effects
-- **No conflicts**: Avoid replicating or interfering with other module functionality
+This is the first full release of Dragonbane Status Effects, featuring a comprehensive status effects management system with Dragonbane integration.
 
-### Technical Details
-- Single JavaScript file architecture for simplicity
-- Dragonbane system dependency validation
-- Simple status effect replacement without complex integration
-- Settings-driven customization
-- Clean module loading order
+### ✨ Added - Core Features
 
-### Known Issues
-- None at initial release
+**Comprehensive Status Effects**
+- **22 General Status Effects**: Blind, Burning, Cold, Concentration, Dead, Disease, Drowning, Encumbered, Ensnared, Famished, Flight, Invisible, Paralyzed, Poison (Lethal), Poison (Paralyzing), Poison (Sleeping), Prone, Rage, Sleeping, Sleep Deprived, Unconscious, Wild Panic
+- **7 Spell Status Effects**: Birdsong, Floral Trail, Heat, Longstrider, Power Fist, Protector, Stone Skin
+- **2 Heroic Ability Effects**: Berserk, Wolfkin Prey
+- **Custom Effects Support**: JSON-based custom effect definition system
 
-### Compatibility Notes
-- Requires Dragonbane system v1.9.0+
-- **Does not interfere** with Dragonbane system condition functionality
-- **Does not interfere** with Year Zero Engine: Combat module
-- Tested with Foundry VTT v12
-- Compatible with other status effect modules (no conflicts expected)
+**Enhanced Token HUD**
+- **6-Column Responsive Grid Layout**: Automatically adapts to screen size (6→4→3 columns)
+- **Organized Section Headers**: Attribute Conditions, General Effects, Spell Effects, Heroic Abilities
+- **Sleek Styling**: Modern dark theme with hover effects, transitions, and visual feedback
+- **Category Color Coding**: Visual distinction between effect types with colored borders
+
+**Dragonbane System Integration**
+- **Direct Condition Integration**: Seamlessly integrates with Dragonbane's attribute conditions (STR, CON, AGL, INT, WIL, CHA)
+- **Real-time State Synchronization**: Condition states automatically sync with character sheet changes
+- **Authentic Dragonbane Icons**: Uses official Dragonbane system condition artwork
+
+### ⚙️ Added - Configuration & Settings
+
+**Flexible Module Settings**
+- **Replace Default Status Effects**: Toggle between replacing or adding to Foundry defaults
+- **Enhanced Token HUD Layout**: Enable/disable the professional Token HUD styling
+- **Show Spell Effects**: Control visibility of spell-related status effects
+- **Show Heroic Abilities**: Control visibility of heroic ability status effects
+
+### 🔧 Technical Details
+
+**System Compatibility**
+- **Dragonbane System**: v2.0.0+ required for full functionality
+- **Foundry VTT**: v11 minimum, verified for v12+
+- **YZE Combat Compatibility**: Preserves all YZE Combat action tracking functionality
+- **Non-interfereing Design**: Works alongside other modules without conflicts
 
 ---
-
-## Future Planned Features
-
-### [1.1.0] - Planned
-- Additional Dragonbane-themed status effects to replace common Foundry defaults:
-  - Dead → Dragonbane-themed death effect
-  - Unconscious → Dragonbane-themed unconscious
-  - Stunned → Dragonbane-themed stunned
-  - Poisoned → Dragonbane-themed poisoned
-  - Prone → Dragonbane-themed prone
-  - Blinded → Dragonbane-themed blinded
-
-### [1.2.0] - Planned
-- Custom icon artwork for themed effects
-- Additional language translations
-- More comprehensive Dragonbane theming
-
-### Long-term Roadmap
-- Community-submitted themed effects
-- Integration with Dragonbane artwork style
-- Optional sound effects for themed status changes
-- Macro support for quick status application
