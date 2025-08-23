@@ -32,7 +32,7 @@ export function initializeTokenHudStyling() {
             align-items: center !important;
         }
 
-        /* Status effect icons - restore original sizing that worked */
+        /* Status effect icons - aggressive override for module conflicts */
         #token-hud .col.right .status-effects .effect-control {
             width: 40px !important;
             height: 40px !important;
@@ -48,9 +48,41 @@ export function initializeTokenHudStyling() {
             flex-shrink: 0 !important;
             object-fit: contain !important;
             filter: brightness(1.5) contrast(1.1) !important;
+            overflow: hidden !important;
+            box-sizing: border-box !important;
         }
 
-        /* Remove the separate img sizing - let the container handle it */
+        /* Force icon images to fill containers - aggressive override */
+        #token-hud .col.right .status-effects .effect-control img,
+        #token-hud .col.right .status-effects .effect-control > *,
+        #token-hud .col.right .status-effects .effect-control::before {
+            width: 100% !important;
+            height: 100% !important;
+            max-width: 100% !important;
+            max-height: 100% !important;
+            min-width: 38px !important;
+            min-height: 38px !important;
+            object-fit: contain !important;
+            display: block !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            border: none !important;
+            background-size: contain !important;
+            background-repeat: no-repeat !important;
+            background-position: center !important;
+        }
+
+        /* Override any font-awesome or other icon systems */
+        #token-hud .col.right .status-effects .effect-control i,
+        #token-hud .col.right .status-effects .effect-control .fa,
+        #token-hud .col.right .status-effects .effect-control .fas,
+        #token-hud .col.right .status-effects .effect-control .far {
+            font-size: 24px !important;
+            line-height: 38px !important;
+            text-align: center !important;
+            width: 100% !important;
+            height: 100% !important;
+        }
 
         #token-hud .col.right .status-effects .effect-control:hover {
             transform: scale(1.1) !important;
