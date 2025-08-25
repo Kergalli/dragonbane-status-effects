@@ -167,6 +167,11 @@ function enhanceTokenHUD(html) {
     const effectElements = statusEffectsContainer.find(SELECTORS.EFFECT_CONTROL);
     if (effectElements.length === 0) return;
     
+    // Get the token and actor to check actor type
+    const token = canvas.tokens.controlled[0];
+    const actor = token?.actor;
+    const isCharacter = actor?.type === "character";
+    
     // Group effects by category
     const groupedEffects = {
         attribute: [], // Dragonbane system conditions
@@ -209,12 +214,19 @@ function enhanceTokenHUD(html) {
     statusEffectsContainer.empty();
     
     // Section configuration for organized display
-    const sections = [
-        {
+    const sections = [];
+    
+    // Only add attribute section for character actors
+    if (isCharacter) {
+        sections.push({
             key: 'attribute',
             effects: groupedEffects.attribute,
             titleKey: 'DRAGONBANE_STATUS.sections.attributeConditions'
-        },
+        });
+    }
+    
+    // Add other sections for all actor types
+    sections.push(
         {
             key: 'general', 
             effects: groupedEffects.general,
@@ -232,7 +244,7 @@ function enhanceTokenHUD(html) {
             titleKey: 'DRAGONBANE_STATUS.sections.heroicAbilities',
             requiresSetting: 'showHeroicAbilities'
         }
-    ];
+    );
     
     // Build sections with proper dividers
     buildTokenHudSections(statusEffectsContainer, sections);

@@ -66,6 +66,11 @@ export function addDragonbaneConditionsToHUD(html, data) {
     
     const actor = token.actor;
     
+    // Only show attribute conditions for player characters
+    if (actor.type !== "character") {
+        return; // Early exit for NPCs and Monsters
+    }
+    
     // Check if the actor has the hasCondition method (confirms it's a Dragonbane actor)
     if (typeof actor.hasCondition !== 'function') {
         return;
@@ -110,6 +115,11 @@ export function updateDragonbaneConditionStates(html) {
     
     const actor = token.actor;
     
+    // Only update if this is a character (attribute conditions should only exist for characters)
+    if (actor.type !== "character") {
+        return;
+    }
+    
     // Update each condition button efficiently
     DRAGONBANE_ATTRIBUTES.forEach(attr => {
         const attrLower = attr.toLowerCase();
@@ -134,6 +144,9 @@ export function setupActorUpdateMonitoring() {
         
         const token = canvas.tokens.controlled[0];
         if (!token || token.actor.id !== actor.id) return;
+        
+        // Only process for character actors (NPCs and Monsters don't have attribute conditions)
+        if (actor.type !== "character") return;
         
         // Debounce the update to prevent rapid flickering
         clearTimeout(updateConditionTimeout);
