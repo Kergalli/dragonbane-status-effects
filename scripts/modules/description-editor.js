@@ -4,7 +4,7 @@
  */
 
 import { MODULE_ID } from '../constants.js';
-import { getAllEffectsWithDescriptions, saveUserDescription } from './effects-manager.js';
+import { getAllEffectsWithDescriptions, saveUserDescription, initializeStatusEffects } from './effects-manager.js';
 
 export class StatusEffectDescriptionEditor extends FormApplication {
     
@@ -277,13 +277,8 @@ export class StatusEffectDescriptionEditor extends FormApplication {
      * Refresh CONFIG.statusEffects to pick up new descriptions
      */
     async _refreshStatusEffects() {
-        // Re-run the effects setup to refresh CONFIG.statusEffects
-        if (game.modules.get(MODULE_ID)?.active) {
-            const module = game.modules.get(MODULE_ID);
-            if (module.setupEffects) {
-                await module.setupEffects();
-            }
-        }
+        // Re-run the effects setup to refresh CONFIG.statusEffects with new descriptions
+        initializeStatusEffects();
     }
 
     /**
