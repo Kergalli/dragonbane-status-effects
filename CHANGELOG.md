@@ -12,22 +12,22 @@ This is the first major release of Dragonbane Status Effects, featuring a compre
 
 **Visual Editors**
 - **Custom Status Effects Editor**: Visual interface for creating, editing, and managing custom status effects without JSON editing
-- **Status Effect Description Editor**: Rich text editor with drag-and-drop @UUID link creation for items, spells, and journal entries
+- **Status Effect Description Editor**: Rich text editor with drag-and-drop @UUID link creation for items, spells, and journal entries (create line breaks with `<br>`)
 - **Import/Export System**: Full backup and restore functionality with validation and error handling for both custom effects and descriptions
 
 **Comprehensive Status Effects Library**
 - **25+ General Status Effects**: Amnesia, Blind, Burning, Cold, Concentration, Dead, Disease, Drowning, Encumbered, Ensnared, Famished, Flight, Frozen, Grappled, Invisible, Mounted, Paralyzed, Poison (Lethal/Paralyzing/Sleeping), Prone, Rage, Sleeping, Sleep Deprived, Unconscious, Wild Panic
-- **8 Spell Status Effects**: Birdsong, Chill, Enchanted Weapon, Floral Trail, Heat, Longstrider, Power Fist, Protector, Stone Skin
+- **9 Spell Status Effects**: Birdsong, Chill, Enchanted Weapon, Floral Trail, Heat, Longstrider, Power Fist, Protector, Stone Skin
 - **5 Heroic Ability Effects**: Berserk, Disguised, Musician (Bane), Musician (Boon), Wolfkin Prey
 
 **Enhanced Token HUD**
-- **6-Column Responsive Grid Layout**: Automatically adapts to screen size (6→4→3 columns)
+- **6-Column Responsive Grid Layout**: Perfect for displaying attribute conditions
 - **Organized Section Headers**: Attribute Conditions, General Effects, Spell Effects, Heroic Abilities with color-coded styling
 - **PSleek Styling**: Modern dark theme with hover effects, transitions, and visual feedback
 - **Alphabetical Organization**: Effects sorted alphabetically within categories for easy browsing
 
 **Advanced Configuration**
-- **Visual Settings Interface**: Professional settings with editor menu buttons instead of complex JSON fields
+- **Visual Settings Interface**: Professional settings with editor menu buttons
 - **Flexible Toggle Options**: Control visibility of spell effects, heroic abilities, and Token HUD styling
 
 ### 🎨 Enhanced - Improvements
@@ -35,6 +35,7 @@ This is the first major release of Dragonbane Status Effects, featuring a compre
 **Dragonbane System Integration**
 - **Direct Condition Integration**: Seamless integration with Dragonbane's attribute conditions (STR, CON, AGL, INT, WIL, CHA) using official system artwork
 - **Real-time State Synchronization**: Condition states automatically sync with character sheet changes without manual refresh
+- **Hiddden for Monsters & NPCs**: Attribute conditions do not show for Monsters or NPCs
 - **YZE Combat Compatibility**: Preserves all YZE Combat action tracking functionality without interference
 
 ---

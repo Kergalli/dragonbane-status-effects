@@ -12,12 +12,12 @@ A comprehensive Foundry VTT module that enhances the status effects system for t
 - **Note**: Some spell effects are generic enough to appear in the General Effects section (Frozen, Flying, Sleeping).
 
 ### 🛠️ Visual Editors
-- **Custom Effects Editor**: Visual interface for creating, editing, and managing custom status effects - no more JSON editing!
-- **Description Editor**: Add rich descriptions to status effects with drag-and-drop support for creating @UUID links to items, spells, and journal entries
+- **Custom Effects Editor**: Visual interface for creating, editing, and managing custom status effects.
+- **Description Editor**: Add rich descriptions to status effects with drag-and-drop support for creating @UUID links to items, spells, and journal entries (create line breaks with `<br>`)
 - **Import/Export**: Full backup and restore functionality for both custom effects and descriptions
 
 ### 🖼️ Enhanced Token HUD
-- **6-Column Responsive Grid**: Automatically adapts to different screen sizes (6→4→3 columns)
+- **6-Column Grid**: Perfect for organizing status effects and accomodating attribute conditions
 - **Organized Sections**: Attribute Conditions, General Effects, Spell Effects, Heroic Abilities with color-coded headers
 - **Sleek Styling**: Modern dark theme with hover effects, transitions, and visual feedback
 - **Smart Organization**: Alphabetically sorted effects with category-based grouping
@@ -25,10 +25,11 @@ A comprehensive Foundry VTT module that enhances the status effects system for t
 ### 🐉 Dragonbane Integration
 - **Seamless Condition Handling**: Direct integration with Dragonbane's attribute conditions (STR, CON, AGL, INT, WIL, CHA)
 - **Real-time Updates**: Condition states sync automatically with character sheet changes
+- **Hiddden for Monsters & NPCs**: Attribute conditions do not show for Monsters or NPCs
 - **System Compatibility**: Preserves all existing Dragonbane and YZE Combat functionality
 
 ### ⚙️ Configuration
-- **Visual Settings Interface**: Easy-to-use settings with editor menus instead of complex JSON
+- **Visual Settings Interface**: Easy-to-use settings with editor menus
 - **Flexible Options**: Toggle spell/ability effects, customize Token HUD, replace default effects
 - **Data Management**: Robust import/export with validation and error handling
 - **Multi-language Support**: Full English and Swedish localization
@@ -58,13 +59,13 @@ Access settings through **Game Settings → Module Settings → Dragonbane Statu
 
 ### Core Settings
 - **Replace Default Status Effects**: Replace Foundry defaults with Dragonbane-themed effects
-- **Enhanced Token HUD Layout**: Enable the beautiful 6-column grid with section headers
+- **Enhanced Token HUD Layout**: Enable the styled 6-column grid with section headers
 - **Show Spell Effects**: Include spell-related status effects
 - **Show Heroic Abilities**: Include heroic ability status effects
 
 ### Visual Editors
 - **Manage Custom Status Effects**: Open the visual editor to create, edit, and manage custom status effects
-- **Edit Status Effect Descriptions**: Add rich descriptions that work with Visual Active Effects, Dfreds Effects Panel, and other modules
+- **Edit Status Effect Descriptions**: Add rich descriptions that work with Visual Active Effects, Dfreds Effects Panel and other modules
 
 ## 🎯 Using the Editors
 
@@ -79,7 +80,7 @@ Access settings through **Game Settings → Module Settings → Dragonbane Statu
 ### Description Editor  
 1. **Open**: Game Settings → Dragonbane Status Effects → "Open Description Editor"
 2. **Add Descriptions**: Type rich descriptions for any status effect
-3. **Create Links**: Drag items, spells, or journal entries directly into text fields to create @UUID links
+3. **Create Links**: Drag items, spells, or journal entries directly into text fields to create @UUID links (create line breaks with `<br>`)
 4. **Save**: Changes apply immediately to new effects
 5. **Backup**: Export/import descriptions for sharing between worlds
 
