@@ -6,9 +6,10 @@ A comprehensive Foundry VTT module that enhances the status effects system for t
 
 ### 🎨 Comprehensive Status Effects
 - **25+ General Effects**: Blind, Burning, Cold, Concentration, Dead, Disease, Drowning, Encumbered, Ensnared, Famished, Flight, Grappled, Invisible, Mounted, Paralyzed, Poison variants (Lethal, Paralyzing, Sleeping), Prone, Rage, Sleeping, Sleep Deprived, Unconscious, Wild Panic, and more
-- **8 Spell Effects**: Birdsong, Chill, Enchanted Weapon, Floral Trail, Heat, Longstrider, Power Fist, Protector, Stone Skin  
+- **9 Spell Effects**: Birdsong, Chill, Enchanted Weapon, Floral Trail, Heat, Longstrider, Power Fist, Protector, Stone Skin  
 - **5 Heroic Ability Effects**: Berserk, Disguised, Musician (Bane/Boon), Wolfkin Prey
 - **Custom Effects Support**: Create unlimited custom effects with the visual editor
+- **Note**: Some spell effects are generic enough to appear in the General Effects section (Frozen, Flying, Sleeping).
 
 ### 🛠️ Visual Editors
 - **Custom Effects Editor**: Visual interface for creating, editing, and managing custom status effects - no more JSON editing!
@@ -63,7 +64,7 @@ Access settings through **Game Settings → Module Settings → Dragonbane Statu
 
 ### Visual Editors
 - **Manage Custom Status Effects**: Open the visual editor to create, edit, and manage custom status effects
-- **Edit Status Effect Descriptions**: Add rich descriptions that work with Visual Active Effects and other modules
+- **Edit Status Effect Descriptions**: Add rich descriptions that work with Visual Active Effects, Dfreds Effects Panel, and other modules
 
 ## 🎯 Using the Editors
 
@@ -86,6 +87,7 @@ Access settings through **Game Settings → Module Settings → Dragonbane Statu
 - **Dragonbane System**: Complete integration with conditions and mechanics  
 - **YZE Combat**: Preserves action tracking functionality perfectly
 - **Visual Active Effects**: Status effect descriptions work seamlessly
+- **Dfreds Effects Panel**: Status effect descriptions work seamlessly
 - **Most Other Modules**: Non-interfering design
 
 ### ⚠️ Known Issues
