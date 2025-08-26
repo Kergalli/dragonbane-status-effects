@@ -93,6 +93,8 @@ Access settings through **Game Settings → Module Settings → Dragonbane Statu
 
 ### ⚠️ Known Issues
 
+**Condition Lab & Triggler**: Essentailly trying to do the same thing, will conflict on several levels 
+
 **Monk's Little Details**: The Enhanced Token HUD Layout may conflict with some Monk's Little Details settings. If status effect icons appear incorrectly, disable these options in Monk's Little Details:
 - "Alter the Token HUD status effects"  
 - "Clear All"
