@@ -203,25 +203,28 @@ export const CUSTOM_STATUS_EFFECTS = [
         id: "birdsong",
         name: "EFFECT.StatusBirdsong",
         img: "modules/dragonbane-status-effects/assets/icons/bird-twitter.svg",
-        category: "spell"
+        category: "spell",
+        duration: {
+            seconds: 900
+        }
     },
     {
         id: "chill",
         name: "EFFECT.StatusChill",
         img: "modules/dragonbane-status-effects/assets/icons/ice-spell-cast.svg",
-        category: "spell"
+        category: "spell",
+        duration: {
+            seconds: 900
+        }
     },
     {
         id: "enchanted-weapon",
         name: "EFFECT.StatusEnchantedWeapon",
         img: "modules/dragonbane-status-effects/assets/icons/magic-axe.svg",
-        category: "spell"
-    },
-    {
-        id: "floral-trail",
-        name: "EFFECT.StatusFloralTrail",
-        img: "modules/dragonbane-status-effects/assets/icons/flowers.svg",
-        category: "spell"
+        category: "spell",
+        duration: {
+            seconds: 900
+        }
     },
         {
         id: "frozen",
@@ -233,31 +236,46 @@ export const CUSTOM_STATUS_EFFECTS = [
         id: "heat",
         name: "EFFECT.StatusHeat",
         img: "modules/dragonbane-status-effects/assets/icons/heat-haze.svg",
-        category: "spell"
+        category: "spell",
+        duration: {
+            seconds: 900
+        }
     },
     {
         id: "longstrider",
         name: "EFFECT.StatusLongstrider",
         img: "icons/svg/wingfoot.svg",
-        category: "spell"
+        category: "spell",
+        duration: {
+            seconds: 900
+        }
     },
     {
         id: "power-fist",
         name: "EFFECT.StatusPowerFist",
         img: "modules/dragonbane-status-effects/assets/icons/fist.svg",
-        category: "spell"
+        category: "spell",
+        duration: {
+            seconds: 900
+        }
     },
     {
         id: "protector",
         name: "EFFECT.StatusProtector",
         img: "icons/svg/shield.svg",
-        category: "spell"
+        category: "spell",
+        duration: {
+            seconds: 21600
+        }
     },
     {
         id: "stone-skin",
         name: "EFFECT.StatusStoneSkin",
         img: "modules/dragonbane-status-effects/assets/icons/rock-golem.svg",
-        category: "spell"
+        category: "spell",
+        duration: {
+            seconds: 900
+        }
     },
     
     // Heroic Ability Effects (alphabetical order)
@@ -289,6 +307,9 @@ export const CUSTOM_STATUS_EFFECTS = [
         id: "wolfkin-prey",
         name: "EFFECT.StatusWolfkinPrey",
         img: "icons/svg/target.svg",
-        category: "ability"
+        category: "ability",
+        duration: {
+            seconds: 86400
+        }
     }
 ];

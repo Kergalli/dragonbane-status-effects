@@ -53,14 +53,6 @@
             </div>
             
             {{#if isEditing}}
-                <h3 style="margin: 0 0 1rem 0; color: #7c4a7c; font-size: 1rem; flex-shrink: 0;">
-                    {{#if (eq editingIndex -1)}}
-                        {{localize "DRAGONBANE_STATUS.customEditor.addNewEffect"}}
-                    {{else}}
-                        {{localize "DRAGONBANE_STATUS.customEditor.editExistingEffect"}}
-                    {{/if}}
-                </h3>
-                
                 <div class="effect-form" style="flex: 1; display: flex; flex-direction: column; gap: 0.75rem; min-height: 0;">
                     <!-- Effect ID -->
                     <div class="form-group" style="flex-shrink: 0;">
@@ -89,6 +81,15 @@
                                     {{/if}}>{{this.label}}</option>
                             {{/each}}
                         </select>
+                    </div>
+
+                    <!-- Effect Duration -->
+                    <div class="form-group" style="flex-shrink: 0;">
+                        <label style="display: block; font-weight: 500; margin-bottom: 0.25rem;">{{localize "DRAGONBANE_STATUS.customEditor.effectDuration"}}</label>
+                        <input type="number" name="effect-duration" min="0" step="1" placeholder="0" 
+                               title="{{localize 'DRAGONBANE_STATUS.customEditor.durationTooltip'}}"
+                               style="width: 100%; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px;"
+                               value="{{#if editingEffect.duration}}{{editingEffect.duration.seconds}}{{/if}}">
                     </div>
 
                     <!-- Effect Image -->

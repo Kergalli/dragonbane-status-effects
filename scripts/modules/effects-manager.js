@@ -218,6 +218,11 @@ export function initializeStatusEffects() {
             }
         };
         
+        // Add duration if specified (copy from custom effect)
+        if (effect.duration && effect.duration.seconds > 0) {
+            effectObj.duration = effect.duration;
+        }
+        
         // Make Dead an overlay effect
         if (effect.id === "dead") {
             effectObj.flags.core = { overlay: true };

@@ -213,7 +213,8 @@ export class CustomStatusEffectsEditor extends FormApplication {
             'effect-id': this.element.find('input[name="effect-id"]').val(),
             'effect-name': this.element.find('input[name="effect-name"]').val(),
             'effect-img': this.element.find('input[name="effect-img"]').val(),
-            'effect-category': this.element.find('select[name="effect-category"]').val()
+            'effect-category': this.element.find('select[name="effect-category"]').val(),
+            'effect-duration': this.element.find('input[name="effect-duration"]').val()
         };
         
         // Validate required fields
@@ -229,6 +230,9 @@ export class CustomStatusEffectsEditor extends FormApplication {
             return;
         }
         
+        // Parse duration as number (allow empty/0)
+        const duration = formData['effect-duration'] ? parseInt(formData['effect-duration']) : 0;
+        
         // Create effect object
         const effect = {
             id: formData['effect-id'],
@@ -236,6 +240,13 @@ export class CustomStatusEffectsEditor extends FormApplication {
             img: formData['effect-img'],
             category: formData['effect-category'] || 'general'
         };
+        
+        // Add duration if specified (in Foundry's expected format)
+        if (duration > 0) {
+            effect.duration = {
+                seconds: duration
+            };
+        }
         
         // Add or update effect
         if (this.editingIndex >= 0) {
