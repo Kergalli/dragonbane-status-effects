@@ -108,15 +108,9 @@ export const CUSTOM_STATUS_EFFECTS = [
         category: "general"
     },
     {
-        id: "flight",
-        name: "EFFECT.StatusFlight",
+        id: "flying",
+        name: "EFFECT.StatusFlying",
         img: "icons/svg/wing.svg",
-        category: "general"
-    },
-    {
-        id: "frozen",
-        name: "EFFECT.StatusFrozen",
-        img: "icons/svg/frozen.svg",
         category: "general"
     },
     {
@@ -135,6 +129,12 @@ export const CUSTOM_STATUS_EFFECTS = [
         id: "mounted",
         name: "EFFECT.StatusMounted",
         img: "modules/dragonbane-status-effects/assets/icons/cavalry.svg",
+        category: "general"
+    },
+    {
+        id: "nightmares",
+        name: "EFFECT.StatusNightmares",
+        img: "modules/dragonbane-status-effects/assets/icons/shadow-grasp.svg",
         category: "general"
     },
     {
@@ -221,6 +221,12 @@ export const CUSTOM_STATUS_EFFECTS = [
         id: "floral-trail",
         name: "EFFECT.StatusFloralTrail",
         img: "modules/dragonbane-status-effects/assets/icons/flowers.svg",
+        category: "spell"
+    },
+        {
+        id: "frozen",
+        name: "EFFECT.StatusFrozen",
+        img: "icons/svg/frozen.svg",
         category: "spell"
     },
     {
