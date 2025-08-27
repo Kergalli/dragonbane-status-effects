@@ -1,4 +1,53 @@
 <!-- Custom Effects Editor Template: templates/custom-effects-editor.html -->
+<style>
+    /* Effect item base styles */
+    .effect-item {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.5rem;
+        margin-bottom: 0.5rem;
+        border-radius: 4px;
+        background: rgba(0,0,0,0.05);
+        border: 1px solid transparent;
+    }
+    
+    /* Built-in effect styles - DARKER BLUE */
+    .effect-item.builtin-effect:not(.overridden-effect):not(.hidden-effect) {
+        background: rgba(44, 62, 94, 0.25);
+        border: 1px solid rgba(44, 62, 94, 0.35);
+    }
+    
+    /* Overridden built-in effect styles */
+    .effect-item.builtin-effect.overridden-effect {
+        background: linear-gradient(135deg, rgba(74, 124, 89, 0.15), rgba(74, 124, 89, 0.08));
+        border: 1px solid rgba(74, 124, 89, 0.3);
+    }
+    
+    /* Hidden built-in effect styles */
+    .effect-item.builtin-effect.hidden-effect {
+        background: rgba(124, 74, 74, 0.1);
+        border: 1px solid rgba(124, 74, 74, 0.2);
+        opacity: 0.6;
+    }
+    
+    /* Add effect button states */
+    .add-effect-btn {
+        padding: 0.35rem 1rem;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-weight: 500;
+        background: #4a7c59;
+        cursor: pointer;
+    }
+    
+    .add-effect-btn:disabled {
+        background: #666;
+        cursor: not-allowed;
+    }
+</style>
+
 <form class="custom-effects-editor-form" style="display: flex; flex-direction: column; height: 100%; gap: 1rem; max-height: 100%; overflow: hidden;">
     
     <!-- Header Section -->
@@ -11,32 +60,91 @@
         
         <!-- Left Column: Effects List -->
         <div class="effects-list" style="display: flex; flex-direction: column; overflow: hidden; min-height: 0;">
-            <div class="list-header" style="margin-bottom: 0.5rem;">
+            <!-- Header with checkbox on same line -->
+            <div class="list-header" style="margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: space-between;">
                 <h3 style="margin: 0; color: #4a7c59; font-size: 1.1rem;">{{localize "DRAGONBANE_STATUS.customEditor.effectsList"}}</h3>
+                
+                <!-- Show Built-in Effects Toggle (moved here) -->
+                <div class="show-builtin-toggle" style="display: flex; align-items: center; gap: 0.5rem;">
+                    <input type="checkbox" id="show-builtin-effects" style="cursor: pointer;" {{#if showingBuiltin}}checked{{/if}}>
+                    <label for="show-builtin-effects" style="cursor: pointer; font-size: 0.85rem; color: #666; white-space: nowrap;">
+                        {{localize "DRAGONBANE_STATUS.customEditor.showBuiltinEffects"}}
+                    </label>
+                </div>
             </div>
             
             <div class="effects-container" style="flex: 1; overflow-y: auto; border: 1px solid #ccc; border-radius: 4px; padding: 0.5rem;">
                 {{#if effects.length}}
                     {{#each effects}}
-                    <div class="effect-item" style="display: flex; align-items: center; gap: 0.75rem; padding: 0.5rem; margin-bottom: 0.5rem; background: rgba(0,0,0,0.05); border-radius: 4px;">
+                    <div class="effect-item {{#if this.isBuiltin}}builtin-effect{{/if}} {{#if this.isOverridden}}overridden-effect{{/if}} {{#if this.isHidden}}hidden-effect{{/if}}">
                         <img src="{{this.img}}" alt="{{this.name}}" style="width: 32px; height: 32px; border-radius: 4px; border: 1px solid rgba(0,0,0,0.2);">
                         <div class="effect-info" style="flex: 1;">
-                            <div style="font-weight: 500;">{{this.name}}</div>
+                            <div style="font-weight: 500; display: flex; align-items: center; gap: 0.5rem;">
+                                {{this.name}}
+                                {{#if this.isBuiltin}}
+                                    {{#if this.isOverridden}}
+                                        <span style="font-size: 0.7rem; padding: 0.1rem 0.3rem; background: rgba(74, 124, 89, 0.3); color: #4a7c59; border-radius: 3px; font-weight: bold;">
+                                            {{localize "DRAGONBANE_STATUS.customEditor.modified"}}
+                                        </span>
+                                    {{else if this.isHidden}}
+                                        <span style="font-size: 0.7rem; padding: 0.1rem 0.3rem; background: rgba(124, 74, 74, 0.3); color: #7c4a4a; border-radius: 3px; font-weight: bold;">
+                                            {{localize "DRAGONBANE_STATUS.customEditor.hidden"}}
+                                        </span>
+                                    {{else}}
+                                        <span style="font-size: 0.7rem; padding: 0.1rem 0.3rem; background: rgba(44, 62, 94, 0.4); color: #4a5c7c; border-radius: 3px; font-weight: bold;">
+                                            {{localize "DRAGONBANE_STATUS.customEditor.builtin"}}
+                                        </span>
+                                    {{/if}}
+                                {{else}}
+                                    <span style="font-size: 0.7rem; padding: 0.1rem 0.3rem; background: rgba(124, 74, 124, 0.2); color: #7c4a7c; border-radius: 3px; font-weight: bold;">
+                                        {{localize "DRAGONBANE_STATUS.customEditor.custom"}}
+                                    </span>
+                                {{/if}}
+                            </div>
                             <div style="font-size: 0.8rem; color: #666;">{{this.id}} ({{this.category}})</div>
                         </div>
                         <div class="effect-actions" style="display: flex; gap: 0.25rem;">
-                            <button type="button" data-action="edit-effect" data-index="{{@index}}" data-effect-id="{{this.id}}" title="{{localize 'DRAGONBANE_STATUS.customEditor.editEffect'}}" style="width: 28px; height: 28px; display: flex; align-items: center; justify-content: right; background: #7c4a7c; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.75rem; line-height: 1;">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button type="button" data-action="delete-effect" data-index="{{@index}}" data-effect-id="{{this.id}}" title="{{localize 'DRAGONBANE_STATUS.customEditor.deleteEffect'}}" style="width: 28px; height: 28px; display: flex; align-items: center; justify-content: right; background: #7c4a4a; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.75rem; line-height: 1;">
-                                <i class="fas fa-trash"></i>
-                            </button>
+                            {{#if this.isBuiltin}}
+                                {{#unless this.isHidden}}
+                                    <button type="button" data-action="edit-effect" data-index="{{@index}}" data-effect-id="{{this.id}}" data-is-builtin="true" 
+                                            title="{{localize 'DRAGONBANE_STATUS.customEditor.editEffect'}}" 
+                                            style="width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; background: #7c4a7c; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.75rem; line-height: 1;">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button type="button" data-action="hide-effect" data-index="{{@index}}" data-effect-id="{{this.id}}" 
+                                            title="{{localize 'DRAGONBANE_STATUS.customEditor.hideEffect'}}" 
+                                            style="width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; background: #7c5a4a; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.75rem; line-height: 1;">
+                                        <i class="fas fa-eye-slash"></i>
+                                    </button>
+                                {{else}}
+                                    <button type="button" data-action="show-effect" data-index="{{@index}}" data-effect-id="{{this.id}}" 
+                                            title="{{localize 'DRAGONBANE_STATUS.customEditor.showEffect'}}" 
+                                            style="width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; background: #4a7c59; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.75rem; line-height: 1;">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                {{/unless}}
+                            {{else}}
+                                <button type="button" data-action="edit-effect" data-index="{{@index}}" data-effect-id="{{this.id}}" 
+                                        title="{{localize 'DRAGONBANE_STATUS.customEditor.editEffect'}}" 
+                                        style="width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; background: #7c4a7c; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.75rem; line-height: 1;">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button type="button" data-action="delete-effect" data-index="{{@index}}" data-effect-id="{{this.id}}" 
+                                        title="{{localize 'DRAGONBANE_STATUS.customEditor.deleteEffect'}}" 
+                                        style="width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; background: #7c4a4a; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.75rem; line-height: 1;">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            {{/if}}
                         </div>
                     </div>
                     {{/each}}
                 {{else}}
                     <div style="text-align: center; color: #666; font-style: italic; padding: 2rem;">
-                        {{localize "DRAGONBANE_STATUS.customEditor.noEffects"}}
+                        {{#if showingBuiltin}}
+                            {{localize "DRAGONBANE_STATUS.customEditor.noEffectsVisible"}}
+                        {{else}}
+                            {{localize "DRAGONBANE_STATUS.customEditor.noEffects"}}
+                        {{/if}}
                     </div>
                 {{/if}}
             </div>
@@ -45,26 +153,36 @@
         <!-- Right Column: Effect Form -->
         <div class="effect-form-container" style="display: flex; flex-direction: column; border: 1px solid #ccc; border-radius: 4px; padding: 1rem; background: rgba(0,0,0,0.02); min-height: 0; overflow-y: auto;">
             
-            <!-- Add Effect Button (always visible) -->
+            <!-- Add Effect Button OR Built-in Warning (mutually exclusive) -->
             <div class="add-effect-header" style="margin-bottom: 1rem; text-align: center; flex-shrink: 0;">
-                <button type="button" data-action="add-effect" style="padding: 0.35rem 1rem; background: #4a7c59; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 500;">
-                    {{localize "DRAGONBANE_STATUS.customEditor.addEffect"}}
-                </button>
+                {{#if editingBuiltin}}
+                    <!-- Warning when editing built-in effects - locked to button height -->
+                    <div style="padding: 0.35rem 1rem; background: rgba(44, 62, 94, 0.15); border: 1px solid rgba(44, 62, 94, 0.3); border-radius: 4px; font-size: 0.75rem; color: #4a5c7c; font-weight: 500; display: flex; align-items: center; justify-content: center; gap: 0.35rem; height: 2.1rem; box-sizing: border-box; white-space: nowrap; overflow: hidden;">
+                        <i class="fas fa-info-circle"></i> {{localize "DRAGONBANE_STATUS.customEditor.editingBuiltin"}}
+                    </div>
+                {{else}}
+                    <!-- Add Effect button when not editing built-in -->
+                    <button type="button" data-action="add-effect" class="add-effect-btn" style="padding: 0.35rem 1rem; color: white; border: none; border-radius: 4px; font-weight: 500; background: #4a7c59; cursor: pointer; height: 2.1rem; box-sizing: border-box;">
+                        {{localize "DRAGONBANE_STATUS.customEditor.addEffect"}}
+                    </button>
+                {{/if}}
             </div>
             
             {{#if isEditing}}
                 <div class="effect-form" style="flex: 1; display: flex; flex-direction: column; gap: 0.75rem; min-height: 0;">
-                    <!-- Effect ID -->
+                    <!-- Effect ID (readonly for built-in effects) -->
                     <div class="form-group" style="flex-shrink: 0;">
                         <label style="display: block; font-weight: 500; margin-bottom: 0.25rem;">{{localize "DRAGONBANE_STATUS.customEditor.effectId"}}</label>
-                        <input type="text" name="effect-id" placeholder="auto-generated-from-name" readonly style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px; background: #e8e8e8; color: #666;" 
+                        <input type="text" name="effect-id" placeholder="auto-generated-from-name" readonly 
+                               style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px; background: #e8e8e8; color: #666;" 
                                value="{{#if editingEffect}}{{editingEffect.id}}{{/if}}">
                     </div>
 
                     <!-- Effect Name -->
                     <div class="form-group" style="flex-shrink: 0;">
                         <label style="display: block; font-weight: 500; margin-bottom: 0.25rem;">{{localize "DRAGONBANE_STATUS.customEditor.effectName"}}</label>
-                        <input type="text" name="effect-name" placeholder="My Custom Effect" style="width: 100%; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px;"
+                        <input type="text" name="effect-name" placeholder="My Custom Effect" 
+                               style="width: 100%; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px;"
                                value="{{#if editingEffect}}{{editingEffect.name}}{{/if}}">
                     </div>
 
@@ -78,7 +196,9 @@
                                         {{#if (eq this.key ../editingEffect.category)}}selected{{/if}}
                                     {{else}}
                                         {{#if (eq this.key "general")}}selected{{/if}}
-                                    {{/if}}>{{this.label}}</option>
+                                    {{/if}}>
+                                    {{this.label}}
+                                </option>
                             {{/each}}
                         </select>
                     </div>
@@ -111,12 +231,36 @@
 
                 <!-- Form Actions - Outside the form box -->
                 <div class="form-actions" style="padding-top: 0.75rem; border-top: 1px solid #ddd; display: flex; gap: 0.5rem; flex-shrink: 0;">
-                    <button type="button" data-action="save-effect" style="flex: 1; padding: 0.35rem 1rem; background: #4a7c59; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.9rem;">
-                        {{localize "DRAGONBANE_STATUS.customEditor.saveEffect"}}
-                    </button>
-                    <button type="button" data-action="cancel-edit" style="flex: 1; padding: 0.35rem 1rem; background: #7c4a4a; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.9rem;">
-                        {{localize "DRAGONBANE_STATUS.customEditor.cancel"}}
-                    </button>
+                    {{#if editingBuiltin}}
+                        {{#if editingEffect.isOverridden}}
+                            <!-- 3-button layout for modified built-in effects - use short text -->
+                            <button type="button" data-action="save-effect" style="flex: 1; padding: 0.35rem 1rem; background: #4a7c59; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.9rem;">
+                                {{localize "DRAGONBANE_STATUS.customEditor.saveEffectShort"}}
+                            </button>
+                            <button type="button" data-action="reset-effect" style="flex: 1; padding: 0.35rem 1rem; background: #7c7a4a; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.9rem;">
+                                {{localize "DRAGONBANE_STATUS.customEditor.resetToDefaultShort"}}
+                            </button>
+                            <button type="button" data-action="cancel-edit" style="flex: 1; padding: 0.35rem 1rem; background: #7c4a4a; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.9rem;">
+                                {{localize "DRAGONBANE_STATUS.customEditor.cancel"}}
+                            </button>
+                        {{else}}
+                            <!-- 2-button layout for unmodified built-in effects - use regular text -->
+                            <button type="button" data-action="save-effect" style="flex: 1; padding: 0.35rem 1rem; background: #4a7c59; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.9rem;">
+                                {{localize "DRAGONBANE_STATUS.customEditor.saveEffect"}}
+                            </button>
+                            <button type="button" data-action="cancel-edit" style="flex: 1; padding: 0.35rem 1rem; background: #7c4a4a; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.9rem;">
+                                {{localize "DRAGONBANE_STATUS.customEditor.cancel"}}
+                            </button>
+                        {{/if}}
+                    {{else}}
+                        <!-- 2-button layout for custom effects - use regular text -->
+                        <button type="button" data-action="save-effect" style="flex: 1; padding: 0.35rem 1rem; background: #4a7c59; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.9rem;">
+                            {{localize "DRAGONBANE_STATUS.customEditor.saveEffect"}}
+                        </button>
+                        <button type="button" data-action="cancel-edit" style="flex: 1; padding: 0.35rem 1rem; background: #7c4a4a; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.9rem;">
+                            {{localize "DRAGONBANE_STATUS.customEditor.cancel"}}
+                        </button>
+                    {{/if}}
                 </div>
             {{else}}
                 <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; flex: 1; color: #666; text-align: center;">
@@ -136,8 +280,8 @@
             <button type="button" data-action="save-all" style="padding: 0.35rem 1rem; background: #4a7c59; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 500; font-size: 0.9rem;">
                 {{localize "DRAGONBANE_STATUS.customEditor.saveAll"}}
             </button>
-            <button type="button" data-action="clear-all" style="padding: 0.35rem 1rem; background: #7c4a4a; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 500; font-size: 0.9rem;">
-                {{localize "DRAGONBANE_STATUS.customEditor.clearAll"}}
+            <button type="button" data-action="reset-all" style="padding: 0.35rem 1rem; background: #7c4a4a; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 500; font-size: 0.9rem;">
+                {{localize "DRAGONBANE_STATUS.customEditor.resetAll"}}
             </button>
         </div>
     </div>

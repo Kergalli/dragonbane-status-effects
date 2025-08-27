@@ -1,10 +1,11 @@
 /**
  * Custom Status Effects Editor for Dragonbane Status Effects Module
  * Visual interface for creating and managing custom status effects
+ * Now includes built-in effect editing capabilities
  */
 
-import { MODULE_ID } from '../constants.js';
-import { parseUserCustomEffects } from './effects-manager.js';
+import { MODULE_ID, CUSTOM_STATUS_EFFECTS } from '../constants.js';
+import { parseUserCustomEffects, initializeStatusEffects } from './effects-manager.js';
 
 export class CustomStatusEffectsEditor extends FormApplication {
     
@@ -12,6 +13,10 @@ export class CustomStatusEffectsEditor extends FormApplication {
         super({}, options);
         this.customEffects = [];
         this.editingIndex = null; // null means not editing, -1 means adding new, >= 0 means editing existing
+        this.showBuiltinEffects = false; // Always starts unchecked per requirements
+        this.editingBuiltin = false; // Track if we're editing a built-in effect
+        this.builtinEffects = []; // Store processed built-in effects
+        this.allEffects = []; // Combined list for display
     }
 
     /** @override */
@@ -34,8 +39,18 @@ export class CustomStatusEffectsEditor extends FormApplication {
         // Load current custom effects
         this.customEffects = parseUserCustomEffects(false) || []; // Don't show errors in editor
         
+        // Process built-in effects if checkbox is enabled
+        if (this.showBuiltinEffects) {
+            await this._processBuiltinEffects();
+            // Combine built-in and custom effects
+            this.allEffects = [...this.builtinEffects, ...this.customEffects];
+        } else {
+            // Only show custom effects
+            this.allEffects = [...this.customEffects];
+        }
+        
         // Sort effects alphabetically by name
-        const sortedEffects = [...this.customEffects].sort((a, b) => 
+        const sortedEffects = [...this.allEffects].sort((a, b) => 
             a.name.localeCompare(b.name, game.i18n.lang || 'en', { 
                 sensitivity: 'base',
                 numeric: true,
@@ -43,9 +58,22 @@ export class CustomStatusEffectsEditor extends FormApplication {
             })
         );
         
+        // Get the effect being edited
+        let editingEffect = null;
+        if (this.editingIndex !== null && this.editingIndex >= 0) {
+            if (this.editingBuiltin) {
+                // Find the built-in effect by ID
+                editingEffect = this.builtinEffects.find(e => e._originalIndex === this.editingIndex);
+            } else {
+                // Find the custom effect
+                editingEffect = this.customEffects[this.editingIndex];
+            }
+        }
+        
         return {
             effects: sortedEffects,
             customEffects: this.customEffects, // Keep original order for indexing
+            showingBuiltin: this.showBuiltinEffects,
             categories: [
                 { key: "general", label: game.i18n.localize("DRAGONBANE_STATUS.sections.generalEffects") },
                 { key: "spell", label: game.i18n.localize("DRAGONBANE_STATUS.sections.spellEffects") },
@@ -53,13 +81,57 @@ export class CustomStatusEffectsEditor extends FormApplication {
             ],
             editingIndex: this.editingIndex,
             isEditing: this.editingIndex !== null && this.editingIndex !== undefined,
-            editingEffect: this.editingIndex >= 0 ? this.customEffects[this.editingIndex] : null
+            editingEffect: editingEffect,
+            editingBuiltin: this.editingBuiltin
         };
+    }
+
+    /**
+     * Process built-in effects with overrides and hidden states
+     * @private
+     */
+    async _processBuiltinEffects() {
+        const overrides = game.settings.get(MODULE_ID, "builtinEffectOverrides") || {};
+        const hiddenEffects = game.settings.get(MODULE_ID, "hiddenBuiltinEffects") || {};
+        
+        this.builtinEffects = CUSTOM_STATUS_EFFECTS.map((builtin, index) => {
+            const override = overrides[builtin.id];
+            const isHidden = hiddenEffects[builtin.id] === true;
+            
+            // Localize the name if it's a translation key
+            const baseName = builtin.name.startsWith("EFFECT.") ? 
+                game.i18n.localize(builtin.name) : 
+                builtin.name;
+            
+            // Create the effect object
+            let effect = {
+                ...builtin,
+                name: baseName,
+                isBuiltin: true,
+                isHidden: isHidden,
+                _originalIndex: index // Store original index for reference
+            };
+            
+            // Apply overrides if they exist
+            if (override) {
+                effect = {
+                    ...effect,
+                    ...override,
+                    isOverridden: true,
+                    id: builtin.id // Ensure ID never changes
+                };
+            }
+            
+            return effect;
+        });
     }
 
     /** @override */
     activateListeners(html) {
         super.activateListeners(html);
+        
+        // Built-in effects toggle
+        html.find('#show-builtin-effects').change(this._onToggleBuiltinEffects.bind(this));
         
         // Add effect button
         html.find('[data-action="add-effect"]').click(this._onAddEffect.bind(this));
@@ -70,6 +142,13 @@ export class CustomStatusEffectsEditor extends FormApplication {
         // Delete effect buttons
         html.find('[data-action="delete-effect"]').click(this._onDeleteEffect.bind(this));
         
+        // Hide/Show effect buttons (for built-in effects)
+        html.find('[data-action="hide-effect"]').click(this._onHideEffect.bind(this));
+        html.find('[data-action="show-effect"]').click(this._onShowEffect.bind(this));
+        
+        // Reset effect button (for overridden built-in effects)
+        html.find('[data-action="reset-effect"]').click(this._onResetEffect.bind(this));
+        
         // Save effect button
         html.find('[data-action="save-effect"]').click(this._onSaveEffect.bind(this));
         
@@ -79,13 +158,16 @@ export class CustomStatusEffectsEditor extends FormApplication {
         // Save all button
         html.find('[data-action="save-all"]').click(this._onSaveAll.bind(this));
         
-        // Clear all button
+        // Reset all button
+        html.find('[data-action="reset-all"]').click(this._onResetAll.bind(this));
+        
+        // Clear all button (keeping for backwards compatibility)
         html.find('[data-action="clear-all"]').click(this._onClearAll.bind(this));
         
         // Image picker button
         html.find('[data-action="pick-image"]').click(this._onPickImage.bind(this));
         
-        // Auto-generate ID from name
+        // Auto-generate ID from name (only for custom effects)
         html.find('input[name="effect-name"]').on('input', this._onNameInput.bind(this));
         
         // Handle file input change for import
@@ -119,11 +201,96 @@ export class CustomStatusEffectsEditor extends FormApplication {
     }
 
     /**
+     * Handle toggling the display of built-in effects
+     */
+    _onToggleBuiltinEffects(event) {
+        this.showBuiltinEffects = event.target.checked;
+        // Cancel any editing if switching modes
+        if (this.editingIndex !== null) {
+            this.editingIndex = null;
+            this.editingBuiltin = false;
+        }
+        this.render(true);
+    }
+
+    /**
+     * Handle hiding a built-in effect
+     */
+    async _onHideEffect(event) {
+        event.preventDefault();
+        const effectId = event.currentTarget.dataset.effectId;
+        
+        const hiddenEffects = game.settings.get(MODULE_ID, "hiddenBuiltinEffects") || {};
+        hiddenEffects[effectId] = true;
+        
+        await game.settings.set(MODULE_ID, "hiddenBuiltinEffects", hiddenEffects);
+        
+        // Re-initialize status effects to apply the change
+        initializeStatusEffects();
+        
+        ui.notifications.info(game.i18n.localize("DRAGONBANE_STATUS.customEditor.notifications.hidden"));
+        this.render(true);
+    }
+
+    /**
+     * Handle showing a previously hidden built-in effect
+     */
+    async _onShowEffect(event) {
+        event.preventDefault();
+        const effectId = event.currentTarget.dataset.effectId;
+        
+        const hiddenEffects = game.settings.get(MODULE_ID, "hiddenBuiltinEffects") || {};
+        delete hiddenEffects[effectId];
+        
+        await game.settings.set(MODULE_ID, "hiddenBuiltinEffects", hiddenEffects);
+        
+        // Re-initialize status effects to apply the change
+        initializeStatusEffects();
+        
+        ui.notifications.info(game.i18n.localize("DRAGONBANE_STATUS.customEditor.notifications.shown"));
+        this.render(true);
+    }
+
+    /**
+     * Handle resetting a built-in effect to its defaults
+     */
+    async _onResetEffect(event) {
+        event.preventDefault();
+        
+        const effectId = this.element.find('input[name="effect-id"]').val();
+        const effect = this.builtinEffects.find(e => e.id === effectId);
+        
+        if (!effect) return;
+        
+        const confirm = await Dialog.confirm({
+            title: game.i18n.localize("DRAGONBANE_STATUS.customEditor.dialogs.reset.title"),
+            content: game.i18n.format("DRAGONBANE_STATUS.customEditor.dialogs.reset.content", { name: effect.name })
+        });
+        
+        if (confirm) {
+            const overrides = game.settings.get(MODULE_ID, "builtinEffectOverrides") || {};
+            delete overrides[effectId];
+            await game.settings.set(MODULE_ID, "builtinEffectOverrides", overrides);
+            
+            // Re-initialize status effects to apply the change
+            initializeStatusEffects();
+            
+            ui.notifications.info(game.i18n.localize("DRAGONBANE_STATUS.customEditor.notifications.reset"));
+            
+            // Cancel editing mode and refresh
+            this.editingIndex = null;
+            this.editingBuiltin = false;
+            this.render(true);
+        }
+    }
+
+    /**
      * Handle adding a new effect
      */
     _onAddEffect(event) {
         event.preventDefault();
         this.editingIndex = -1; // New effect
+        this.editingBuiltin = false; // New effects are always custom
         this.render(true);
     }
 
@@ -132,27 +299,37 @@ export class CustomStatusEffectsEditor extends FormApplication {
      */
     _onEditEffect(event) {
         event.preventDefault();
-        const sortedIndex = parseInt(event.currentTarget.dataset.index);
         const effectId = event.currentTarget.dataset.effectId;
+        const isBuiltin = event.currentTarget.dataset.isBuiltin === "true";
         
-        // Find the actual index in the original customEffects array
-        const actualIndex = this.customEffects.findIndex(effect => effect.id === effectId);
-        if (actualIndex >= 0) {
-            this.editingIndex = actualIndex;
-            this.render(true);
+        if (isBuiltin) {
+            // Find the built-in effect
+            const builtinIndex = this.builtinEffects.findIndex(effect => effect.id === effectId);
+            if (builtinIndex >= 0) {
+                this.editingIndex = this.builtinEffects[builtinIndex]._originalIndex;
+                this.editingBuiltin = true;
+                this.render(true);
+            }
+        } else {
+            // Find the custom effect
+            const actualIndex = this.customEffects.findIndex(effect => effect.id === effectId);
+            if (actualIndex >= 0) {
+                this.editingIndex = actualIndex;
+                this.editingBuiltin = false;
+                this.render(true);
+            }
         }
     }
 
     /**
-     * Handle deleting an effect
+     * Handle deleting an effect (custom effects only)
      */
     async _onDeleteEffect(event) {
         event.preventDefault();
         
         try {
             const button = event.currentTarget;
-            const sortedIndex = parseInt(button.dataset.index);
-            const effectId = button.getAttribute('data-effect-id'); // More reliable than dataset
+            const effectId = button.getAttribute('data-effect-id');
             
             // Find the actual index and effect in the original customEffects array
             const actualIndex = this.customEffects.findIndex(effect => effect.id === effectId);
@@ -187,9 +364,9 @@ export class CustomStatusEffectsEditor extends FormApplication {
                 }
                 
                 // Adjust editing index if needed
-                if (this.editingIndex === actualIndex) {
+                if (!this.editingBuiltin && this.editingIndex === actualIndex) {
                     this.editingIndex = null; // Cancel editing if we deleted the effect being edited
-                } else if (this.editingIndex > actualIndex) {
+                } else if (!this.editingBuiltin && this.editingIndex > actualIndex) {
                     this.editingIndex--; // Adjust index if we deleted an effect before the one being edited
                 }
                 
@@ -217,6 +394,64 @@ export class CustomStatusEffectsEditor extends FormApplication {
             'effect-duration': this.element.find('input[name="effect-duration"]').val()
         };
         
+        // Branch based on whether we're editing a built-in or custom effect
+        if (this.editingBuiltin) {
+            await this._saveBuiltinOverride(formData);
+        } else {
+            await this._saveCustomEffect(formData);
+        }
+    }
+
+    /**
+     * Save override for a built-in effect
+     * @private
+     */
+    async _saveBuiltinOverride(formData) {
+        const effectId = formData['effect-id'];
+        const overrides = game.settings.get(MODULE_ID, "builtinEffectOverrides") || {};
+        
+        // Parse duration as number (allow empty/0)
+        const duration = formData['effect-duration'] ? parseInt(formData['effect-duration']) : 0;
+        
+        // Create override object
+        overrides[effectId] = {
+            name: formData['effect-name'],
+            img: formData['effect-img'],
+            category: formData['effect-category'] || 'general'
+        };
+        
+        // Add duration if specified
+        if (duration > 0) {
+            overrides[effectId].duration = { seconds: duration };
+        }
+        
+        // Save to settings
+        try {
+            await game.settings.set(MODULE_ID, "builtinEffectOverrides", overrides);
+            
+            // Re-initialize status effects to apply the change immediately
+            initializeStatusEffects();
+            
+            ui.notifications.info(game.i18n.localize("DRAGONBANE_STATUS.customEditor.notifications.saved"));
+            
+            // Exit editing mode completely - this restores the Add Effect button
+            this.editingIndex = null;
+            this.editingBuiltin = false;
+            
+            // Refresh the form to show updated state
+            this.render(true);
+            
+        } catch (error) {
+            console.error("Dragonbane Status Effects | Error saving built-in override:", error);
+            ui.notifications.error(game.i18n.localize("DRAGONBANE_STATUS.customEditor.notifications.saveError"));
+        }
+    }
+
+    /**
+     * Save a custom effect (existing functionality)
+     * @private
+     */
+    async _saveCustomEffect(formData) {
         // Validate required fields
         if (!formData['effect-id'] || !formData['effect-name'] || !formData['effect-img']) {
             ui.notifications.error(game.i18n.localize("DRAGONBANE_STATUS.customEditor.validation.required"));
@@ -257,15 +492,19 @@ export class CustomStatusEffectsEditor extends FormApplication {
             this.customEffects.push(effect);
         }
         
-        // Save to settings (individual effect save - no restart needed)
+        // Save to settings (individual effect save)
         try {
             const jsonString = JSON.stringify(this.customEffects, null, 2);
             await game.settings.set(MODULE_ID, "customStatusEffects", jsonString);
+            
+            // Re-initialize status effects to apply the change immediately
+            initializeStatusEffects();
             
             ui.notifications.info(game.i18n.localize("DRAGONBANE_STATUS.customEditor.notifications.saved"));
             
             // Cancel editing mode and refresh the form
             this.editingIndex = null;
+            this.editingBuiltin = false;
             this.render(true);
             
         } catch (error) {
@@ -280,6 +519,7 @@ export class CustomStatusEffectsEditor extends FormApplication {
     _onCancelEdit(event) {
         event.preventDefault();
         this.editingIndex = null;
+        this.editingBuiltin = false;
         this.render(true);
     }
 
@@ -307,7 +547,49 @@ export class CustomStatusEffectsEditor extends FormApplication {
     }
 
     /**
-     * Handle clearing all effects
+     * Handle resetting all effects (custom effects + built-in overrides + hidden effects)
+     */
+    async _onResetAll(event) {
+        event.preventDefault();
+        
+        const confirm = await Dialog.confirm({
+            title: game.i18n.localize("DRAGONBANE_STATUS.customEditor.dialogs.resetAll.title"),
+            content: game.i18n.localize("DRAGONBANE_STATUS.customEditor.dialogs.resetAll.content")
+        });
+        
+        if (confirm) {
+            try {
+                // Clear all custom effects
+                this.customEffects = [];
+                await game.settings.set(MODULE_ID, "customStatusEffects", "");
+                
+                // Clear all built-in overrides
+                await game.settings.set(MODULE_ID, "builtinEffectOverrides", {});
+                
+                // Clear all hidden built-in effects  
+                await game.settings.set(MODULE_ID, "hiddenBuiltinEffects", {});
+                
+                // Re-initialize status effects to apply changes immediately
+                initializeStatusEffects();
+                
+                // Reset editing state
+                this.editingIndex = null;
+                this.editingBuiltin = false;
+                
+                // Re-render the form to show updated state
+                this.render(true);
+                
+                ui.notifications.info(game.i18n.localize("DRAGONBANE_STATUS.customEditor.notifications.allReset"));
+                
+            } catch (error) {
+                console.error("Dragonbane Status Effects | Error resetting all effects:", error);
+                ui.notifications.error(game.i18n.localize("DRAGONBANE_STATUS.customEditor.notifications.saveError"));
+            }
+        }
+    }
+
+    /**
+     * Handle clearing all custom effects only (legacy)
      */
     async _onClearAll(event) {
         event.preventDefault();
@@ -320,6 +602,7 @@ export class CustomStatusEffectsEditor extends FormApplication {
         if (confirm) {
             this.customEffects = [];
             this.editingIndex = null;
+            this.editingBuiltin = false;
             this.render(true);
         }
     }
@@ -345,9 +628,12 @@ export class CustomStatusEffectsEditor extends FormApplication {
     }
 
     /**
-     * Auto-generate ID from name
+     * Auto-generate ID from name (only for custom effects)
      */
     _onNameInput(event) {
+        // Only auto-generate for custom effects, not built-in
+        if (this.editingBuiltin) return;
+        
         const name = event.target.value;
         const idField = this.element.find('input[name="effect-id"]');
         
@@ -362,7 +648,7 @@ export class CustomStatusEffectsEditor extends FormApplication {
     }
 
     /**
-     * Handle export
+     * Handle export - now includes built-in overrides and hidden states
      */
     async _onExport(event) {
         event.preventDefault();
@@ -372,7 +658,9 @@ export class CustomStatusEffectsEditor extends FormApplication {
                 module: MODULE_ID,
                 version: game.modules.get(MODULE_ID).version,
                 timestamp: new Date().toISOString(),
-                effects: this.customEffects
+                effects: this.customEffects,
+                builtinOverrides: game.settings.get(MODULE_ID, "builtinEffectOverrides") || {},
+                hiddenBuiltinEffects: game.settings.get(MODULE_ID, "hiddenBuiltinEffects") || {}
             };
             
             const filename = `dragonbane-custom-effects-${new Date().toISOString().split('T')[0]}.json`;
@@ -399,7 +687,7 @@ export class CustomStatusEffectsEditor extends FormApplication {
     }
 
     /**
-     * Handle file selection for import
+     * Handle file selection for import - now includes built-in overrides
      */
     async _onFileSelected(event) {
         const file = event.target.files[0];
@@ -424,11 +712,15 @@ export class CustomStatusEffectsEditor extends FormApplication {
             
             // Show confirmation dialog
             const effectCount = effects.length;
+            const overrideCount = Object.keys(importData.builtinOverrides || {}).length;
+            const hiddenCount = Object.keys(importData.hiddenBuiltinEffects || {}).length;
             const sourceModule = foundry.utils.getProperty(importData, "module");
             const sourceVersion = foundry.utils.getProperty(importData, "version") || 'unknown';
             
             const content = await renderTemplate("modules/dragonbane-status-effects/templates/dialogs/import-custom-effects-confirmation.hbs", {
                 effectCount,
+                overrideCount,
+                hiddenCount,
                 sourceModule,
                 sourceVersion
             });
@@ -439,8 +731,28 @@ export class CustomStatusEffectsEditor extends FormApplication {
             });
             
             if (confirm) {
+                // Import custom effects
                 this.customEffects = effects;
+                
+                // Save custom effects immediately
+                const jsonString = JSON.stringify(this.customEffects, null, 2);
+                await game.settings.set(MODULE_ID, "customStatusEffects", jsonString);
+                
+                // Import built-in overrides if present
+                if (importData.builtinOverrides) {
+                    await game.settings.set(MODULE_ID, "builtinEffectOverrides", importData.builtinOverrides);
+                }
+                
+                // Import hidden states if present
+                if (importData.hiddenBuiltinEffects) {
+                    await game.settings.set(MODULE_ID, "hiddenBuiltinEffects", importData.hiddenBuiltinEffects);
+                }
+                
+                // Re-initialize status effects to apply all changes
+                initializeStatusEffects();
+                
                 this.editingIndex = null;
+                this.editingBuiltin = false;
                 this.render(true);
                 
                 ui.notifications.info(game.i18n.format("DRAGONBANE_STATUS.customEditor.notifications.importSuccess", {

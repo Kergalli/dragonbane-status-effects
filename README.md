@@ -5,9 +5,9 @@ A comprehensive Foundry VTT module that enhances the status effects system for t
 ## ✨ Features
 
 ### 🎨 Comprehensive Status Effects
-- **25+ General Effects**: Blind, Burning, Cold, Concentration, Dead, Disease, Drowning, Encumbered, Ensnared, Famished, Flight, Grappled, Invisible, Mounted, Paralyzed, Poison variants (Lethal, Paralyzing, Sleeping), Prone, Rage, Sleeping, Sleep Deprived, Unconscious, Wild Panic, and more
-- **9 Spell Effects**: Birdsong, Chill, Enchanted Weapon, Floral Trail, Heat, Longstrider, Power Fist, Protector, Stone Skin  
-- **5 Heroic Ability Effects**: Berserk, Disguised, Musician (Bane/Boon), Wolfkin Prey
+- **25+ General Status Effects**: Amnesia, Blind, Burning, Cold, Concentration, Dead, Disease, Drowning, Encumbered, Ensnared, Famished, Flying, Grappled, Invisible, Mounted, Nightmares, Paralyzed, Poison (Lethal/Paralyzing/Sleeping), Prone, Rage, Sleeping, Sleep Deprived, Unconscious, Wild Panic
+- **9 Spell Status Effects**: Birdsong, Chill, Enchanted Weapon, Frozen, Heat, Longstrider, Power Fist, Protector, Stone Skin
+- **5 Heroic Ability Effects**: Berserk, Disguised, Musician (Bane), Musician (Boon), Wolfkin Prey
 - **Custom Effects Support**: Create unlimited custom effects with the visual editor
 - **Note**: Some spell effects are generic enough to appear in the General Effects section (Frozen, Flying, Sleeping).
 

@@ -36,7 +36,7 @@
     },
     "customEditor": {
       "title": "Anpassad Statuseffektredigerare",
-      "instructions": "Skapa och hantera dina anpassade statuseffekter med denna visuella redigerare. Lägg till nya effekter, redigera befintliga och organisera din samling. Ändringar sparas automatiskt till dina världsinställningar. Du kan lägga till beskrivningar till sparade statuseffekter i Beskrivningsredigeraren.",
+      "instructions": "Skapa och hantera dina anpassade statuseffekter med denna visuella redigerare. Lägg till nya effekter, redigera befintliga och organisera din samling. Ändringar sparas automatiskt till dina världsinstälningar. Du kan lägga till beskrivningar till sparade statuseffekter i Beskrivningsredigeraren.",
       "effectsList": "Dina Anpassade Effekter",
       "addEffect": "Lägg till Effekt",
       "editEffect": "Redigera",
@@ -54,11 +54,25 @@
       "effectImage": "Bildsökväg",
       "browse": "Bläddra",
       "saveEffect": "Spara Effekt",
+      "saveEffectShort": "Spara",
       "cancel": "Avbryt",
+      "resetToDefault": "Återställ till Standard",
+      "resetToDefaultShort": "Återställ",
       "saveAll": "Spara Alla Effekter",
+      "resetAll": "Återställ Alla Effekter",
       "clearAll": "Rensa Alla Effekter",
       "import": "Importera",
       "export": "Exportera",
+      "showBuiltinEffects": "Visa Inbyggda Effekter",
+      "showBuiltinHint": "Redigera ikoner, namn, varaktighet och kategorier",
+      "builtin": "Inbyggd",
+      "modified": "Modifierad",
+      "hidden": "Dold",
+      "custom": "Anpassad",
+      "hideEffect": "Dölj Effekt",
+      "showEffect": "Visa Effekt",
+      "editingBuiltin": "Redigerar inbyggd effekt. Åsidosätter standarder.",
+      "noEffectsVisible": "Inga effekter att visa. Prova att markera 'Visa Inbyggda Effekter' eller lägg till anpassade effekter.",
       "validation": {
         "required": "Effekt-ID, Namn och Bild krävs.",
         "duplicateId": "En effekt med detta ID finns redan."
@@ -68,9 +82,17 @@
           "title": "Radera Anpassad Effekt",
           "content": "Är du säker på att du vill radera effekten '{name}'? Denna åtgärd kan inte ångras.<br/><br/>Se till att spara alla effekter när du är klar med redigering av effekter.<div style=\"height: 15px;\"></div>"
         },
+        "resetAll": {
+          "title": "Återställ Alla Effekter",
+          "content": "Är du säker på att du vill återställa alla effekter till standardinställningar? Detta kommer att radera alla anpassade effekter och återställa alla modifierade inbyggda effekter till sina ursprungliga inställningar. Denna åtgärd kan inte ångras."
+        },
         "clearAll": {
           "title": "Rensa Alla Anpassade Effekter",
           "content": "Är du säker på att du vill radera alla anpassade effekter? Denna åtgärd kan inte ångras."
+        },
+        "reset": {
+          "title": "Återställ Inbyggd Effekt",
+          "content": "Är du säker på att du vill återställa effekten '{name}' till sina standardinställningar? Detta kommer att ta bort alla dina anpassningar för denna effekt."
         },
         "import": {
           "title": "Importera Anpassade Statuseffekter",
@@ -84,7 +106,11 @@
       "notifications": {
         "saved": "Effekt sparad framgångsrikt! Se till att spara alla effekter!",
         "allSaved": "Alla effekter sparade framgångsrikt!",
+        "allReset": "Alla effekter har återställts till standardinställningar! Se till att spara alla effekter!",
         "deleted": "Effekt '{name}' raderad framgångsrikt! Se till att spara alla effekter!",
+        "reset": "Effekt '{name}' har återställts till standardinställningar.",
+        "hidden": "Effekt har dolts från Token HUD.",
+        "shown": "Effekt är nu synlig i Token HUD.",
         "saveError": "Misslyckades spara anpassade effekter. Försök igen.",
         "exportFailed": "Misslyckades exportera anpassade effekter. Försök igen.",
         "importSuccess": "Importerade framgångsrikt {count} anpassade effekter!",

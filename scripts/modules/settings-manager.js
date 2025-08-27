@@ -52,6 +52,22 @@ export function registerSettings() {
             localized: false,
             scope: "world",
             config: false // Hidden setting for storing descriptions
+        },
+        {
+            key: "builtinEffectOverrides",
+            type: Object,
+            default: {},
+            localized: false,
+            scope: "world",
+            config: false // Hidden setting for storing built-in effect overrides
+        },
+        {
+            key: "hiddenBuiltinEffects",
+            type: Object,
+            default: {},
+            localized: false,
+            scope: "world",
+            config: false // Hidden setting for tracking which built-in effects are hidden
         }
     ];
 
@@ -59,16 +75,19 @@ export function registerSettings() {
     settings.forEach(setting => {
         const config = {
             scope: setting.scope || "world",
-            config: setting.config !== undefined ? setting.config : true,
+            config: setting.config !== undefined ? setting.config : false,
             type: setting.type,
             default: setting.default,
-            requiresReload: setting.key !== "effectDescriptions" // Descriptions don't need reload
+            requiresReload: setting.key !== "effectDescriptions" && 
+                           setting.key !== "builtinEffectOverrides" && 
+                           setting.key !== "hiddenBuiltinEffects" // These don't need reload
         };
 
         // Add localized name/hint if specified
         if (setting.localized) {
             config.name = `DRAGONBANE_STATUS.settings.${setting.key}.name`;
             config.hint = `DRAGONBANE_STATUS.settings.${setting.key}.hint`;
+            config.config = true; // Localized settings are shown in config
         }
 
         game.settings.register(MODULE_ID, setting.key, config);

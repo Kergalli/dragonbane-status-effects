@@ -55,7 +55,21 @@ export function parseUserCustomEffects(showErrors = true) {
  * @returns {Array} Combined array of all effects
  */
 export function getAllEffects(applySettingsFilter = false, showErrors = true) {
-    const builtInEffects = [...CUSTOM_STATUS_EFFECTS];
+    // Get override settings to apply category changes
+    const builtinOverrides = game.settings.get(MODULE_ID, "builtinEffectOverrides") || {};
+    
+    const builtInEffects = [...CUSTOM_STATUS_EFFECTS].map(effect => {
+        // Apply overrides to built-in effects before filtering
+        if (builtinOverrides[effect.id]) {
+            return {
+                ...effect,
+                ...builtinOverrides[effect.id],
+                id: effect.id // Ensure ID never changes
+            };
+        }
+        return effect;
+    });
+    
     const userEffects = parseUserCustomEffects(showErrors);
     const allEffects = [...builtInEffects, ...userEffects];
     
@@ -63,7 +77,7 @@ export function getAllEffects(applySettingsFilter = false, showErrors = true) {
         return allEffects;
     }
     
-    // Filter based on settings
+    // Filter based on settings (now using potentially overridden categories)
     return allEffects.filter(effect => {
         if (effect.category === "spell" && !game.settings.get(MODULE_ID, "showSpellEffects")) {
             return false;
@@ -144,6 +158,13 @@ export function getAllEffectsWithDescriptions() {
     
     return groupedEffects;
 }
+
+/**
+ * Categorize an effect by its ID
+ * @param {string} effectId - The effect ID to categorize
+ * @param {Array|null} allEffects - Optional array of effects to search (for performance)
+ * @returns {string} The category of the effect or 'unknown'
+ */
 export function categorizeEffect(effectId, allEffects = null) {
     if (!allEffects) {
         allEffects = getAllEffects(false, false); // Get all effects, no filtering, no error notifications
@@ -200,36 +221,55 @@ function sortEffectsByCategory(effects) {
  * Initialize status effects - main entry point
  */
 export function initializeStatusEffects() {
+    // Get override settings
+    const builtinOverrides = game.settings.get(MODULE_ID, "builtinEffectOverrides") || {};
+    const hiddenEffects = game.settings.get(MODULE_ID, "hiddenBuiltinEffects") || {};
+    
     // Get all effects with settings filtering applied
     const allCustomEffects = getAllEffects(true, true);
     
     // Create localized effect objects
     const customEffects = allCustomEffects.map(effect => {
+        // Check if this is a built-in effect that's hidden
+        if (hiddenEffects[effect.id] === true) {
+            return null; // Filter out hidden effects
+        }
+        
+        // Apply overrides if this is a built-in effect
+        let finalEffect = effect;
+        if (builtinOverrides[effect.id]) {
+            finalEffect = {
+                ...effect,
+                ...builtinOverrides[effect.id],
+                id: effect.id // Ensure ID never changes
+            };
+        }
+        
         const effectObj = {
-            id: effect.id,
-            label: effect.name.startsWith("EFFECT.") ? game.i18n.localize(effect.name) : effect.name,
-            icon: effect.img,
-            description: getUserDescription(effect.id) || effect.description || "", // User description takes priority
+            id: finalEffect.id,
+            label: finalEffect.name.startsWith("EFFECT.") ? game.i18n.localize(finalEffect.name) : finalEffect.name,
+            icon: finalEffect.img,
+            description: getUserDescription(finalEffect.id) || finalEffect.description || "", // User description takes priority
             changes: [],
             flags: {
                 [MODULE_ID]: {
-                    category: effect.category
+                    category: finalEffect.category || 'general' // Use the potentially overridden category
                 }
             }
         };
         
-        // Add duration if specified (copy from custom effect)
-        if (effect.duration && effect.duration.seconds > 0) {
-            effectObj.duration = effect.duration;
+        // Add duration if specified (copy from effect or override)
+        if (finalEffect.duration && finalEffect.duration.seconds > 0) {
+            effectObj.duration = finalEffect.duration;
         }
         
         // Make Dead an overlay effect
-        if (effect.id === "dead") {
+        if (finalEffect.id === "dead") {
             effectObj.flags.core = { overlay: true };
         }
         
         return effectObj;
-    });
+    }).filter(effect => effect !== null); // Remove hidden effects
     
     // Sort effects alphabetically by localized names within categories
     const sortedEffects = sortEffectsByCategory(customEffects);

@@ -54,11 +54,25 @@
       "effectImage": "Image Path",
       "browse": "Browse",
       "saveEffect": "Save Effect",
+      "saveEffectShort": "Save",
       "cancel": "Cancel",
+      "resetToDefault": "Reset to Default",
+      "resetToDefaultShort": "Reset",
       "saveAll": "Save All Effects",
+      "resetAll": "Reset All Effects",
       "clearAll": "Clear All Effects",
       "import": "Import",
       "export": "Export",
+      "showBuiltinEffects": "Show Built-in Effects",
+      "showBuiltinHint": "Edit icons, names, durations, and categories",
+      "builtin": "Built-in",
+      "modified": "Modified",
+      "hidden": "Hidden",
+      "custom": "Custom",
+      "hideEffect": "Hide Effect",
+      "showEffect": "Show Effect",
+      "editingBuiltin": "Editing a built-in effect. Will override defaults.",
+      "noEffectsVisible": "No effects to display. Try checking 'Show Built-in Effects' or adding custom effects.",
       "validation": {
         "required": "Effect ID, Name, and Image are required.",
         "duplicateId": "An effect with this ID already exists."
@@ -68,9 +82,17 @@
           "title": "Delete Custom Effect",
           "content": "Are you sure you want to delete the effect '{name}'? This action cannot be undone.<br/><br/>Make sure to Save All Effects when you are done editing effects.<div style=\"height: 15px;\"></div>"
         },
+        "resetAll": {
+          "title": "Reset All Effects",
+          "content": "Are you sure you want to reset all effects back to defaults? This will delete all custom effects and reset all modified built-in effects to their original settings. This action cannot be undone."
+        },
         "clearAll": {
           "title": "Clear All Custom Effects",
           "content": "Are you sure you want to delete all custom effects? This action cannot be undone."
+        },
+        "reset": {
+          "title": "Reset Built-in Effect",
+          "content": "Are you sure you want to reset the effect '{name}' to its default settings? This will remove all your customizations for this effect."
         },
         "import": {
           "title": "Import Custom Status Effects",
@@ -84,7 +106,11 @@
       "notifications": {
         "saved": "Effect saved successfully! Make sure to Save All Effects!",
         "allSaved": "All effects saved successfully!",
+        "allReset": "All effects have been reset to defaults! Make sure to Save All Effects!",
         "deleted": "Effect '{name}' deleted successfully! Make sure to Save All Effects!",
+        "reset": "Effect '{name}' has been reset to default settings.",
+        "hidden": "Effect has been hidden from Token HUD.",
+        "shown": "Effect is now visible in Token HUD.",
         "saveError": "Failed to save custom effects. Please try again.",
         "exportFailed": "Failed to export custom effects. Please try again.",
         "importSuccess": "Successfully imported {count} custom effects!",
