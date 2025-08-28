@@ -17,7 +17,7 @@ A comprehensive Foundry VTT module that enhances the status effects system for t
 - **Import/Export**: Full backup and restore functionality for both custom effects and descriptions
 
 ### 🖼️ Enhanced Token HUD
-- **6-Column Grid**: Perfect for organizing status effects and accomodating attribute conditions
+- **6-Column Grid**: Perfect for organizing status effects and accommodating attribute conditions
 - **Organized Sections**: Attribute Conditions, General Effects, Spell Effects, Heroic Abilities with color-coded headers
 - **Sleek Styling**: Modern dark theme with hover effects, transitions, and visual feedback
 - **Smart Organization**: Alphabetically sorted effects with category-based grouping
@@ -93,7 +93,7 @@ Access settings through **Game Settings → Module Settings → Dragonbane Statu
 
 ### ⚠️ Known Issues
 
-**Condition Lab & Triggler**: Essentailly trying to do the same thing, will conflict on several levels 
+**Condition Lab & Triggler**: Essentially trying to do the same thing, will conflict on several levels 
 
 **Monk's Little Details**: The Enhanced Token HUD Layout may conflict with some Monk's Little Details settings. If status effect icons appear incorrectly, disable these options in Monk's Little Details:
 - "Alter the Token HUD status effects"  
