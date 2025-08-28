@@ -15,10 +15,10 @@ export function parseUserCustomEffects(showErrors = true) {
     if (!userCustomEffectsJson || !userCustomEffectsJson.trim()) {
         return [];
     }
-    
+
     try {
         const userCustomEffects = JSON.parse(userCustomEffectsJson);
-        
+
         if (!Array.isArray(userCustomEffects)) {
             if (showErrors) {
                 console.error(`${MODULE_ID} | Custom status effects must be an array`);
@@ -26,7 +26,7 @@ export function parseUserCustomEffects(showErrors = true) {
             }
             return [];
         }
-        
+
         // Validate each effect has required properties
         return userCustomEffects.filter(effect => {
             const isValid = effect.id && effect.name && effect.img;
@@ -38,7 +38,7 @@ export function parseUserCustomEffects(showErrors = true) {
             ...effect,
             category: effect.category || 'general' // Default category if not specified
         }));
-        
+
     } catch (error) {
         if (showErrors) {
             console.error(`${MODULE_ID} | Error parsing custom status effects JSON:`, error);
@@ -57,7 +57,7 @@ export function parseUserCustomEffects(showErrors = true) {
 export function getAllEffects(applySettingsFilter = false, showErrors = true) {
     // Get override settings to apply category changes
     const builtinOverrides = game.settings.get(MODULE_ID, "builtinEffectOverrides") || {};
-    
+
     const builtInEffects = [...CUSTOM_STATUS_EFFECTS].map(effect => {
         // Apply overrides to built-in effects before filtering
         if (builtinOverrides[effect.id]) {
@@ -69,14 +69,14 @@ export function getAllEffects(applySettingsFilter = false, showErrors = true) {
         }
         return effect;
     });
-    
+
     const userEffects = parseUserCustomEffects(showErrors);
     const allEffects = [...builtInEffects, ...userEffects];
-    
+
     if (!applySettingsFilter) {
         return allEffects;
     }
-    
+
     // Filter based on settings (now using potentially overridden categories)
     return allEffects.filter(effect => {
         if (effect.category === "spell" && !game.settings.get(MODULE_ID, "showSpellEffects")) {
@@ -106,13 +106,13 @@ export function getUserDescription(effectId) {
  */
 export function saveUserDescription(effectId, description) {
     const descriptions = game.settings.get(MODULE_ID, "effectDescriptions") || {};
-    
+
     if (description && description.trim()) {
         descriptions[effectId] = description.trim();
     } else {
         delete descriptions[effectId];
     }
-    
+
     return game.settings.set(MODULE_ID, "effectDescriptions", descriptions);
 }
 
@@ -123,14 +123,14 @@ export function saveUserDescription(effectId, description) {
 export function getAllEffectsWithDescriptions() {
     const allEffects = getAllEffects(true, false); // Get filtered effects, no error notifications
     const descriptions = game.settings.get(MODULE_ID, "effectDescriptions") || {};
-    
+
     // Group by category
     const groupedEffects = {
         general: [],
         spell: [],
         ability: []
     };
-    
+
     allEffects.forEach(effect => {
         const effectData = {
             id: effect.id,
@@ -139,23 +139,25 @@ export function getAllEffectsWithDescriptions() {
             category: effect.category,
             description: descriptions[effect.id] || ""
         };
-        
+
         if (groupedEffects[effect.category]) {
             groupedEffects[effect.category].push(effectData);
         }
     });
-    
+
     // Sort each category alphabetically
     Object.keys(groupedEffects).forEach(category => {
-        groupedEffects[category].sort((a, b) => 
-            a.name.localeCompare(b.name, game.i18n.lang || 'en', { 
+        groupedEffects[category].sort((a, b) => {
+            const nameA = a.name || '';
+            const nameB = b.name || '';
+            return nameA.localeCompare(nameB, game.i18n.lang || 'en', {
                 sensitivity: 'base',
                 numeric: true,
                 caseFirst: 'lower'
-            })
-        );
+            });
+        });
     });
-    
+
     return groupedEffects;
 }
 
@@ -169,13 +171,13 @@ export function categorizeEffect(effectId, allEffects = null) {
     if (!allEffects) {
         allEffects = getAllEffects(false, false); // Get all effects, no filtering, no error notifications
     }
-    
+
     const effect = allEffects.find(effect => effect.id === effectId);
     return effect ? (effect.category || 'general') : 'unknown';
 }
 
 /**
- * Sort effects alphabetically by localized label within categories
+ * Sort effects alphabetically by localized name within categories
  * @param {Array} effects - Array of localized effect objects
  * @returns {Array} Array of effects sorted by category, with general/spell/ability sorted alphabetically
  */
@@ -187,7 +189,7 @@ function sortEffectsByCategory(effects) {
         ability: [],
         other: [] // For any effects without a category flag
     };
-    
+
     effects.forEach(effect => {
         const category = effect.flags?.[MODULE_ID]?.category || 'other';
         if (categorizedEffects[category]) {
@@ -196,18 +198,20 @@ function sortEffectsByCategory(effects) {
             categorizedEffects.other.push(effect);
         }
     });
-    
-    // Sort general, spell, and ability categories alphabetically by localized label
+
+    // Sort general, spell, and ability categories alphabetically by localized name
     ['general', 'spell', 'ability'].forEach(category => {
-        categorizedEffects[category].sort((a, b) => 
-            a.label.localeCompare(b.label, game.i18n.lang || 'en', { 
+        categorizedEffects[category].sort((a, b) => {
+            const nameA = a.name || '';
+            const nameB = b.name || '';
+            return nameA.localeCompare(nameB, game.i18n.lang || 'en', { // ✅ Added safety checks
                 sensitivity: 'base',
                 numeric: true,
                 caseFirst: 'lower'
-            })
-        );
+            });
+        });
     });
-    
+
     // Return in order: general → spell → ability → other (other unsorted to preserve original order)
     return [
         ...categorizedEffects.general,
@@ -224,17 +228,17 @@ export function initializeStatusEffects() {
     // Get override settings
     const builtinOverrides = game.settings.get(MODULE_ID, "builtinEffectOverrides") || {};
     const hiddenEffects = game.settings.get(MODULE_ID, "hiddenBuiltinEffects") || {};
-    
+
     // Get all effects with settings filtering applied
     const allCustomEffects = getAllEffects(true, true);
-    
+
     // Create localized effect objects
     const customEffects = allCustomEffects.map(effect => {
         // Check if this is a built-in effect that's hidden
         if (hiddenEffects[effect.id] === true) {
             return null; // Filter out hidden effects
         }
-        
+
         // Apply overrides if this is a built-in effect
         let finalEffect = effect;
         if (builtinOverrides[effect.id]) {
@@ -244,41 +248,41 @@ export function initializeStatusEffects() {
                 id: effect.id // Ensure ID never changes
             };
         }
-        
+
         const effectObj = {
             id: finalEffect.id,
-            label: finalEffect.name.startsWith("EFFECT.") ? game.i18n.localize(finalEffect.name) : finalEffect.name,
-            icon: finalEffect.img,
-            description: getUserDescription(finalEffect.id) || finalEffect.description || "", // User description takes priority
+            name: finalEffect.name.startsWith("EFFECT.") ? game.i18n.localize(finalEffect.name) : finalEffect.name, // ✅ Updated from 'label'
+            img: finalEffect.img, // ✅ Updated from 'icon'  
+            description: getUserDescription(finalEffect.id) || finalEffect.description || "",
             changes: [],
             flags: {
                 [MODULE_ID]: {
-                    category: finalEffect.category || 'general' // Use the potentially overridden category
+                    category: finalEffect.category || 'general'
                 }
             }
         };
-        
+
         // Add duration if specified (copy from effect or override)
         if (finalEffect.duration && finalEffect.duration.seconds > 0) {
             effectObj.duration = finalEffect.duration;
         }
-        
+
         // Make Dead an overlay effect
         if (finalEffect.id === "dead") {
             effectObj.flags.core = { overlay: true };
         }
-        
+
         return effectObj;
     }).filter(effect => effect !== null); // Remove hidden effects
-    
+
     // Sort effects alphabetically by localized names within categories
     const sortedEffects = sortEffectsByCategory(customEffects);
-    
+
     // Preserve existing effects from other modules
     const existingEffects = CONFIG.statusEffects.filter(effect =>
         effect.id && (effect.id.startsWith('dragonbane.condition') || effect.id.match(/^action\d+$/))
     );
-    
+
     if (game.settings.get(MODULE_ID, "replaceAll")) {
         // Replace defaults but preserve other module effects
         CONFIG.statusEffects = [...sortedEffects, ...existingEffects];
