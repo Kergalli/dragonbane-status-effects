@@ -99,6 +99,8 @@
           "warning": "Detta kommer att <strong>ersätta alla nuvarande anpassade effekter</strong> med de importerade.",
           "details": "Importdetaljer:",
           "totalEffects": "Totala effekter:",
+          "modifiedBuiltins": "Modifierade inbyggda effekter:",
+          "hiddenBuiltins": "Dolda inbyggda effekter:",
           "source": "Källa:",
           "confirm": "Är du säker på att du vill fortsätta?"
         }

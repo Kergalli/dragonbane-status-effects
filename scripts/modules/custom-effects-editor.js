@@ -87,6 +87,55 @@ export class CustomStatusEffectsEditor extends FormApplication {
     }
 
     /**
+     * Store current scroll position of effects container
+     * @private
+     */
+    _storeScrollPosition() {
+        const container = this.element?.find('.effects-container')[0];
+        if (container) {
+            this._scrollTop = container.scrollTop;
+        }
+    }
+
+    /**
+     * Restore scroll position of effects container
+     * @private
+     */
+    _restoreScrollPosition() {
+        if (this._scrollTop !== undefined) {
+            // Use setTimeout to ensure DOM is fully rendered
+            setTimeout(() => {
+                const container = this.element?.find('.effects-container')[0];
+                if (container) {
+                    container.scrollTop = this._scrollTop;
+                }
+            }, 50);
+        }
+    }
+
+    /**
+     * Render with scroll position preservation
+     * @param {boolean} force - Whether to force re-render
+     * @param {Object} options - Render options
+     */
+    render(force = false, options = {}) {
+        // Store scroll position before rendering (unless this is initial render)
+        if (this.rendered) {
+            this._storeScrollPosition();
+        }
+        
+        // Call parent render
+        const result = super.render(force, options);
+        
+        // Restore scroll position after rendering
+        if (this._scrollTop !== undefined) {
+            this._restoreScrollPosition();
+        }
+        
+        return result;
+    }
+
+    /**
      * Process built-in effects with overrides and hidden states
      * @private
      */

@@ -8,6 +8,12 @@
         <p><strong>{{localize "DRAGONBANE_STATUS.customEditor.dialogs.import.details"}}</strong></p>
         <ul style="margin: 0.5rem 0 0 1.5rem; list-style-type: disc;">
             <li>{{localize "DRAGONBANE_STATUS.customEditor.dialogs.import.totalEffects"}} <strong>{{effectCount}}</strong></li>
+            {{#if overrideCount}}
+            <li>{{localize "DRAGONBANE_STATUS.customEditor.dialogs.import.modifiedBuiltins"}} <strong>{{overrideCount}}</strong></li>
+            {{/if}}
+            {{#if hiddenCount}}
+            <li>{{localize "DRAGONBANE_STATUS.customEditor.dialogs.import.hiddenBuiltins"}} <strong>{{hiddenCount}}</strong></li>
+            {{/if}}
             {{#if sourceModule}}
             <li>{{localize "DRAGONBANE_STATUS.customEditor.dialogs.import.source"}} <strong>{{sourceModule}}</strong> v{{sourceVersion}}</li>
             {{/if}}

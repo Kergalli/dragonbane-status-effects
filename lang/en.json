@@ -99,6 +99,8 @@
           "warning": "This will <strong>replace all current custom effects</strong> with the imported ones.",
           "details": "Import Details:",
           "totalEffects": "Total effects:",
+          "modifiedBuiltins": "Modified built-in effects:",
+          "hiddenBuiltins": "Hidden built-in effects:",
           "source": "Source:",
           "confirm": "Are you sure you want to continue?"
         }
@@ -189,7 +191,7 @@
     "StatusDead": "Dead",
     "StatusDisease": "Disease",
     "StatusDrowning": "Drowning",
-    "StatusEncumbered": "Encumbered",
+    "StatusEncumbered": "Over-Encumbered",
     "StatusEnsnared": "Ensnared", 
     "StatusFamished": "Famished",
     "StatusFlying": "Flying",
