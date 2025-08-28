@@ -25,7 +25,7 @@ A comprehensive Foundry VTT module that enhances the status effects system for t
 ### 🐉 Dragonbane Integration
 - **Seamless Condition Handling**: Direct integration with Dragonbane's attribute conditions (STR, CON, AGL, INT, WIL, CHA)
 - **Real-time Updates**: Condition states sync automatically with character sheet changes
-- **Hiddden for Monsters & NPCs**: Attribute conditions do not show for Monsters or NPCs
+- **Hidden for Monsters & NPCs**: Attribute conditions do not show for Monsters or NPCs
 - **System Compatibility**: Preserves all existing Dragonbane and YZE Combat functionality
 
 ### ⚙️ Configuration
