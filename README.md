@@ -125,6 +125,7 @@ This module is available under the MIT License. See the LICENSE file for details
 **Icons**: Some icons used in this module are from [game-icons.net](https://game-icons.net), created by **Lorc**, **Delapouite**, **Skoll**, and other contributors. Available under [Creative Commons 3.0 BY](https://creativecommons.org/licenses/by/3.0/) license.
 
 **Inspiration**: The Dragonbane Discord Community and [Condition Lab & Triggler](https://foundryvtt.com/packages/condition-lab-triggler) by Matheus Clemente
+
 ---
 
 **Dragonbane** is a trademark of Free League Publishing. This module is not affiliated with or endorsed by Free League Publishing.
