@@ -1,9 +1,10 @@
 /**
  * Dragonbane Integration for Status Effects Module
  * Handles Dragonbane-specific condition functionality
+ * V13 Compatible Version
  */
 
-import { MODULE_ID, DRAGONBANE_ATTRIBUTES, DRAGONBANE_CONDITION_ICONS, SELECTORS } from '../constants.js';
+import { DRAGONBANE_ATTRIBUTES, DRAGONBANE_CONDITION_ICONS, SELECTORS } from '../constants.js';
 
 /**
  * Get the proper Dragonbane icon for a condition
@@ -50,9 +51,13 @@ function createConditionButton(attribute, name, icon, isActive, toggleCallback) 
 /**
  * Create custom Dragonbane condition buttons using the actor's condition methods
  * This bypasses the CONFIG.statusEffects system and works directly with Dragonbane
+ * V13 Compatible - html is now DOM element, not jQuery object
  */
 export function addDragonbaneConditionsToHUD(html, data) {
-    const statusEffectsContainer = html.find(SELECTORS.STATUS_EFFECTS);
+    // V13 Fix: Convert DOM element to jQuery if needed
+    const $html = html.jquery ? html : $(html);
+    const statusEffectsContainer = $html.find(SELECTORS.STATUS_EFFECTS);
+    
     if (statusEffectsContainer.length === 0) return;
     
     // Check if we already added conditions (prevent duplicates)
@@ -108,6 +113,7 @@ export function addDragonbaneConditionsToHUD(html, data) {
 
 /**
  * Update condition button states when actor changes
+ * V13 Compatible
  */
 export function updateDragonbaneConditionStates(html) {
     const token = canvas.tokens.controlled[0];
@@ -120,10 +126,13 @@ export function updateDragonbaneConditionStates(html) {
         return;
     }
     
+    // V13 Fix: Convert DOM element to jQuery if needed
+    const $html = html.jquery ? html : $(html);
+    
     // Update each condition button efficiently
     DRAGONBANE_ATTRIBUTES.forEach(attr => {
         const attrLower = attr.toLowerCase();
-        const conditionButton = html.find(`${SELECTORS.DRAGONBANE_CONDITION}[data-attribute="${attrLower}"]`);
+        const conditionButton = $html.find(`${SELECTORS.DRAGONBANE_CONDITION}[data-attribute="${attrLower}"]`);
         
         if (conditionButton.length > 0) {
             const isActive = actor.hasCondition(attrLower);

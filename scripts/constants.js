@@ -1,5 +1,6 @@
 /**
  * Constants and Data for Dragonbane Status Effects Module
+ * V13 Compatible - Effect IDs use hyphens instead of dots to avoid HandlebarsApplicationMixin nested object conversion
  */
 
 export const MODULE_ID = "dragonbane-status-effects";
@@ -30,133 +31,133 @@ export const DRAGONBANE_CONDITION_ICONS = {
     "cha": "systems/dragonbane/art/icons/worried-eyes.webp"
 };
 
-// DOM Selectors
+// DOM Selectors - V13 Compatible
 export const SELECTORS = {
-    STATUS_EFFECTS: '.status-effects',
+    STATUS_EFFECTS: '.palette.status-effects',
     EFFECT_CONTROL: '.effect-control',
     DRAGONBANE_CONDITION: '.dragonbane-condition',
     TOKEN_HUD: '#token-hud'
 };
 
-// Custom Status Effects Data
+// Custom Status Effects Data - V13 Compatible IDs (hyphens instead of dots)
 export const CUSTOM_STATUS_EFFECTS = [
     // General Effects (alphabetical order)
     {
-        id: "dse.amnesia",
+        id: "dse-amnesia",
         name: "EFFECT.StatusAmnesia",
         img: "icons/svg/daze.svg",
         category: "general"
     },
     {
-        id: "dse.blind",
+        id: "dse-blind",
         name: "EFFECT.StatusBlind",
         img: "icons/svg/blind.svg",
         category: "general"
     },
     {
-        id: "dse.burning",
+        id: "dse-burning",
         name: "EFFECT.StatusBurning",
         img: "icons/svg/fire.svg",
         category: "general"
     },
     {
-        id: "dse.cold",
+        id: "dse-cold",
         name: "EFFECT.StatusCold",
         img: "modules/dragonbane-status-effects/assets/icons/thermometer-cold.svg",
         category: "general"
     },
     {
-        id: "dse.concentration",
+        id: "dse-concentration",
         name: "EFFECT.StatusConcentration",
         img: "modules/dragonbane-status-effects/assets/icons/rear-aura.svg",
         category: "general"
     },
     {
-        id: "dse.dead",
+        id: "dse-dead",
         name: "EFFECT.StatusDead",
         img: "icons/svg/skull.svg",
         category: "general"
     },
     {
-        id: "dse.disease",
+        id: "dse-disease",
         name: "EFFECT.StatusDisease",
         img: "icons/svg/biohazard.svg",
         category: "general"
     },
     {
-        id: "dse.drowning",
+        id: "dse-drowning",
         name: "EFFECT.StatusDrowning",
         img: "modules/dragonbane-status-effects/assets/icons/drowning.svg",
         category: "general"
     },
     {
-        id: "dse.encumbered",
+        id: "dse-encumbered",
         name: "EFFECT.StatusEncumbered",
         img: "icons/svg/anchor.svg",
         category: "general"
     },
     {
-        id: "dse.ensnared",
+        id: "dse-ensnared",
         name: "EFFECT.StatusEnsnared",
         img: "icons/svg/net.svg",
         category: "general"
     },
     {
-        id: "dse.famished",
+        id: "dse-famished",
         name: "EFFECT.StatusFamished",
         img: "modules/dragonbane-status-effects/assets/icons/stomach.svg",
         category: "general"
     },
     {
-        id: "dse.flying",
+        id: "dse-flying",
         name: "EFFECT.StatusFlying",
         img: "icons/svg/wing.svg",
         category: "general"
     },
     {
-        id: "dse.grappled",
+        id: "dse-grappled",
         name: "EFFECT.StatusGrappled",
         img: "modules/dragonbane-status-effects/assets/icons/grab.svg",
         category: "general"
     },
     {
-        id: "dse.invisible",
+        id: "dse-invisible",
         name: "EFFECT.StatusInvisible",
         img: "icons/svg/invisible.svg",
         category: "general"
     },
     {
-        id: "dse.mounted",
+        id: "dse-mounted",
         name: "EFFECT.StatusMounted",
         img: "modules/dragonbane-status-effects/assets/icons/cavalry.svg",
         category: "general"
     },
     {
-        id: "dse.nightmares",
+        id: "dse-nightmares",
         name: "EFFECT.StatusNightmares",
         img: "modules/dragonbane-status-effects/assets/icons/shadow-grasp.svg",
         category: "general"
     },
     {
-        id: "dse.paralyzed",
+        id: "dse-paralyzed",
         name: "EFFECT.StatusParalyzed",
         img: "icons/svg/paralysis.svg",
         category: "general"
     },
     {
-        id: "dse.poison-lethal",
+        id: "dse-poison-lethal",
         name: "EFFECT.StatusPoisonLethal",
         img: "icons/svg/poison.svg",
         category: "general"
     },
     {
-        id: "dse.poison-paralyzing",
+        id: "dse-poison-paralyzing",
         name: "EFFECT.StatusPoisonParalyzing",
         img: "modules/dragonbane-status-effects/assets/icons/deathcab.svg",
         category: "general"
     },
     {
-        id: "dse.poison-sleeping",
+        id: "dse-poison-sleeping",
         name: "EFFECT.StatusPoisonSleeping",
         img: "modules/dragonbane-status-effects/assets/icons/coma.svg",
         category: "general"
@@ -168,31 +169,31 @@ export const CUSTOM_STATUS_EFFECTS = [
         category: "general"
     },
     {
-        id: "dse.rage",
+        id: "dse-rage",
         name: "EFFECT.StatusRage",
         img: "modules/dragonbane-status-effects/assets/icons/enrage.svg",
         category: "general"
     },
     {
-        id: "dse.sleep",
+        id: "dse-sleep",
         name: "EFFECT.StatusAsleep",
         img: "icons/svg/sleep.svg",
         category: "general"
     },
     {
-        id: "dse.sleep-deprived",
+        id: "dse-sleep-deprived",
         name: "EFFECT.StatusSleepDeprived",
         img: "modules/dragonbane-status-effects/assets/icons/tired-eye.svg",
         category: "general"
     },
     {
-        id: "dse.unconscious",
+        id: "dse-unconscious",
         name: "EFFECT.StatusUnconscious",
         img: "icons/svg/unconscious.svg",
         category: "general"
     },
     {
-        id: "dse.wild-panic",
+        id: "dse-wild-panic",
         name: "EFFECT.StatusWildPanic",
         img: "modules/dragonbane-status-effects/assets/icons/screaming.svg",
         category: "general"
@@ -200,7 +201,7 @@ export const CUSTOM_STATUS_EFFECTS = [
     
     // Spell Effects (alphabetical order)
     {
-        id: "dse.birdsong",
+        id: "dse-birdsong",
         name: "EFFECT.StatusBirdsong",
         img: "modules/dragonbane-status-effects/assets/icons/bird-twitter.svg",
         category: "spell",
@@ -209,7 +210,7 @@ export const CUSTOM_STATUS_EFFECTS = [
         }
     },
     {
-        id: "dse.chill",
+        id: "dse-chill",
         name: "EFFECT.StatusChill",
         img: "modules/dragonbane-status-effects/assets/icons/ice-spell-cast.svg",
         category: "spell",
@@ -218,7 +219,7 @@ export const CUSTOM_STATUS_EFFECTS = [
         }
     },
     {
-        id: "dse.enchanted-weapon",
+        id: "dse-enchanted-weapon",
         name: "EFFECT.StatusEnchantedWeapon",
         img: "modules/dragonbane-status-effects/assets/icons/magic-axe.svg",
         category: "spell",
@@ -227,13 +228,13 @@ export const CUSTOM_STATUS_EFFECTS = [
         }
     },
     {
-        id: "dse.frozen",
+        id: "dse-frozen",
         name: "EFFECT.StatusFrozen",
         img: "icons/svg/frozen.svg",
         category: "spell"
     },
     {
-        id: "dse.heat",
+        id: "dse-heat",
         name: "EFFECT.StatusHeat",
         img: "modules/dragonbane-status-effects/assets/icons/heat-haze.svg",
         category: "spell",
@@ -242,7 +243,7 @@ export const CUSTOM_STATUS_EFFECTS = [
         }
     },
     {
-        id: "dse.longstrider",
+        id: "dse-longstrider",
         name: "EFFECT.StatusLongstrider",
         img: "icons/svg/wingfoot.svg",
         category: "spell",
@@ -251,7 +252,7 @@ export const CUSTOM_STATUS_EFFECTS = [
         }
     },
     {
-        id: "dse.power-fist",
+        id: "dse-power-fist",
         name: "EFFECT.StatusPowerFist",
         img: "modules/dragonbane-status-effects/assets/icons/fist.svg",
         category: "spell",
@@ -260,7 +261,7 @@ export const CUSTOM_STATUS_EFFECTS = [
         }
     },
     {
-        id: "dse.protector",
+        id: "dse-protector",
         name: "EFFECT.StatusProtector",
         img: "icons/svg/shield.svg",
         category: "spell",
@@ -269,7 +270,7 @@ export const CUSTOM_STATUS_EFFECTS = [
         }
     },
     {
-        id: "dse.stone-skin",
+        id: "dse-stone-skin",
         name: "EFFECT.StatusStoneSkin",
         img: "modules/dragonbane-status-effects/assets/icons/rock-golem.svg",
         category: "spell",
@@ -280,31 +281,31 @@ export const CUSTOM_STATUS_EFFECTS = [
     
     // Heroic Ability Effects (alphabetical order)
     {
-        id: "dse.berserk",
+        id: "dse-berserk",
         name: "EFFECT.StatusBerserk",
         img: "modules/dragonbane-status-effects/assets/icons/mighty-force.svg",
         category: "ability"
     },
     {
-        id: "dse.disguised",
+        id: "dse-disguised",
         name: "EFFECT.StatusDisguised",
         img: "modules/dragonbane-status-effects/assets/icons/domino-mask.svg",
         category: "ability"
     },
     {
-        id: "dse.musician-bane",
+        id: "dse-musician-bane",
         name: "EFFECT.StatusMusicianBane",
         img: "modules/dragonbane-status-effects/assets/icons/shouting.svg",
         category: "ability"
     },
     {
-        id: "dse.musician-boon",
+        id: "dse-musician-boon",
         name: "EFFECT.StatusMusicianBoon",
         img: "modules/dragonbane-status-effects/assets/icons/music-spell.svg",
         category: "ability"
     },
     {
-        id: "dse.wolfkin-prey",
+        id: "dse-wolfkin-prey",
         name: "EFFECT.StatusWolfkinPrey",
         img: "icons/svg/target.svg",
         category: "ability",
