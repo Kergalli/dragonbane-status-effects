@@ -1,6 +1,6 @@
 {
   "name": "dragonbane-status-effects",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "A comprehensive Foundry VTT module that enhances the status effects system for the Dragonbane RPG with sleek theming, visual editors, organized Token HUD, and seamless system integration.",
   "main": "index.js",
   "scripts": {
