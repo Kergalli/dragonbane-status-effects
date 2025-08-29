@@ -2,6 +2,66 @@
 
 All notable changes to the Dragonbane Status Effects module will be documented in this file.
 
+## [2.0.0] - 2025-08-29
+
+### 🚀 Major Release - Foundry V13 Compatibility
+
+This major release brings full Foundry V13 compatibility while maintaining all existing features and functionality.
+
+### ✨ Added - V13 Compatibility
+
+**Core Architecture Updates**
+
+- **Foundry V13 Support**: Complete compatibility with Foundry V13 while maintaining V12 feature parity
+- **Modern Module Format**: Updated to esmodules architecture and V13 manifest format
+
+**Token HUD Enhancements**
+
+- **V13 DOM Compatibility**: Updated CSS selectors for V13's new Token HUD structure (`.palette.status-effects`)
+- **Enhanced Layout Flexibility**: Token HUD works perfectly in both enhanced and default modes
+
+### 🔧 Technical Improvements
+
+**API Modernization**
+
+- **Updated Deprecation Warnings**: All V13 deprecated functions updated to namespaced versions
+  - `FormDataExtended` → `foundry.applications.ux.FormDataExtended`
+  - `readTextFromFile` → `foundry.utils.readTextFromFile`
+  - `renderTemplate` → `foundry.applications.handlebars.renderTemplate`
+  - `saveDataToFile` → `foundry.utils.saveDataToFile`
+  - `FilePicker` → `foundry.applications.apps.FilePicker.implementation`
+  - `SettingsConfig` → `foundry.applications.settings.SettingsConfig`
+  - `TextEditor` → `foundry.applications.ux.TextEditor.implementation`
+
+**Editor Reliability**
+
+- **FormApplication Maintained**: Kept stable FormApplication architecture instead of risky ApplicationV2 conversion
+- **Drag-and-Drop Enhanced**: Improved @UUID link creation with V13-compatible TextEditor API
+- **Import/Export Stability**: All file operations use V13-compatible utilities
+
+### 📋 Breaking Changes
+
+**Status Effect ID Format**
+
+- **Effect IDs Updated**: All built-in effect IDs changed from dots to hyphens for V13 compatibility
+  - V12: `dse.burning`, `dse.blind`, `dse.cold` → V13: `dse-burning`, `dse-blind`, `dse-cold`
+  - **Impact**: Active effects on tokens will need to be reapplied
+  - **Impact**: Custom descriptions will need to be re-entered or manually migrated
+  - **Impact**: Built-in effect customizations will need to be reconfigured
+- **Minimum Foundry**: Now requires Foundry V13 (use v1.x for V12 compatibility)
+- **Module Version**: Bumped to 2.0.0 to reflect major Foundry version support change
+
+### 🔄 Migration Notes
+
+**From V12 to V13**
+
+- **Seamless from v1.0.2**: Users upgrading from v1.0.2 (V12 with hyphens) will experience seamless migration with no breaking changes
+- **Breaking from v1.0.1**: Users upgrading directly from v1.0.1 (V12 with dots) will experience breaking changes due to ID format differences
+- **Effect ID Changes**: The dot-to-hyphen change was required for V13's HandlebarsApplicationMixin compatibility
+- **Why This Change**: V13's template rendering system cannot handle object paths with dots in property names
+
+---
+
 ## [1.0.1] - 2025-08-23
 
 - **Prone Condition**: Updated id to match the Dragonbane system so application of boon and extra damage occurs when attacking a prone target.
