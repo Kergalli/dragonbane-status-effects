@@ -2,6 +2,22 @@
 
 All notable changes to the Dragonbane Status Effects module will be documented in this file.
 
+## [1.0.2] - 2025-08-29
+
+### ⚠️ Breaking Changes
+
+- **Custom Effect IDs Updated**: Changed all custom status effect IDs from dot notation (`dse.`) to hyphen notation (`dse-`) to improve compatibility and prepare for V13 migration
+- **Migration Impact**: Existing custom effects using the old dot notation will need to be reapplied after updating to v1.0.2
+- **Affected Effects**: All custom status effects (general, spell, and heroic ability categories) now use hyphenated IDs
+
+**Examples of ID changes:**
+
+- `dse.amnesia` → `dse-amnesia`
+- `dse.poison-lethal` → `dse-poison-lethal`
+- `dse.stone-skin` → `dse-stone-skin`
+
+This change ensures smoother transition to the upcoming Foundry V13 version and follows better naming conventions for status effect identifiers. Example English import file can be [found here](https://www.dropbox.com/scl/fi/6heeaoc5x43nepq5tbyri/dragonbane-status-descriptions-2025-08-28.json?rlkey=vykv4gfcciogwvrqcaflexig2&dl=0)
+
 ## [1.0.1] - 2025-08-23
 
 - **Prone Condition**: Updated id to match the Dragonbane system so application of boon and extra damage occurs when attacking a prone target.
