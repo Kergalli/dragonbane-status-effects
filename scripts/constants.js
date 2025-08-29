@@ -162,7 +162,7 @@ export const CUSTOM_STATUS_EFFECTS = [
         category: "general"
     },
     {
-        id: "dse.prone",
+        id: "prone",
         name: "EFFECT.StatusProne",
         img: "icons/svg/falling.svg",
         category: "general"
