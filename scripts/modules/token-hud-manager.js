@@ -141,6 +141,33 @@ export function initializeTokenHudStyling() {
 }
 
 /**
+ * Apply defensive filtering to remove empty status IDs that break V13 Token HUD
+ * This runs ALWAYS, regardless of enhanced styling setting
+ */
+function applyDefensiveFiltering(html) {
+  const $html = html.jquery ? html : $(html);
+  const statusEffectsContainer = $html.find(SELECTORS.STATUS_EFFECTS);
+
+  if (statusEffectsContainer.length === 0) return;
+
+  const effectElements = statusEffectsContainer.find(SELECTORS.EFFECT_CONTROL);
+  if (effectElements.length === 0) return;
+
+  // Remove effects with empty status IDs to prevent Actor#toggleStatusEffect errors
+  effectElements.each((index, element) => {
+    const $element = $(element);
+    const statusId =
+      $element.data("status-id") || $element.attr("data-status-id");
+
+    // Remove effects with empty status ID - these cause "Invalid status ID" errors in V13
+    if (!statusId || statusId === "") {
+      $element.remove();
+      return;
+    }
+  });
+}
+
+/**
  * Template function to build Token HUD sections with effects and headers
  */
 function buildTokenHudSections(container, sections) {
@@ -169,9 +196,9 @@ function buildTokenHudSections(container, sections) {
 
 /**
  * Add section headers and organize status effects in the Token HUD - V13 Compatible
+ * Note: Defensive filtering is now handled separately, this focuses on enhancement
  */
 function enhanceTokenHUD(html) {
-  // V13 Fix: Convert DOM element to jQuery if needed
   const $html = html.jquery ? html : $(html);
   const statusEffectsContainer = $html.find(SELECTORS.STATUS_EFFECTS);
 
@@ -180,25 +207,7 @@ function enhanceTokenHUD(html) {
   const effectElements = statusEffectsContainer.find(SELECTORS.EFFECT_CONTROL);
   if (effectElements.length === 0) return;
 
-  // Minimal V13 Fix: Remove effects with empty status IDs to prevent Actor#toggleStatusEffect errors
-  effectElements.each((index, element) => {
-    const $element = $(element);
-    const statusId =
-      $element.data("status-id") || $element.attr("data-status-id");
-
-    // Remove effects with empty status ID - these cause "Invalid status ID" errors
-    if (!statusId || statusId === "") {
-      $element.remove();
-      return;
-    }
-  });
-
-  // Re-find elements after cleanup
-  const cleanEffectElements = statusEffectsContainer.find(
-    SELECTORS.EFFECT_CONTROL
-  );
-
-  // Rest of existing logic
+  // Note: Defensive filtering already applied, proceed with categorization
   const token = canvas.tokens.controlled[0];
   const actor = token?.actor;
   const isCharacter = actor?.type === "character";
@@ -210,7 +219,7 @@ function enhanceTokenHUD(html) {
     ability: [],
   };
 
-  cleanEffectElements.each((index, element) => {
+  effectElements.each((index, element) => {
     const $element = $(element);
     const statusId =
       $element.data("status-id") || $element.attr("data-status-id");
@@ -283,22 +292,22 @@ function enhanceTokenHUD(html) {
  */
 export function setupTokenHudEnhancement() {
   /**
-   * Enhanced Token HUD with section headers and organization
-   * Now includes direct Dragonbane condition integration
+   * V13 Compatibility: Always apply defensive filtering, conditionally apply enhancements
    */
   Hooks.on("renderTokenHUD", (hud, html, data) => {
-    // Only enhance if we're using the Dragonbane system and styling is enabled
+    // ALWAYS apply defensive filtering to prevent V13 empty status ID errors
+    applyDefensiveFiltering(html);
+
+    // Only apply enhanced styling and organization if setting is enabled
     if (
-      game.system.id !== "dragonbane" ||
-      !game.settings.get(MODULE_ID, "enableTokenHudStyling")
+      game.system.id === "dragonbane" &&
+      game.settings.get(MODULE_ID, "enableTokenHudStyling")
     ) {
-      return;
+      // Add Dragonbane conditions using the proper actor methods
+      addDragonbaneConditionsToHUD(html, data);
+
+      // Then enhance the HUD layout
+      enhanceTokenHUD(html);
     }
-
-    // Add Dragonbane conditions using the proper actor methods
-    addDragonbaneConditionsToHUD(html, data);
-
-    // Then enhance the HUD layout
-    enhanceTokenHUD(html);
   });
 }
