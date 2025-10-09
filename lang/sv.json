@@ -34,6 +34,11 @@
       "spellEffects": "BESVÄRJELSEEFFEKTER",
       "heroicAbilities": "HJÄLTEFÖRMÅGOR"
     },
+    "clearAll": {
+      "title": "Rensa Alla Statuseffekter",
+      "content": "Är du säker på att du vill ta bort alla statuseffekter från {name}?",
+      "button": "Rensa Alla"
+    },
     "customEditor": {
       "title": "Anpassad Statuseffektredigerare",
       "instructions": "Skapa och hantera dina anpassade statuseffekter med denna visuella redigerare. Lägg till nya effekter, redigera befintliga och organisera din samling. Ändringar sparas automatiskt till dina världsinstälningar. Du kan lägga till beskrivningar till sparade statuseffekter i Beskrivningsredigeraren.",
@@ -51,7 +56,7 @@
       "effectCategory": "Kategori",
       "effectDuration": "Varaktighet",
       "durationTooltip": "Varaktighet i sekunder (t.ex. 900 = 15 minuter). Lämna tomt eller 0 för ingen varaktighet.",
-      "effectImage": "Bildsökväg",
+      "effectImage": "Välj Ikon",
       "browse": "Bläddra",
       "saveEffect": "Spara Effekt",
       "saveEffectShort": "Spara",
@@ -128,7 +133,7 @@
       "instructions": "Lägg till anpassade beskrivningar till dina statuseffekter. Dessa beskrivningar kommer att användas av Visual Active Effects och andra moduler som visar statuseffektinformation. Du kan dra föremål, aktörer eller journalanteckningar från Foundry direkt in i beskrivningsfälten för att skapa klickbara länkar. Observera: Efter att ha sparat måste befintliga effekter på token tas bort och appliceras igen för att visa de nya beskrivningarna.",
       "placeholder": "Ange en beskrivning för denna statuseffekt... Du kan också dra föremål, besvärjelser eller journalanteckningar hit för att skapa länkar.",
       "save": "Spara Alla Beskrivningar",
-      "clearAll": "Rensa Alla Beskrivningar", 
+      "clearAll": "Rensa Alla Beskrivningar",
       "import": "Importera",
       "export": "Exportera",
       "buttons": {
@@ -180,7 +185,7 @@
   },
   "EFFECT": {
     "_comment": "Statuseffektnamn - vissa kan använda DoD.* nycklar i framtiden om de läggs till i kärnsystemet",
-    
+
     "_general_effects": "=== ALLMÄNNA STATUSEFFEKTER ===",
     "StatusAmnesia": "Minnesförlust",
     "StatusBlind": "Blind",
@@ -192,7 +197,7 @@
     "StatusDisease": "Sjukdom",
     "StatusDrowning": "Drunknande",
     "StatusEncumbered": "Överbelastad",
-    "StatusEnsnared": "Infångad", 
+    "StatusEnsnared": "Infångad",
     "StatusFamished": "Svältande",
     "StatusFlying": "Flygande",
     "StatusGrappled": "Greppad",
@@ -209,7 +214,7 @@
     "StatusSleepDeprived": "Sömnbrist",
     "StatusUnconscious": "Medvetslös",
     "StatusWildPanic": "Vild Panik",
-    
+
     "_spell_effects": "=== BESVÄRJELSESTATUSEFFEKTER ===",
     "StatusBirdsong": "Fågelsång",
     "StatusEnchantedWeapon": "Förtrollat Vapen",
@@ -217,9 +222,9 @@
     "StatusHeat": "Hetta",
     "StatusLongstrider": "Långstige",
     "StatusPowerFist": "Kraftnäve",
-    "StatusProtector": "Beskyddare", 
+    "StatusProtector": "Beskyddare",
     "StatusStoneSkin": "Stenhud",
-    
+
     "_ability_effects": "=== FÖRMÅGOSTATUSEFFEKTER ===",
     "StatusBerserk": "Bärsärk",
     "StatusDisguised": "Förklädnad",

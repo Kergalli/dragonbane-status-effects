@@ -2,6 +2,30 @@
 
 All notable changes to the Dragonbane Status Effects module will be documented in this file.
 
+## [2.0.1] - 2025-01-XX
+
+### 🐛 Bug Fixes
+
+**Dead Status Effect Integration**
+
+- **Fixed Dead Status ID**: Changed from custom `dse-dead` to core `dead` ID to match Dragonbane system automation
+  - **Impact**: NPCs and Monsters are now correctly marked as dead when reaching 0 HP after damage application (requires "Automate NPC/Monster Death" setting enabled in Dragonbane system)
+
+### ✨ Added - Quality of Life Improvements
+
+**Token HUD Enhancements**
+
+- **Clear All Button**: Added "Clear All" button at bottom of Token HUD status effects panel
+  - Removes all active status effects from selected token with confirmation dialog
+
+**Custom Effects Editor Improvements**
+
+- **Icon Selection Clarity**: Improved visual feedback for icon selection when creating custom effects
+  - Changed text to Select Icon
+  - Changes placeholder icon to cancel.svg to better indicate no icon is urrently selected.
+
+---
+
 ## [2.0.0] - 2025-08-29
 
 ### 🚀 Major Release - Foundry V13 Compatibility

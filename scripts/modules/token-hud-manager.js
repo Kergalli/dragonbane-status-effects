@@ -1,3 +1,4 @@
+// scripts/modules/token-hud-manager.js
 /**
  * Token HUD Manager for Dragonbane Status Effects Module
  * Handles Token HUD styling, organization, and enhancement
@@ -94,7 +95,7 @@ export function initializeTokenHudStyling() {
 
     /* Section header category styling */
     #token-hud .palette.status-effects .status-section-header.attribute {
-        background: linear-gradient(135deg, #552c2c, #7c4a4a) !important;
+        background: linear-gradient(135deg, #52c2c, #7c4a4a) !important;
         border-color: #331d1d !important;
     }
 
@@ -132,6 +133,52 @@ export function initializeTokenHudStyling() {
     #token-hud .palette.status-effects .effect-control[data-category="ability"],
     #token-hud .palette.status-effects img.effect-control[data-category="ability"] {
         border-color: rgba(140, 122, 74, 0.5) !important;
+    }
+
+    /* Clear All Button Styling */
+    #token-hud .palette.status-effects .clear-all-effects-btn {
+        grid-column: 1 / -1 !important;
+        background: linear-gradient(135deg, #8b0000, #a52a2a) !important;
+        color: #ffffff !important;
+        font-family: "Signika", Arial, sans-serif !important;
+        font-size: 10px !important;
+        font-weight: bold !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5px !important;
+        text-align: center !important;
+        padding: 6px 12px !important;
+        margin: 6px 0 2px 0 !important;
+        border-radius: 4px !important;
+        border: 1px solid #660000 !important;
+        box-shadow: 
+            inset 0 1px 0 rgba(255, 255, 255, 0.2),
+            0 2px 4px rgba(0, 0, 0, 0.5) !important;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8) !important;
+        cursor: pointer !important;
+        transition: all 0.2s ease !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 6px !important;
+    }
+
+    #token-hud .palette.status-effects .clear-all-effects-btn:hover {
+        background: linear-gradient(135deg, #a52a2a, #c94040) !important;
+        transform: translateY(-1px) !important;
+        box-shadow: 
+            inset 0 1px 0 rgba(255, 255, 255, 0.3),
+            0 3px 6px rgba(0, 0, 0, 0.6) !important;
+    }
+
+    #token-hud .palette.status-effects .clear-all-effects-btn:active {
+        transform: translateY(0px) !important;
+        box-shadow: 
+            inset 0 2px 4px rgba(0, 0, 0, 0.4),
+            0 1px 2px rgba(0, 0, 0, 0.5) !important;
+    }
+
+    #token-hud .palette.status-effects .clear-all-effects-btn i {
+        font-size: 12px !important;
     }
 `;
 
@@ -192,6 +239,67 @@ function buildTokenHudSections(container, sections) {
     // Add all effects for this section
     section.effects.forEach(($effect) => container.append($effect));
   });
+}
+
+/**
+ * Clear all status effects from the selected token
+ */
+async function clearAllStatusEffects(token) {
+  if (!token || !token.actor) return;
+
+  // Get the token/character name for the dialog
+  const tokenName = token.name || token.actor.name || "Unknown";
+
+  // Confirm with user
+  const confirm = await Dialog.confirm({
+    title: game.i18n.localize("DRAGONBANE_STATUS.clearAll.title"),
+    content: `<p>${game.i18n.format("DRAGONBANE_STATUS.clearAll.content", {
+      name: tokenName,
+    })}</p>`,
+    defaultYes: false,
+  });
+
+  if (!confirm) return;
+
+  // Get all active status effects
+  const activeEffects = Array.from(token.actor.statuses || []);
+
+  // Remove each status effect
+  for (const statusId of activeEffects) {
+    try {
+      await token.actor.toggleStatusEffect(statusId, { active: false });
+    } catch (error) {
+      console.warn(
+        `${MODULE_ID} | Failed to remove status effect ${statusId}:`,
+        error
+      );
+    }
+  }
+}
+
+/**
+ * Add "Clear All" button to the Token HUD
+ */
+function addClearAllButton(container) {
+  const clearAllBtn = $(`
+    <div class="clear-all-effects-btn" data-action="clear-all">
+      <i class="fas fa-times-circle"></i>
+      <span>${game.i18n.localize("DRAGONBANE_STATUS.clearAll.button")}</span>
+    </div>
+  `);
+
+  // Add click handler
+  clearAllBtn.on("click", async (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const token = canvas.tokens.controlled[0];
+    if (token) {
+      await clearAllStatusEffects(token);
+    }
+  });
+
+  container.append(clearAllBtn);
 }
 
 /**
@@ -285,6 +393,9 @@ function enhanceTokenHUD(html) {
   );
 
   buildTokenHudSections(statusEffectsContainer, sections);
+
+  // Add the Clear All button at the bottom
+  addClearAllButton(statusEffectsContainer);
 }
 
 /**

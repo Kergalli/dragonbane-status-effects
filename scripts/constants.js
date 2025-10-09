@@ -73,7 +73,7 @@ export const CUSTOM_STATUS_EFFECTS = [
         category: "general"
     },
     {
-        id: "dse-dead",
+        id: "dead",
         name: "EFFECT.StatusDead",
         img: "icons/svg/skull.svg",
         category: "general"
