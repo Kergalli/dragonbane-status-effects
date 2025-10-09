@@ -1,7 +1,7 @@
 # 🐉 Dragonbane Status Effects
 
 [![Foundry Version](https://img.shields.io/badge/Foundry-V13-informational)](https://foundryvtt.com/)
-[![Module Version](https://img.shields.io/badge/Version-2.0.1-brightgreen)](https://github.com/Kergalli/dragonbane-status-effects/releases)
+[![Module Version](https://img.shields.io/badge/Version-2.0.2-brightgreen)](https://github.com/Kergalli/dragonbane-status-effects/releases)
 [![License](https://img.shields.io/badge/License-MIT-green)](https://github.com/Kergalli/dragonbane-status-effects/blob/main/LICENSE)
 
 A comprehensive status effects module for the **Dragonbane** system in **Foundry Virtual Tabletop V13**. This module provides 39 carefully curated status effects with visual editors, enhanced Token HUD styling, and seamless Dragonbane system integration.

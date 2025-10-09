@@ -2,7 +2,15 @@
 
 All notable changes to the Dragonbane Status Effects module will be documented in this file.
 
-## [2.0.1] - 2025-01-XX
+## [2.0.2] - 2025-19-29
+
+### 🐛 Bug Fixes
+
+Fixed download URL in module.json
+
+---
+
+## [2.0.1] - 2025-10-09
 
 ### 🐛 Bug Fixes
 
