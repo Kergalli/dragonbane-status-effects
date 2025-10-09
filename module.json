@@ -2,7 +2,7 @@
   "id": "dragonbane-status-effects",
   "title": "Dragonbane Status Effects",
   "description": "A simple module that replaces the default Foundry status effects with Dragonbane-themed effects while allowing the Dragonbane system and other modules to add their own functional effects.",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "authors": [
     {
       "name": "Matthias Weeks"

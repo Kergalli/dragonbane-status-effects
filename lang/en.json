@@ -6,7 +6,7 @@
         "hint": "Replace all of Foundry's default status effects with Dragonbane-themed effects. Dragonbane and YZE Combat add their own effects separately. Requires reload."
       },
       "showSpellEffects": {
-        "name": "Show Spell Effects", 
+        "name": "Show Spell Effects",
         "hint": "Include spell-related status effects in the list of available effects. Requires reload."
       },
       "showHeroicAbilities": {
@@ -30,9 +30,14 @@
     },
     "sections": {
       "attributeConditions": "ATTRIBUTE CONDITIONS",
-      "generalEffects": "GENERAL EFFECTS", 
+      "generalEffects": "GENERAL EFFECTS",
       "spellEffects": "SPELL EFFECTS",
       "heroicAbilities": "HEROIC ABILITIES"
+    },
+    "clearAll": {
+      "title": "Clear All Status Effects",
+      "content": "Are you sure you want to remove all status effects from {name}?",
+      "button": "Clear All"
     },
     "customEditor": {
       "title": "Custom Status Effects Editor",
@@ -140,7 +145,7 @@
           "warning": "This will <strong>replace all current descriptions</strong> with the imported ones.",
           "details": "Import Details:",
           "totalEffects": "Total effects:",
-          "withDescriptions": "With descriptions:", 
+          "withDescriptions": "With descriptions:",
           "emptyTemplates": "Empty templates:",
           "source": "Source:",
           "confirm": "Are you sure you want to continue?"
@@ -167,7 +172,7 @@
     "validation": {
       "errors": {
         "notArray": "Custom Status Effects: Must be an array of effects",
-        "invalidFormat": "Custom Status Effects: Invalid format - must be an array of effects", 
+        "invalidFormat": "Custom Status Effects: Invalid format - must be an array of effects",
         "invalidJSON": "Custom Status Effects: Invalid JSON format"
       }
     },
@@ -180,11 +185,11 @@
   },
   "EFFECT": {
     "_comment": "Status effect names - some may use DoD.* keys in future if added to core Dragonbane",
-    
+
     "_general_effects": "=== GENERAL STATUS EFFECTS ===",
     "StatusAmnesia": "Amnesia",
     "StatusBlind": "Blind",
-    "StatusBurning": "Burning", 
+    "StatusBurning": "Burning",
     "StatusChill": "Chill",
     "StatusCold": "Cold",
     "StatusConcentration": "Concentration",
@@ -192,7 +197,7 @@
     "StatusDisease": "Disease",
     "StatusDrowning": "Drowning",
     "StatusEncumbered": "Over-Encumbered",
-    "StatusEnsnared": "Ensnared", 
+    "StatusEnsnared": "Ensnared",
     "StatusFamished": "Famished",
     "StatusFlying": "Flying",
     "StatusGrappled": "Grappled",
@@ -209,7 +214,7 @@
     "StatusSleepDeprived": "Sleep Deprived",
     "StatusUnconscious": "Unconscious",
     "StatusWildPanic": "Wild Panic",
-    
+
     "_spell_effects": "=== SPELL STATUS EFFECTS ===",
     "StatusBirdsong": "Birdsong",
     "StatusEnchantedWeapon": "Enchanted Weapon",
@@ -217,9 +222,9 @@
     "StatusHeat": "Heat",
     "StatusLongstrider": "Longstrider",
     "StatusPowerFist": "Power Fist",
-    "StatusProtector": "Protector", 
+    "StatusProtector": "Protector",
     "StatusStoneSkin": "Stone Skin",
-    
+
     "_ability_effects": "=== ABILITY STATUS EFFECTS ===",
     "StatusBerserk": "Berserk",
     "StatusDisguised": "Disguised",

@@ -3,20 +3,20 @@
  * Handles Token HUD styling, organization, and enhancement
  */
 
-import { MODULE_ID, SELECTORS, UI_CONFIG } from '../constants.js';
-import { categorizeEffect } from './effects-manager.js';
-import { addDragonbaneConditionsToHUD } from './dragonbane-integration.js';
+import { MODULE_ID, SELECTORS, UI_CONFIG } from "../constants.js";
+import { categorizeEffect } from "./effects-manager.js";
+import { addDragonbaneConditionsToHUD } from "./dragonbane-integration.js";
 
 /**
  * Initialize Token HUD styling if enabled
  */
 export function initializeTokenHudStyling() {
-    // Only apply styling if the setting is enabled
-    if (!game.settings.get(MODULE_ID, "enableTokenHudStyling")) {
-        return;
-    }
-    
-    const css = `
+  // Only apply styling if the setting is enabled
+  if (!game.settings.get(MODULE_ID, "enableTokenHudStyling")) {
+    return;
+  }
+
+  const css = `
         /* ONLY target the status effects container - don't touch anything else */
         #token-hud .col.right .status-effects {
             display: grid !important;
@@ -127,147 +127,271 @@ export function initializeTokenHudStyling() {
             border-color: rgba(140, 122, 74, 0.5) !important;
         }
 
+        /* Clear All Button Styling */
+        #token-hud .col.right .status-effects .clear-all-effects-btn {
+            grid-column: 1 / -1 !important;
+            background: linear-gradient(135deg, #8b0000, #a52a2a) !important;
+            color: #ffffff !important;
+            font-family: "Signika", Arial, sans-serif !important;
+            font-size: 10px !important;
+            font-weight: bold !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.5px !important;
+            text-align: center !important;
+            padding: 6px 12px !important;
+            margin: 6px 0 2px 0 !important;
+            border-radius: 4px !important;
+            border: 1px solid #660000 !important;
+            box-shadow: 
+                inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                0 2px 4px rgba(0, 0, 0, 0.5) !important;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8) !important;
+            cursor: pointer !important;
+            transition: all 0.2s ease !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 6px !important;
+        }
+
+        #token-hud .col.right .status-effects .clear-all-effects-btn:hover {
+            background: linear-gradient(135deg, #a52a2a, #c94040) !important;
+            transform: translateY(-1px) !important;
+            box-shadow: 
+                inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                0 3px 6px rgba(0, 0, 0, 0.6) !important;
+        }
+
+        #token-hud .col.right .status-effects .clear-all-effects-btn:active {
+            transform: translateY(0px) !important;
+            box-shadow: 
+                inset 0 2px 4px rgba(0, 0, 0, 0.4),
+                0 1px 2px rgba(0, 0, 0, 0.5) !important;
+        }
+
+        #token-hud .col.right .status-effects .clear-all-effects-btn i {
+            font-size: 12px !important;
+        }
 
     `;
-    
-    const style = document.createElement('style');
-    style.textContent = css;
-    document.head.appendChild(style);
+
+  const style = document.createElement("style");
+  style.textContent = css;
+  document.head.appendChild(style);
 }
 
 /**
  * Template function to build Token HUD sections with effects and headers
  */
 function buildTokenHudSections(container, sections) {
-    sections.forEach(section => {
-        // Skip if section has no effects
-        if (section.effects.length === 0) return;
-        
-        // Skip if section requires setting that's disabled
-        if (section.requiresSetting && !game.settings.get(MODULE_ID, section.requiresSetting)) {
-            return;
-        }
-        
-        // Add section header
-        const title = game.i18n.localize(section.titleKey);
-        container.append($(`<div class="status-section-header ${section.key}">${title}</div>`));
-        
-        // Add all effects for this section
-        section.effects.forEach($effect => container.append($effect));
-    });
+  sections.forEach((section) => {
+    // Skip if section has no effects
+    if (section.effects.length === 0) return;
+
+    // Skip if section requires setting that's disabled
+    if (
+      section.requiresSetting &&
+      !game.settings.get(MODULE_ID, section.requiresSetting)
+    ) {
+      return;
+    }
+
+    // Add section header
+    const title = game.i18n.localize(section.titleKey);
+    container.append(
+      $(`<div class="status-section-header ${section.key}">${title}</div>`)
+    );
+
+    // Add all effects for this section
+    section.effects.forEach(($effect) => container.append($effect));
+  });
+}
+
+/**
+ * Clear all status effects from the selected token
+ */
+async function clearAllStatusEffects(token) {
+  if (!token || !token.actor) return;
+
+  // Get the token/character name for the dialog
+  const tokenName = token.name || token.actor.name || "Unknown";
+
+  // Confirm with user
+  const confirm = await Dialog.confirm({
+    title: game.i18n.localize("DRAGONBANE_STATUS.clearAll.title"),
+    content: `<p>${game.i18n.format("DRAGONBANE_STATUS.clearAll.content", {
+      name: tokenName,
+    })}</p>`,
+    defaultYes: false,
+  });
+
+  if (!confirm) return;
+
+  // Get all active status effects
+  const activeEffects = Array.from(token.actor.statuses || []);
+
+  // Remove each status effect
+  for (const statusId of activeEffects) {
+    try {
+      await token.actor.toggleStatusEffect(statusId, { active: false });
+    } catch (error) {
+      console.warn(
+        `${MODULE_ID} | Failed to remove status effect ${statusId}:`,
+        error
+      );
+    }
+  }
+}
+
+/**
+ * Add "Clear All" button to the Token HUD
+ */
+function addClearAllButton(container) {
+  const clearAllBtn = $(`
+    <div class="clear-all-effects-btn" data-action="clear-all">
+      <i class="fas fa-times-circle"></i>
+      <span>${game.i18n.localize("DRAGONBANE_STATUS.clearAll.button")}</span>
+    </div>
+  `);
+
+  // Add click handler
+  clearAllBtn.on("click", async (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const token = canvas.tokens.controlled[0];
+    if (token) {
+      await clearAllStatusEffects(token);
+    }
+  });
+
+  container.append(clearAllBtn);
 }
 
 /**
  * Add section headers and organize status effects in the Token HUD
  */
 function enhanceTokenHUD(html) {
-    const statusEffectsContainer = html.find(SELECTORS.STATUS_EFFECTS);
-    if (statusEffectsContainer.length === 0) return;
-    
-    const effectElements = statusEffectsContainer.find(SELECTORS.EFFECT_CONTROL);
-    if (effectElements.length === 0) return;
-    
-    // Get the token and actor to check actor type
-    const token = canvas.tokens.controlled[0];
-    const actor = token?.actor;
-    const isCharacter = actor?.type === "character";
-    
-    // Group effects by category
-    const groupedEffects = {
-        attribute: [], // Dragonbane system conditions
-        general: [],
-        spell: [],
-        ability: []
-    };
-    
-    // Categorize each effect
-    effectElements.each((index, element) => {
-        const $element = $(element);
-        const statusId = $element.data('status-id') || $element.data('overlay') || $element.data('effect');
-        
-        // Filter out YZE Combat action effects - don't show them in token HUD
-        if (statusId && statusId.match(/^action\d+$/)) {
-            return; // Skip YZE action effects
-        }
-        
-        // Handle Dragonbane conditions (both CONFIG-based and our custom ones)
-        if (statusId && (statusId.startsWith('dragonbane.condition') || $element.hasClass('dragonbane-condition'))) {
-            $element.attr('data-category', 'attribute');
-            groupedEffects.attribute.push($element.detach());
-            return;
-        }
-        
-        // Determine category based on effect ID using helper function
-        const category = categorizeEffect(statusId);
-        
-        // Add data attribute for CSS styling if it's one of our effects
-        if (category !== 'unknown') {
-            $element.attr('data-category', category);
-        }
-        
-        // Use the determined category, defaulting to 'general' for unknown effects
-        const finalCategory = category !== 'unknown' ? category : 'general';
-        groupedEffects[finalCategory].push($element.detach());
-    });
-    
-    // Clear the container and rebuild with sections
-    statusEffectsContainer.empty();
-    
-    // Section configuration for organized display
-    const sections = [];
-    
-    // Only add attribute section for character actors
-    if (isCharacter) {
-        sections.push({
-            key: 'attribute',
-            effects: groupedEffects.attribute,
-            titleKey: 'DRAGONBANE_STATUS.sections.attributeConditions'
-        });
+  const statusEffectsContainer = html.find(SELECTORS.STATUS_EFFECTS);
+  if (statusEffectsContainer.length === 0) return;
+
+  const effectElements = statusEffectsContainer.find(SELECTORS.EFFECT_CONTROL);
+  if (effectElements.length === 0) return;
+
+  // Get the token and actor to check actor type
+  const token = canvas.tokens.controlled[0];
+  const actor = token?.actor;
+  const isCharacter = actor?.type === "character";
+
+  // Group effects by category
+  const groupedEffects = {
+    attribute: [], // Dragonbane system conditions
+    general: [],
+    spell: [],
+    ability: [],
+  };
+
+  // Categorize each effect
+  effectElements.each((index, element) => {
+    const $element = $(element);
+    const statusId =
+      $element.data("status-id") ||
+      $element.data("overlay") ||
+      $element.data("effect");
+
+    // Filter out YZE Combat action effects - don't show them in token HUD
+    if (statusId && statusId.match(/^action\d+$/)) {
+      return; // Skip YZE action effects
     }
-    
-    // Add other sections for all actor types
-    sections.push(
-        {
-            key: 'general', 
-            effects: groupedEffects.general,
-            titleKey: 'DRAGONBANE_STATUS.sections.generalEffects'
-        },
-        {
-            key: 'spell',
-            effects: groupedEffects.spell,
-            titleKey: 'DRAGONBANE_STATUS.sections.spellEffects',
-            requiresSetting: 'showSpellEffects'
-        },
-        {
-            key: 'ability',
-            effects: groupedEffects.ability, 
-            titleKey: 'DRAGONBANE_STATUS.sections.heroicAbilities',
-            requiresSetting: 'showHeroicAbilities'
-        }
-    );
-    
-    // Build sections with proper dividers
-    buildTokenHudSections(statusEffectsContainer, sections);
+
+    // Handle Dragonbane conditions (both CONFIG-based and our custom ones)
+    if (
+      statusId &&
+      (statusId.startsWith("dragonbane.condition") ||
+        $element.hasClass("dragonbane-condition"))
+    ) {
+      $element.attr("data-category", "attribute");
+      groupedEffects.attribute.push($element.detach());
+      return;
+    }
+
+    // Determine category based on effect ID using helper function
+    const category = categorizeEffect(statusId);
+
+    // Add data attribute for CSS styling if it's one of our effects
+    if (category !== "unknown") {
+      $element.attr("data-category", category);
+    }
+
+    // Use the determined category, defaulting to 'general' for unknown effects
+    const finalCategory = category !== "unknown" ? category : "general";
+    groupedEffects[finalCategory].push($element.detach());
+  });
+
+  // Clear the container and rebuild with sections
+  statusEffectsContainer.empty();
+
+  // Section configuration for organized display
+  const sections = [];
+
+  // Only add attribute section for character actors
+  if (isCharacter) {
+    sections.push({
+      key: "attribute",
+      effects: groupedEffects.attribute,
+      titleKey: "DRAGONBANE_STATUS.sections.attributeConditions",
+    });
+  }
+
+  // Add other sections for all actor types
+  sections.push(
+    {
+      key: "general",
+      effects: groupedEffects.general,
+      titleKey: "DRAGONBANE_STATUS.sections.generalEffects",
+    },
+    {
+      key: "spell",
+      effects: groupedEffects.spell,
+      titleKey: "DRAGONBANE_STATUS.sections.spellEffects",
+      requiresSetting: "showSpellEffects",
+    },
+    {
+      key: "ability",
+      effects: groupedEffects.ability,
+      titleKey: "DRAGONBANE_STATUS.sections.heroicAbilities",
+      requiresSetting: "showHeroicAbilities",
+    }
+  );
+
+  // Build sections with proper dividers
+  buildTokenHudSections(statusEffectsContainer, sections);
+
+  // Add the Clear All button at the bottom
+  addClearAllButton(statusEffectsContainer);
 }
 
 /**
  * Setup Token HUD enhancement hooks
  */
 export function setupTokenHudEnhancement() {
-    /**
-     * Enhanced Token HUD with section headers and organization
-     * Now includes direct Dragonbane condition integration
-     */
-    Hooks.on('renderTokenHUD', (hud, html, data) => {
-        // Only enhance if we're using the Dragonbane system and styling is enabled
-        if (game.system.id !== "dragonbane" || !game.settings.get(MODULE_ID, "enableTokenHudStyling")) {
-            return;
-        }
-        
-        // Add Dragonbane conditions using the proper actor methods
-        addDragonbaneConditionsToHUD(html, data);
-        
-        // Then enhance the HUD layout
-        enhanceTokenHUD(html);
-    });
+  /**
+   * Enhanced Token HUD with section headers and organization
+   * Now includes direct Dragonbane condition integration
+   */
+  Hooks.on("renderTokenHUD", (hud, html, data) => {
+    // Only enhance if we're using the Dragonbane system and styling is enabled
+    if (
+      game.system.id !== "dragonbane" ||
+      !game.settings.get(MODULE_ID, "enableTokenHudStyling")
+    ) {
+      return;
+    }
+
+    // Add Dragonbane conditions using the proper actor methods
+    addDragonbaneConditionsToHUD(html, data);
+
+    // Then enhance the HUD layout
+    enhanceTokenHUD(html);
+  });
 }
