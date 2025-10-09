@@ -22,7 +22,7 @@ All notable changes to the Dragonbane Status Effects module will be documented i
 
 - **Icon Selection Clarity**: Improved visual feedback for icon selection when creating custom effects
   - Changed text to Select Icon
-  - Changes placeholder icon to cancel.svg to better indicate no icon is urrently selected.
+  - Changes placeholder icon to cancel.svg to better indicate no icon is currently selected.
 
 ---
 
