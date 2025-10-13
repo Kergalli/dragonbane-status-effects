@@ -287,7 +287,7 @@ export function initializeStatusEffects() {
         img: finalEffect.img, // ✅ Updated from 'icon'
         description:
           getUserDescription(finalEffect.id) || finalEffect.description || "",
-        changes: [],
+        changes: finalEffect.changes || [],
         flags: {
           [MODULE_ID]: {
             category: finalEffect.category || "general",
