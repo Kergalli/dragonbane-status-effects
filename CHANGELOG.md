@@ -21,7 +21,7 @@ All notable changes to the Dragonbane Status Effects module will be documented i
 **Action Button and Tracking (V13 Only)**
 
 - **YZE Combat Integration**: Full compatibility with YZE Combat's action tracking system
-  - Action button now shows available actions for
+  - Action button now shows available actions for all actor types
   - Actions are assignable through the button in the Token Action HUD, the combat tracker, or via Dragonbane Combat Assistant's auto-tracking
   - Make sure Single Action is enabled in the YZE Combat module
   - Right-click the action button to remove all action markers at once
