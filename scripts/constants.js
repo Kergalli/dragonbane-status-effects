@@ -249,6 +249,13 @@ export const CUSTOM_STATUS_EFFECTS = [
     duration: {
       seconds: 900,
     },
+    changes: [
+      {
+        key: "system.movement.value",
+        mode: CONST.ACTIVE_EFFECT_MODES.MULTIPLY,
+        value: "2",
+      },
+    ],
   },
   {
     id: "dse-power-fist",

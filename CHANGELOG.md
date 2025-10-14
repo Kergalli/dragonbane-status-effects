@@ -2,6 +2,38 @@
 
 All notable changes to the Dragonbane Status Effects module will be documented in this file.
 
+---
+
+## [1.0.5] - 2025-10-14
+
+### ✨ Added - New Features
+
+**Active Effect Integration**
+
+- **Basic Architecture**: Added the ability to create active effects via contants.js
+
+  - Not many spells or effects easily lend themselves to simple active effects, but perhaps we will see more in the Book of Magic
+  - Power level scaling and skill-specific limitations make simple active effects difficult
+
+- **Example: Longstrider Spell**: Added active effect automation that doubles movement speed
+  - Automatically applies 2x multiplier to `system.movement.value` when effect is active
+  - Integrates seamlessly with Dragonbane character sheets, modified movement value is highlighted
+  - Movement changes reflect immediately without manual calculation
+
+**Action Button and Tracking**
+
+- **YZE Combat Integration**: Full compatibility with YZE Combat's action tracking system
+  - Action button now shows available actions for all actor types
+  - Actions are assignable through the button in the Token Action HUD, the combat tracker, or via Dragonbane Combat Assistant's auto-tracking
+  - Make sure Single Action is enabled in the YZE Combat module
+  - Right-click the action button to remove all action markers at once
+
+### 🐛 Bug Fixes
+
+- Corrected color of Attribute Conditions header in HUD
+
+---
+
 ## [1.0.4] - 2025-10-09
 
 ### 🐛 Bug Fixes

@@ -34,6 +34,9 @@
       "spellEffects": "SPELL EFFECTS",
       "heroicAbilities": "HEROIC ABILITIES"
     },
+    "actions": {
+      "label": "Actions"
+    },
     "clearAll": {
       "title": "Clear All Status Effects",
       "content": "Are you sure you want to remove all status effects from {name}?",
