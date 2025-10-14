@@ -22,6 +22,26 @@
           "minimum": "2.0.0"
         }
       }
+    ],
+    "recommends": [
+      {
+        "id": "dragonbane-action-rules",
+        "type": "module",
+        "manifest": "https://github.com/kergalli/dragonbane-action-rules/releases/latest/download/module.json",
+        "reason": "Automatically applies status effects to spell targets and provides comprehensive combat automation"
+      }
+    ],
+    "optional": [
+      {
+        "id": "yze-combat",
+        "type": "module",
+        "reason": "Provides action button integration in Token HUD and combat tracker for visual action tracking"
+      },
+      {
+        "id": "token-action-hud-dragonbane",
+        "type": "module",
+        "reason": "Quick access to status effects through Token Action HUD"
+      }
     ]
   },
   "esmodules": ["scripts/main.js"],

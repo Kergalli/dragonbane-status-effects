@@ -110,14 +110,36 @@ Strength Damaged, Constitution Damaged, Agility Damaged, Intelligence Damaged, W
 - **ID Format Changes**: Effect IDs use hyphens in v1.0.2+ for V13 template compatibility
 - **Version Requirement**: V13 users should use v2.x releases; V12 users should stay on v1.x releases
 
-## ✅ Compatibility
+## ✅ System Requirements & Dependencies
 
-### 🎯 Total Compatibility
+### Required
 
-- **Dragonbane System**: Complete integration with conditions and mechanics
-- **YZE Combat**: Preserves action tracking functionality perfectly
-- **Visual Active Effects**: Status effect descriptions work seamlessly
-- **Dfreds Effects Panel**: Status effect descriptions work seamlessly
+| Requirement           | Version | Notes                                                         |
+| --------------------- | ------- | ------------------------------------------------------------- |
+| **Foundry VTT**       | v13+    | Version 2.x requires Foundry V13; use v1.x for V12 support    |
+| **Dragonbane System** | v2.0.0+ | Required for full system integration and attribute conditions |
+
+### Recommended
+
+| Module                          | Purpose               | Benefit                                                                                                                                           |
+| ------------------------------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Dragonbane Combat Assistant** | Automatic application | Automatically applies status effects to spell targets and provides combat automation features; enables the full "set it and forget it" experience |
+
+### Optional Integrations
+
+| Module                          | Purpose               | Integration Details                                                                                                          |
+| ------------------------------- | --------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| **Year Zero Engine Combat**     | Action tracking       | Provides action button integration in Token HUD and combat tracker; enables visual action tracking (single/multiple actions) |
+| **Token Action HUD Dragonbane** | Quick actions         | Status effects appear in Token Action HUD for quick application                                                              |
+| **Visual Active Effects**       | Enhanced descriptions | Displays rich status effect descriptions in a visual panel                                                                   |
+| **Dfreds Effects Panel**        | Effect management     | Shows detailed effect descriptions and management options                                                                    |
+
+### Installation Notes
+
+- **Dragonbane Combat Assistant** is strongly recommended for automated spell workflow
+- Without Combat Assistant, status effects must be applied manually through Token HUD
+- **YZE Combat** integration requires YZE Combat module to be installed and "Single Action" feature enabled
+- All optional integrations work independently - install only what you need
 
 ### ⚠️ Known Issues
 
