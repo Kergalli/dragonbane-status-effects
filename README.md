@@ -1,7 +1,7 @@
 # 🐉 Dragonbane Status Effects
 
 [![Foundry Version](https://img.shields.io/badge/Foundry-V13-informational)](https://foundryvtt.com/)
-[![Module Version](https://img.shields.io/badge/Version-2.0.2-brightgreen)](https://github.com/Kergalli/dragonbane-status-effects/releases)
+[![Module Version](https://img.shields.io/badge/Version-2.0.3-brightgreen)](https://github.com/Kergalli/dragonbane-status-effects/releases)
 [![License](https://img.shields.io/badge/License-MIT-green)](https://github.com/Kergalli/dragonbane-status-effects/blob/main/LICENSE)
 
 A comprehensive status effects module for the **Dragonbane** system in **Foundry Virtual Tabletop V13**. This module provides 39 carefully curated status effects with visual editors, enhanced Token HUD styling, and seamless Dragonbane system integration.
@@ -11,6 +11,7 @@ A comprehensive status effects module for the **Dragonbane** system in **Foundry
 - **🎨 Enhanced Token HUD**: Beautiful 6-column grid layout with color-coded section headers
 - **📝 Visual Editors**: No-code interfaces for creating custom effects and descriptions
 - **🐉 Dragonbane Integration**: Direct support for attribute conditions (STR, CON, AGL, INT, WIL, CHA)
+- **⚔️ Combat Integration**: Full integration with Year Zero Engine Combat module for action tracking
 - **📚 Rich Status Library**: 39 pre-built effects across General, Spell, and Heroic Ability categories
 - **💾 Import/Export**: Backup and share your custom effects and descriptions
 - **🔄 Drag & Drop**: Create @UUID links by dragging items, spells, and journal entries
@@ -80,7 +81,9 @@ Amnesia, Blind, Burning, Cold, Concentration, Dead, Disease, Drowning, Ensnared,
 
 ### ✨ Spell Effects (9)
 
-Birdsong, Chill, Enchanted Weapon, Frozen, Heat, Longstrider, Power Fist, Protector, Stone Skin
+Birdsong, Chill, Enchanted Weapon, Frozen, Heat, **Longstrider**, Power Fist, Protector, Stone Skin
+
+- _Longstrider includes active effect that automatically doubles movement speed_
 
 ### ⚔️ Heroic Abilities (5)
 

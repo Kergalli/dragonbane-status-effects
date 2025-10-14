@@ -2,11 +2,41 @@
 
 All notable changes to the Dragonbane Status Effects module will be documented in this file.
 
+## [2.0.3] - 2025-10-14
+
+### ✨ Added - New Features
+
+**Active Effect Integration (V13 Only)**
+
+- **Basic Architecture**: Added the ability to create active effects via contants.js
+
+  - Not many spells or effects easily lend themselves to simple active effects, but perhaps we will see more in the Book of Magic
+  - Power level scaling and skill-specific limitations make simple active effects difficult
+
+- **Example: Longstrider Spell**: Added active effect automation that doubles movement speed
+  - Automatically applies 2x multiplier to `system.movement.value` when effect is active
+  - Integrates seamlessly with Dragonbane character sheets, modified movement value is highlighted
+  - Movement changes reflect immediately without manual calculation
+
+**Action Button and Tracking (V13 Only)**
+
+- **YZE Combat Integration**: Full compatibility with YZE Combat's action tracking system
+  - Action button now shows available actions for
+  - Actions are assignable through the button in the Token Action HUD, the combat tracker, or via Dragonbane Combat Assistant's auto-tracking
+  - Make sure Single Action is enabled in the YZE Combat module
+  - Right-click the action button to remove all action markers at once
+
+### 🐛 Bug Fixes
+
+- Corrected color of Attribute Conditions header in HUD
+
+---
+
 ## [2.0.2] - 2025-10-09
 
 ### 🐛 Bug Fixes
 
-Fixed download URL in module.json
+- Fixed download URL in module.json
 
 ---
 
@@ -26,7 +56,7 @@ Fixed download URL in module.json
 - **Clear All Button**: Added "Clear All" button at bottom of Token HUD status effects panel
   - Removes all active status effects from selected token with confirmation dialog
 
-**Custom Effects Editor Improvements**
+**Custom Effects Editor Improvements (V13 Only)**
 
 - **Icon Selection Clarity**: Improved visual feedback for icon selection when creating custom effects
   - Changed text to Select Icon
@@ -94,9 +124,55 @@ This major release brings full Foundry V13 compatibility while maintaining all e
 
 ---
 
+## [1.0.4] - 2025-10-09
+
+### 🐛 Bug Fixes
+
+Fixed download URL in module.json
+
+---
+
+## [1.0.3] - 2025-10-09
+
+### 🐛 Bug Fixes
+
+**Dead Status Effect Integration**
+
+- **Fixed Dead Status ID**: Changed from custom `dse-dead` to core `dead` ID to match Dragonbane system automation
+  - **Impact**: NPCs and Monsters are now correctly marked as dead when reaching 0 HP after damage application (requires "Automate NPC/Monster Death" setting enabled in Dragonbane system)
+
+### ✨ Added - Quality of Life Improvements
+
+**Token HUD Enhancements**
+
+- **Clear All Button**: Added "Clear All" button at bottom of Token HUD status effects panel
+  - Removes all active status effects from selected token with confirmation dialog
+
+---
+
+## [1.0.2] - 2025-08-29
+
+## Foundry V12 Legacy Release
+
+⚠️ **Breaking Changes**: Custom effect IDs changed from `dse.` to `dse-` format
+
+### What's Changed
+
+- Updated all custom status effect IDs to use hyphens instead of dots
+- Prepares for smooth V13 migration
+- Users will need to reapply existing custom effects
+
+### Installation
+
+Compatible with Foundry V12. For V13 support, use v2.0.0+.
+
+---
+
 ## [1.0.1] - 2025-08-23
 
 - **Prone Condition**: Updated id to match the Dragonbane system so application of boon and extra damage occurs when attacking a prone target.
+
+---
 
 ## [1.0.0] - 2025-08-23
 

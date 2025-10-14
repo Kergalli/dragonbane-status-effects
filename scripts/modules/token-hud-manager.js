@@ -1,4 +1,3 @@
-// scripts/modules/token-hud-manager.js
 /**
  * Token HUD Manager for Dragonbane Status Effects Module
  * Handles Token HUD styling, organization, and enhancement
@@ -12,7 +11,6 @@ import { categorizeEffect } from "./effects-manager.js";
  * Initialize Token HUD styling if enabled
  */
 export function initializeTokenHudStyling() {
-  // Only apply styling if the setting is enabled
   if (!game.settings.get(MODULE_ID, "enableTokenHudStyling")) {
     return;
   }
@@ -95,7 +93,7 @@ export function initializeTokenHudStyling() {
 
     /* Section header category styling */
     #token-hud .palette.status-effects .status-section-header.attribute {
-        background: linear-gradient(135deg, #52c2c, #7c4a4a) !important;
+        background: linear-gradient(135deg, #5c2c2c, #7c4a4a) !important;
         border-color: #331d1d !important;
     }
 
@@ -147,7 +145,7 @@ export function initializeTokenHudStyling() {
         letter-spacing: 0.5px !important;
         text-align: center !important;
         padding: 6px 12px !important;
-        margin: 6px 0 2px 0 !important;
+        margin: 16px 0 2px 0 !important;
         border-radius: 4px !important;
         border: 1px solid #660000 !important;
         box-shadow: 
@@ -180,6 +178,80 @@ export function initializeTokenHudStyling() {
     #token-hud .palette.status-effects .clear-all-effects-btn i {
         font-size: 12px !important;
     }
+
+    /* Action Button Styling */
+    #token-hud .palette.status-effects .action-button {
+        grid-column: 1 / 4 !important;
+        background: linear-gradient(135deg, #1e5c8b, #2d7cb8) !important;
+        color: #ffffff !important;
+        font-family: "Signika", Arial, sans-serif !important;
+        font-size: 10px !important;
+        font-weight: bold !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5px !important;
+        text-align: center !important;
+        padding: 6px 12px !important;
+        margin: 16px 0 2px 0 !important;
+        border-radius: 4px !important;
+        border: 1px solid #0d3d26 !important;
+        box-shadow: 
+            inset 0 1px 0 rgba(255, 255, 255, 0.2),
+            0 2px 4px rgba(0, 0, 0, 0.5) !important;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8) !important;
+        cursor: pointer !important;
+        transition: all 0.2s ease !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 6px !important;
+    }
+
+    #token-hud .palette.status-effects .action-button:hover {
+        background: linear-gradient(135deg, #2d7cb8, #3d9cd8) !important;
+        transform: translateY(-1px) !important;
+        box-shadow: 
+            inset 0 1px 0 rgba(255, 255, 255, 0.3),
+            0 3px 6px rgba(0, 0, 0, 0.6) !important;
+    }
+
+    #token-hud .palette.status-effects .action-button:active {
+        transform: translateY(0px) !important;
+        box-shadow: 
+            inset 0 2px 4px rgba(0, 0, 0, 0.4),
+            0 1px 2px rgba(0, 0, 0, 0.5) !important;
+    }
+
+    #token-hud .palette.status-effects .action-button i {
+        font-size: 12px !important;
+    }
+
+    #token-hud .palette.status-effects .action-button .action-count {
+        font-size: 11px !important;
+        font-weight: bold !important;
+    }
+
+    #token-hud .palette.status-effects .action-button .action-icon {
+        width: 14px !important;
+        height: 14px !important;
+        filter: brightness(0) invert(1) !important;
+    }
+
+    #token-hud .palette.status-effects .action-button.has-active-actions {
+        background: linear-gradient(135deg, #b8640f, #d97706) !important;
+        border-color: #7c4a0a !important;
+    }
+
+    #token-hud .palette.status-effects .action-button.has-active-actions:hover {
+        background: linear-gradient(135deg, #d97706, #e89420) !important;
+        transform: translateY(-1px) !important;
+        box-shadow: 
+            inset 0 1px 0 rgba(255, 255, 255, 0.3),
+            0 3px 6px rgba(0, 0, 0, 0.6) !important;
+    }
+
+    #token-hud .palette.status-effects .clear-all-effects-btn {
+        grid-column: 4 / -1 !important;
+    }
 `;
 
   const style = document.createElement("style");
@@ -189,7 +261,6 @@ export function initializeTokenHudStyling() {
 
 /**
  * Apply defensive filtering to remove empty status IDs that break V13 Token HUD
- * This runs ALWAYS, regardless of enhanced styling setting
  */
 function applyDefensiveFiltering(html) {
   const $html = html.jquery ? html : $(html);
@@ -303,6 +374,108 @@ function addClearAllButton(container) {
 }
 
 /**
+ * Add "Actions" button to show YZE Combat action economy
+ */
+function addActionButton(container, token) {
+  if (!token || !token.actor) return;
+
+  const actor = token.actor;
+
+  // Get ferocity value (determines max actions)
+  let ferocity = 1;
+  try {
+    const ferocityPath = game.settings.get("yze-combat", "actorSpeedAttribute");
+    if (ferocityPath) {
+      ferocity = foundry.utils.getProperty(actor, ferocityPath) || 1;
+    } else {
+      ferocity = foundry.utils.getProperty(actor, "system.ferocity.value") || 1;
+    }
+  } catch (error) {
+    ferocity = foundry.utils.getProperty(actor, "system.ferocity.value") || 1;
+  }
+
+  // Count active actions
+  const activeActions = Array.from(actor.statuses || [])
+    .filter((s) => s.match(/^action\d+$/))
+    .sort();
+
+  const activeCount = activeActions.length;
+
+  // Check if YZE Combat single action mode is enabled
+  let singleActionEnabled = false;
+  try {
+    singleActionEnabled = game.settings.get("yze-combat", "singleAction");
+  } catch (error) {
+    const hasActionEffects = CONFIG.statusEffects?.some((e) =>
+      e.id?.match(/^action\d+$/)
+    );
+    singleActionEnabled = hasActionEffects;
+  }
+
+  // Only show if single action mode is enabled
+  if (!singleActionEnabled) return;
+
+  // Create the action button
+  const actionBtn = $(`
+    <div class="action-button ${
+      activeCount > 0 ? "has-active-actions" : ""
+    }" data-action="toggle-action">
+    <img src="modules/yze-combat/assets/icons/slow-action.svg" class="action-icon">
+    <span>${game.i18n.localize(
+      "DRAGONBANE_STATUS.actions.label"
+    )}: <span class="action-count">${activeCount}/${ferocity}</span></span>
+    </div>
+`);
+
+  // Add left-click handler (cycle through actions)
+  actionBtn.on("click", async (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    let actionToToggle;
+
+    if (activeCount === 0) {
+      actionToToggle = "action1";
+    } else if (activeCount < ferocity) {
+      const nextActionNumber = activeCount + 1;
+      actionToToggle = `action${nextActionNumber}`;
+    } else {
+      const highestAction = activeActions[activeActions.length - 1];
+      actionToToggle = highestAction;
+    }
+
+    try {
+      await actor.toggleStatusEffect(actionToToggle);
+    } catch (error) {
+      console.warn(
+        `${MODULE_ID} | Failed to toggle action effect ${actionToToggle}:`,
+        error
+      );
+    }
+  });
+
+  // Add right-click handler (clear all actions)
+  actionBtn.on("contextmenu", async (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    // Clear all action effects
+    for (const actionId of activeActions) {
+      try {
+        await actor.toggleStatusEffect(actionId, { active: false });
+      } catch (error) {
+        console.warn(
+          `${MODULE_ID} | Failed to clear action effect ${actionId}:`,
+          error
+        );
+      }
+    }
+  });
+
+  container.append(actionBtn);
+}
+
+/**
  * Add section headers and organize status effects in the Token HUD - V13 Compatible
  * Note: Defensive filtering is now handled separately, this focuses on enhancement
  */
@@ -393,6 +566,9 @@ function enhanceTokenHUD(html) {
   );
 
   buildTokenHudSections(statusEffectsContainer, sections);
+
+  // Add the Actions button at the bottom
+  addActionButton(statusEffectsContainer, token);
 
   // Add the Clear All button at the bottom
   addClearAllButton(statusEffectsContainer);

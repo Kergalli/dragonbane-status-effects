@@ -34,6 +34,9 @@
       "spellEffects": "BESVÄRJELSEEFFEKTER",
       "heroicAbilities": "HJÄLTEFÖRMÅGOR"
     },
+    "actions": {
+      "label": "Handlingar"
+    },
     "clearAll": {
       "title": "Rensa Alla Statuseffekter",
       "content": "Är du säker på att du vill ta bort alla statuseffekter från {name}?",
