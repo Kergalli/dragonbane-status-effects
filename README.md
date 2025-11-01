@@ -4,7 +4,7 @@
 [![Module Version](https://img.shields.io/badge/Version-1.0.6-brightgreen)](https://github.com/Kergalli/dragonbane-status-effects/releases)
 [![License](https://img.shields.io/badge/License-MIT-green)](https://github.com/Kergalli/dragonbane-status-effects/blob/main/LICENSE)
 
-A comprehensive status effects module for the **Dragonbane** system in **Foundry Virtual Tabletop V13**. This module provides 39 carefully curated status effects with visual editors, enhanced Token HUD styling, and seamless Dragonbane system integration.
+A comprehensive status effects module for the **Dragonbane** system in **Foundry Virtual Tabletop V12**. This module provides 39 carefully curated status effects with visual editors, enhanced Token HUD styling, and seamless Dragonbane system integration.
 
 ## ✨ Key Features
 
@@ -27,7 +27,7 @@ A comprehensive status effects module for the **Dragonbane** system in **Foundry
 
 1. Open Foundry VTT and go to the **Add-on Modules** tab
 2. Click **Install Module**
-3. Paste this manifest URL: `https://github.com/Kergalli/dragonbane-status-effects/releases/download/v1.0.5/module.json`
+3. Paste this manifest URL: `https://github.com/Kergalli/dragonbane-status-effects/releases/download/v1.0.6/module.json`
 4. Click **Install**
 
 ### Manual Installation
