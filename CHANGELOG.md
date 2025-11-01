@@ -4,6 +4,25 @@ All notable changes to the Dragonbane Status Effects module will be documented i
 
 ---
 
+## [1.0.6] - 2025-11-01
+
+### 🐛 Bug Fixes
+
+**Invisibility Status Effect**
+
+- **Fixed Invisibility Effect Integration**: Resolved compatibility issues with the invisibility status effect in the Token HUD
+  - **Impact**: Invisibility status now properly handles hidden token effects in alignement with core Foundry
+
+### 🎨 Enhanced - UI/UX Improvements
+
+**Token HUD Size Optimization**
+
+- **Reduced Overall HUD Size**: Optimized CSS styling to create a more compact Token HUD that better integrates with core Foundry
+  - **Smaller Icon Spacing**: Reduced gaps and padding for a more streamlined appearance
+  - **Foundry Alignment**: Brought icon sizing and positioning in line with core Foundry VTT standards
+
+---
+
 ## [1.0.5] - 2025-10-14
 
 ### ✨ Added - New Features
