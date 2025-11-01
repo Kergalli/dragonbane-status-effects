@@ -120,7 +120,7 @@ export const CUSTOM_STATUS_EFFECTS = [
     category: "general",
   },
   {
-    id: "dse-invisible",
+    id: "invisible",
     name: "EFFECT.StatusInvisible",
     img: "icons/svg/invisible.svg",
     category: "general",
