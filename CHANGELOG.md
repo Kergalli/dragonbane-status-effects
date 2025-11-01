@@ -9,7 +9,7 @@ All notable changes to the Dragonbane Status Effects module will be documented i
 **Invisibility Status Effect**
 
 - **Fixed Invisibility Effect Integration**: Resolved compatibility issues with the invisibility status effect in the Token HUD
-  - **Impact**: Invisibility status now properly handles hidden token effects in alignement with core Foundry
+  - **Impact**: Invisibility status now properly handles hidden token effects in alignment with core Foundry
 
 ### 🎨 Enhanced - UI/UX Improvements
 
