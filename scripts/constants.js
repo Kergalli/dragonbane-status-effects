@@ -15,10 +15,10 @@ export const UI_CONFIG = {
 
   // Token HUD Layout
   COLUMNS: 6,
-  ICON_SIZE: 40,
-  MIN_WIDTH: 320,
-  GAP: 6,
-  PADDING: "14px 18px 14px 14px",
+  ICON_SIZE: 35,
+  MIN_WIDTH: 260,
+  GAP: 4,
+  PADDING: "5px 8px 5px 8px",
 };
 
 // Dragonbane attribute condition icons

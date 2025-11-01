@@ -77,8 +77,8 @@ export function initializeTokenHudStyling() {
         text-transform: uppercase !important;
         letter-spacing: 1px !important;
         text-align: center !important;
-        padding: 6px 12px !important;
-        margin: 4px 0 2px 0 !important;
+        padding: 3px 6px !important;
+        margin: 2px 0 2px 0 !important;
         border-radius: 4px !important;
         border: 1px solid #1a331d !important;
         box-shadow: 
@@ -421,9 +421,7 @@ function addActionButton(container, token) {
       activeCount > 0 ? "has-active-actions" : ""
     }" data-action="toggle-action">
     <img src="modules/yze-combat/assets/icons/slow-action.svg" class="action-icon">
-    <span>${game.i18n.localize(
-      "DRAGONBANE_STATUS.actions.label"
-    )}: <span class="action-count">${activeCount}/${ferocity}</span></span>
+    <span class="action-count">${activeCount}/${ferocity}</span>
     </div>
 `);
 
