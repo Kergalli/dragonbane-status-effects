@@ -2,6 +2,17 @@
 
 All notable changes to the Dragonbane Status Effects module will be documented in this file.
 
+## [2.0.5] - 2025-11-03
+
+### 🐛 Bug Fixes
+
+**Blind Status Effect**
+
+- **Fixed Blind Effect Integration**: Resolved compatibility issues with the blind status effect in the Token HUD
+  - **Impact**: Blind status now properly handles blinded token effects in alignment with core Foundry
+
+---
+
 ## [2.0.4] - 2025-11-01
 
 ### 🐛 Bug Fixes
