@@ -48,7 +48,7 @@ export const CUSTOM_STATUS_EFFECTS = [
     category: "general",
   },
   {
-    id: "dse-blind",
+    id: "blind",
     name: "EFFECT.StatusBlind",
     img: "icons/svg/blind.svg",
     category: "general",
