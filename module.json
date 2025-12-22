@@ -2,7 +2,7 @@
   "id": "dragonbane-status-effects",
   "title": "Dragonbane Status Effects",
   "description": "A simple module that replaces the default Foundry status effects with Dragonbane-themed effects while allowing the Dragonbane system and other modules to add their own functional effects.",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "authors": [
     {
       "name": "Matthias Weeks"
@@ -59,7 +59,7 @@
   ],
   "url": "https://github.com/Kergalli/dragonbane-status-effects",
   "manifest": "https://github.com/Kergalli/dragonbane-status-effects/releases/latest/download/module.json",
-  "download": "https://github.com/Kergalli/dragonbane-status-effects/releases/download/v2.0.6/module.zip",
+  "download": "https://github.com/Kergalli/dragonbane-status-effects/releases/download/v2.0.7/module.zip",
   "media": [
     {
       "type": "icon",

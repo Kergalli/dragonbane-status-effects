@@ -2,6 +2,17 @@
 
 All notable changes to the Dragonbane Status Effects module will be documented in this file.
 
+## [2.0.7] - 2024-12-22
+
+### 🐛 Bug Fixes
+
+**Petrified Status Effect Icon**
+
+- **Fixed Icon Path**: Corrected Petrified status effect to use custom module icon instead of non-existent core Foundry icon
+  - Changed from `icons/svg/stone.svg` to `modules/dragonbane-status-effects/assets/icons/petrified.svg`
+
+---
+
 ## [2.0.6] - 2024-12-22
 
 ### ✨ Added - New Status Effects
