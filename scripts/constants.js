@@ -72,6 +72,12 @@ export const CUSTOM_STATUS_EFFECTS = [
     category: "general",
   },
   {
+    id: "dse-deafened",
+    name: "EFFECT.StatusDeafened",
+    img: "icons/svg/deaf.svg",
+    category: "general",
+  },
+  {
     id: "dead",
     name: "EFFECT.StatusDead",
     img: "icons/svg/skull.svg",
@@ -141,6 +147,12 @@ export const CUSTOM_STATUS_EFFECTS = [
     id: "dse-paralyzed",
     name: "EFFECT.StatusParalyzed",
     img: "icons/svg/paralysis.svg",
+    category: "general",
+  },
+  {
+    id: "dse-petrified",
+    name: "EFFECT.StatusPetrified",
+    img: "icons/svg/stone.svg",
     category: "general",
   },
   {

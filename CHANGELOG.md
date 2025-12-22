@@ -2,6 +2,15 @@
 
 All notable changes to the Dragonbane Status Effects module will be documented in this file.
 
+## [1.0.8] - 2024-12-22
+
+### ✨ Added - New Status Effects
+
+**General Effects Expansion**
+
+- **Deafened**: New status effect for characters unable to hear
+- **Petrified**: New status effect for characters turned to stone
+
 ---
 
 ## [1.0.7] - 2025-11-03
