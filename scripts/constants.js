@@ -152,7 +152,7 @@ export const CUSTOM_STATUS_EFFECTS = [
   {
     id: "dse-petrified",
     name: "EFFECT.StatusPetrified",
-    img: "icons/svg/stone.svg",
+    img: "modules/dragonbane-status-effects/assets/icons/petrified.svg",
     category: "general",
   },
   {
