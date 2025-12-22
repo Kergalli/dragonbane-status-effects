@@ -52,7 +52,7 @@ Access settings through **Game Settings → Module Settings → Dragonbane Statu
 ### Visual Editors
 
 - **Manage Custom Status Effects**: Open the visual editor to create, edit, and manage custom status effects
-- **Edit Status Effect Descriptions**: Add rich descriptions that work with Visual Active Effects, Dfreds Effects Panel and other modules - example English import file can be [found here](https://www.dropbox.com/scl/fi/6heeaoc5x43nepq5tbyri/dragonbane-status-descriptions-2025-08-28.json?rlkey=vykv4gfcciogwvrqcaflexig2&dl=0)
+- **Edit Status Effect Descriptions**: Add rich descriptions that work with Visual Active Effects, Dfreds Effects Panel and other modules - example English import file can be [found here](https://www.dropbox.com/scl/fi/ei2rvsgxfaynkligrhgj2/dragonbane-status-descriptions-2025-12-22.json?rlkey=i97wknkfvhdogvqev7rsqw00o&dl=0)
 
 ## 🎯 Using the Editors
 
