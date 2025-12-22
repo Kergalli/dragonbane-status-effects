@@ -1,10 +1,10 @@
 # 🐉 Dragonbane Status Effects
 
 [![Foundry Version](https://img.shields.io/badge/Foundry-V13-informational)](https://foundryvtt.com/)
-[![Module Version](https://img.shields.io/badge/Version-2.0.5-brightgreen)](https://github.com/Kergalli/dragonbane-status-effects/releases)
+[![Module Version](https://img.shields.io/badge/Version-2.0.6-brightgreen)](https://github.com/Kergalli/dragonbane-status-effects/releases)
 [![License](https://img.shields.io/badge/License-MIT-green)](https://github.com/Kergalli/dragonbane-status-effects/blob/main/LICENSE)
 
-A comprehensive status effects module for the **Dragonbane** system in **Foundry Virtual Tabletop V13**. This module provides 39 carefully curated status effects with visual editors, enhanced Token HUD styling, and seamless Dragonbane system integration.
+A comprehensive status effects module for the **Dragonbane** system in **Foundry Virtual Tabletop V13**. This module provides 41 carefully curated status effects with visual editors, enhanced Token HUD styling, and seamless Dragonbane system integration.
 
 ## ✨ Key Features
 
@@ -12,7 +12,7 @@ A comprehensive status effects module for the **Dragonbane** system in **Foundry
 - **📝 Visual Editors**: No-code interfaces for creating custom effects and descriptions
 - **🐉 Dragonbane Integration**: Direct support for attribute conditions (STR, CON, AGL, INT, WIL, CHA)
 - **⚔️ Combat Integration**: Full integration with Year Zero Engine Combat module for action tracking
-- **📚 Rich Status Library**: 39 pre-built effects across General, Spell, and Heroic Ability categories
+- **📚 Rich Status Library**: 41 pre-built effects across General, Spell, and Heroic Ability categories
 - **💾 Import/Export**: Backup and share your custom effects and descriptions
 - **🔄 Drag & Drop**: Create @UUID links by dragging items, spells, and journal entries
 
@@ -75,9 +75,9 @@ Access settings through **Game Settings → Module Settings → Dragonbane Statu
 
 ## 📊 Status Effects Library
 
-### 🛡️ General Effects (25)
+### 🛡️ General Effects (27)
 
-Amnesia, Blind, Burning, Cold, Concentration, Dead, Disease, Drowning, Ensnared, Famished, Flying, Grappled, Invisible, Mounted, Nightmares, Over-Encumbered, Paralyzed, Poison (Lethal), Poison (Paralyzing), Poison (Sleeping), Prone, Rage, Sleeping, Sleep Deprived, Unconscious, Wild Panic
+Amnesia, Blind, Burning, Cold, Concentration, Dead, Deafened, Disease, Drowning, Ensnared, Famished, Flying, Grappled, Invisible, Mounted, Nightmares, Over-Encumbered, Paralyzed, Petrified, Poison (Lethal), Poison (Paralyzing), Poison (Sleeping), Prone, Rage, Sleeping, Sleep Deprived, Unconscious, Wild Panic
 
 ### ✨ Spell Effects (9)
 
