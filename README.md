@@ -27,7 +27,7 @@ A comprehensive status effects module for the **Dragonbane** system in **Foundry
 
 1. Open Foundry VTT and go to the **Add-on Modules** tab
 2. Click **Install Module**
-3. Paste this manifest URL: `https://github.com/Kergalli/dragonbane-status-effects/releases/download/v1.0.7/module.json`
+3. Paste this manifest URL: `https://github.com/Kergalli/dragonbane-status-effects/releases/download/v1.0.8/module.json`
 4. Click **Install**
 
 ### Manual Installation
