@@ -1,7 +1,7 @@
 # 🐉 Dragonbane Status Effects
 
 [![Foundry Version](https://img.shields.io/badge/Foundry-V12-informational)](https://foundryvtt.com/)
-[![Module Version](https://img.shields.io/badge/Version-1.0.7-brightgreen)](https://github.com/Kergalli/dragonbane-status-effects/releases)
+[![Module Version](https://img.shields.io/badge/Version-1.0.9-brightgreen)](https://github.com/Kergalli/dragonbane-status-effects/releases)
 [![License](https://img.shields.io/badge/License-MIT-green)](https://github.com/Kergalli/dragonbane-status-effects/blob/main/LICENSE)
 
 **Dragonbane Status Effects** provides a comprehensive status effects library with visual editors, enhanced Token HUD styling, and seamless system integration for the Dragonbane RPG system in Foundry VTT V12.
@@ -13,12 +13,12 @@
 ### **From Foundry (Recommended)**
 
 1. Open Foundry VTT → **Add-on Modules** → **Install Module**
-2. Paste manifest URL: `https://github.com/Kergalli/dragonbane-status-effects/releases/download/v1.0.7/module.json`
+2. Paste manifest URL: `https://github.com/Kergalli/dragonbane-status-effects/releases/download/v1.0.9/module.json`
 3. Click **Install** → Enable in **Manage Modules**
 
 ### **Manual Installation**
 
-1. Download v1.0.7 release from [GitHub repository](https://github.com/Kergalli/dragonbane-status-effects/releases/tag/v1.0.7)
+1. Download v1.0.9 release from [GitHub repository](https://github.com/Kergalli/dragonbane-status-effects/releases/tag/v1.0.9)
 2. Extract to `Data/modules/` directory → Restart Foundry → Enable module
 
 ---
@@ -68,7 +68,7 @@
 - **Longstrider**: Includes active effect that automatically doubles movement speed (requires Dragonbane Combat Assistant)
 - **Attribute Conditions**: Direct integration with Dragonbane system conditions
 - **Poison Variants**: Lethal, Paralyzing, and Sleeping poison types
-- **Combat States**: Grappled, Ensnared, Prone, Unconscious with visual clarity
+- **Combat States**: Grappled, Ensnared, Prone, Unconscious, Petrified with visual clarity
 
 ---
 
@@ -107,7 +107,7 @@
 4. **Line Breaks**: Use `<br>` tags for formatting
 5. **Instant Save**: Changes apply immediately to new effects
 
-**📥 Example Import**: [English descriptions file](https://www.dropbox.com/scl/fi/6heeaoc5x43nepq5tbyri/dragonbane-status-descriptions-2025-08-28.json?rlkey=vykv4gfcciogwvrqcaflexig2&dl=0)
+**📥 Example Import**: [English descriptions file](https://www.dropbox.com/scl/fi/ei2rvsgxfaynkligrhgj2/dragonbane-status-descriptions-2025-12-22.json?rlkey=i97wknkfvhdogvqev7rsqw00o&dl=0)
 
 ---
 
