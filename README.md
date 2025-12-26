@@ -75,7 +75,7 @@
 
 ## ⚙️ **Configuration**
 
-**Access**: Settings → Module Settings → Dragonbane Status Effects
+**Access**: Game Settings → Configure Settings → Dragonbane Status Effects
 
 ### **Core Settings**
 
