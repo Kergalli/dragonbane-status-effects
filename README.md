@@ -189,7 +189,7 @@
 
 - **Issues**: [GitHub Issues](https://github.com/Kergalli/dragonbane-status-effects/issues)
 - **Documentation**: [Complete Changelog](CHANGELOG.md)
-- **Community**: Dragonbane Discord Community
+- **Community**: Dragonbane Community Discord
 
 ### **Attribution**
 
