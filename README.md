@@ -6,6 +6,8 @@
 
 **Dragonbane Status Effects** provides a comprehensive status effects library with visual editors, enhanced Token HUD styling, and seamless system integration for the Dragonbane RPG system in Foundry VTT V12.
 
+**NOTE**: With the release of [Dragonbane v3.0](https://github.com/pafvel/dragonbane/releases/tag/v3.0.0), and the removal of support for Foundry v11/v12, this branch will no longer be updated. Future updates will only apply to the [main/v13 compatible](https://github.com/Kergalli/dragonbane-status-effects) branch.
+
 ---
 
 ## 🚀 **Installation**
