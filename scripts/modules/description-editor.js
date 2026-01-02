@@ -41,6 +41,7 @@ export class StatusEffectDescriptionEditor extends FormApplication {
       hasGeneral: this.effectsData.general.length > 0,
       hasSpell: this.effectsData.spell.length > 0,
       hasAbility: this.effectsData.ability.length > 0,
+      hasCondition: this.effectsData.condition.length > 0,
       categories: {
         general: game.i18n.localize(
           "DRAGONBANE_STATUS.sections.generalEffects"
@@ -48,6 +49,9 @@ export class StatusEffectDescriptionEditor extends FormApplication {
         spell: game.i18n.localize("DRAGONBANE_STATUS.sections.spellEffects"),
         ability: game.i18n.localize(
           "DRAGONBANE_STATUS.sections.heroicAbilities"
+        ),
+        condition: game.i18n.localize(
+          "DRAGONBANE_STATUS.sections.attributeConditions"
         ),
       },
     };

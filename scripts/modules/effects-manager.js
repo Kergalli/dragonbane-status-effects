@@ -153,6 +153,7 @@ export function getAllEffectsWithDescriptions() {
     general: [],
     spell: [],
     ability: [],
+    condition: [],
   };
 
   allEffects.forEach((effect) => {
@@ -170,6 +171,19 @@ export function getAllEffectsWithDescriptions() {
       groupedEffects[effect.category].push(effectData);
     }
   });
+
+  // Get condition effects
+  const conditionEffects = CONFIG.DoD?.conditionEffects || {};
+  Object.values(conditionEffects).forEach((effect) => {
+    const effectData = {
+      id: effect.id,
+      name: game.i18n.localize(effect.name),
+      img: effect.img,
+      category: "condition",
+      description: descriptions[effect.id] || "",
+    };
+    groupedEffects.condition.push(effectData);
+  })
 
   // Sort each category alphabetically
   Object.keys(groupedEffects).forEach((category) => {
@@ -319,6 +333,11 @@ export function initializeStatusEffects() {
       (effect.id.startsWith("dragonbane.condition") ||
         effect.id.match(/^action\d+$/))
   );
+
+  // Apply user descriptions to existing conditions if available
+  existingEffects.forEach((effect) => {
+    effect.description = getUserDescription(effect.id) || effect.description;
+  });
 
   if (game.settings.get(MODULE_ID, "replaceAll")) {
     // Filter out dragonbane conditions since they're handled by dragonbane-integration.js

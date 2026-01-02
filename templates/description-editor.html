@@ -87,6 +87,31 @@
         </section>
         {{/if}}
 
+        {{#if hasCondition}}
+        <section class="effect-category" style="margin-bottom: 2rem;">
+            <h3 style="color: #8c7a4a; font-size: 1.1rem; font-weight: bold; margin: 0 0 1rem 0; padding-bottom: 0.5rem; border-bottom: 2px solid #8c7a4a;">
+                {{categories.condition}}
+            </h3>
+            <div class="effects-grid" style="display: grid; gap: 1rem;">
+                {{#each effects.condition}}
+                <div class="effect-row" style="display: grid; grid-template-columns: auto 1fr; gap: 0.5rem; align-items: start; padding: 0.75rem; background: rgba(0,0,0,0.05); border-radius: 4px;">
+                    <div class="effect-info" style="display: flex; align-items: center; gap: 0.75rem; min-width: 200px;">
+                        <img src="{{this.img}}" alt="{{this.name}}" style="width: 60px; height: 60px; border-radius: 4px; border: 1px solid rgba(0,0,0,0.2);">
+                        <label for="description-{{this.id}}" style="font-weight: 500; cursor: pointer;">{{this.name}}</label>
+                    </div>
+                    <div class="effect-description" style="flex: 1;">
+                        <textarea
+                            name="description-{{this.id}}"
+                            id="description-{{this.id}}"
+                            placeholder="{{localize 'DRAGONBANE_STATUS.editor.placeholder'}}"
+                            style="width: 100%; min-height: 60px; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; resize: vertical;"
+                            rows="2">{{this.description}}</textarea>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </section>
+        {{/if}}
     </div>
 
     <!-- Footer Section -->
