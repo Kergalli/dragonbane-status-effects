@@ -2,7 +2,17 @@
 
 All notable changes to the Dragonbane Status Effects module will be documented in this file.
 
-## [2.0.7] - 2024-12-22
+## [2.0.8] - 2026-01-01
+
+### ✨ Added - Attribute Conditions Descriptions
+
+**Custom Descriptions Expansion**
+
+- Added the ability to define custom descriptions for Attribute conditions in the description editor (contribution by dgladkov)
+
+---
+
+## [2.0.7] - 2025-12-22
 
 ### 🐛 Bug Fixes
 
@@ -13,7 +23,7 @@ All notable changes to the Dragonbane Status Effects module will be documented i
 
 ---
 
-## [2.0.6] - 2024-12-22
+## [2.0.6] - 2025-12-22
 
 ### ✨ Added - New Status Effects
 

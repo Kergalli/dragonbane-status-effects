@@ -1,7 +1,7 @@
 # 🐉 Dragonbane Status Effects
 
 [![Foundry Version](https://img.shields.io/badge/Foundry-V13-informational)](https://foundryvtt.com/)
-[![Module Version](https://img.shields.io/badge/Version-2.0.7-brightgreen)](https://github.com/Kergalli/dragonbane-status-effects/releases)
+[![Module Version](https://img.shields.io/badge/Version-2.0.8-brightgreen)](https://github.com/Kergalli/dragonbane-status-effects/releases)
 [![License](https://img.shields.io/badge/License-MIT-green)](https://github.com/Kergalli/dragonbane-status-effects/blob/main/LICENSE)
 
 **Dragonbane Status Effects** provides a comprehensive status effects library with visual editors, enhanced Token HUD styling, and seamless system integration for the Dragonbane RPG system in Foundry VTT V13.
@@ -191,6 +191,11 @@
 - **Documentation**: [Complete Changelog](CHANGELOG.md)
 - **Community**: Dragonbane Community Discord
 
+### **Community Contributors**
+
+- **xdy** - Swedish language improvements and localization fixes
+- **dgladkov** - Attribute conditions addtion to custom description editor
+
 ### **Attribution**
 
 - **Icons**: [game-icons.net](https://game-icons.net) by Lorc, Delapouite, Skoll, and contributors
@@ -201,7 +206,7 @@
 
 ## ⚖️ **License & Disclaimer**
 
-MIT License. 
+MIT License.
 
 This VTT module is not affiliated with, sponsored, or endorsed by Fria Ligan AB. This Supplement was created under Fria Ligan AB’s [Dragonbane Third Party Supplement License](https://freeleaguepublishing.com/wp-content/uploads/2023/11/Dragonbane-License-Agreement.pdf).
 
