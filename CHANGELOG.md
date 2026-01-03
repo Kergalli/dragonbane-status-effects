@@ -8,7 +8,14 @@ All notable changes to the Dragonbane Status Effects module will be documented i
 
 **Custom Descriptions Expansion**
 
-- Added the ability to define custom descriptions for Attribute conditions in the description editor (contribution by dgladkov)
+- Added the ability to define custom descriptions for Attribute conditions in the description editor (contribution by **dgladkov**)
+
+### 🌍 Localization Improvements
+
+#### 🇮🇹 Italian Language Support
+
+- **Italian Localization**: Complete Italian translation now available (contribution by **LuckyFrico**)
+- **Full Coverage**: All settings, actions, combat rules, journey actions, and UI elements fully translated
 
 ---
 
