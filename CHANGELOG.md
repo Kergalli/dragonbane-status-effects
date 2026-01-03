@@ -9,6 +9,7 @@ All notable changes to the Dragonbane Status Effects module will be documented i
 **Custom Descriptions Expansion**
 
 - Added the ability to define custom descriptions for Attribute conditions in the description editor (contribution by **dgladkov**)
+- Updated example import [English descriptions file](https://github.com/Kergalli/dragonbane_macros/blob/main/status-effect-descriptions)
 
 ### 🌍 Localization Improvements
 
