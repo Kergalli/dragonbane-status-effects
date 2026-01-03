@@ -1,7 +1,7 @@
 # 🐉 Dragonbane Status Effects
 
 [![Foundry Version](https://img.shields.io/badge/Foundry-V13-informational)](https://foundryvtt.com/)
-[![Module Version](https://img.shields.io/badge/Version-2.0.8-brightgreen)](https://github.com/Kergalli/dragonbane-status-effects/releases)
+[![Module Version](https://img.shields.io/badge/Version-2.0.9-brightgreen)](https://github.com/Kergalli/dragonbane-status-effects/releases)
 [![License](https://img.shields.io/badge/License-MIT-green)](https://github.com/Kergalli/dragonbane-status-effects/blob/main/LICENSE)
 
 **Dragonbane Status Effects** provides a comprehensive status effects library with visual editors, enhanced Token HUD styling, and seamless system integration for the Dragonbane RPG system in Foundry VTT V13.

@@ -2,6 +2,19 @@
 
 All notable changes to the Dragonbane Status Effects module will be documented in this file.
 
+## [2.0.9] - 2025-01-03
+
+### 🐛 Bug Fixes
+
+**Description Editor - Attribute Conditions Support**
+
+- **Fixed Import/Export/Clear Operations for Attribute Conditions**: Resolved issue where Attribute condition descriptions were not properly handled by the description editor's import, export, and clear all operations
+  - **Import**: Attribute condition descriptions now properly import from JSON files
+  - **Export**: Attribute condition descriptions now properly export to JSON files
+  - **Clear All**: Attribute conditions now properly clear when using "Clear All Descriptions"
+
+---
+
 ## [2.0.8] - 2026-01-01
 
 ### ✨ Added - Attribute Conditions Descriptions

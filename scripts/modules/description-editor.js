@@ -289,7 +289,7 @@ export class StatusEffectDescriptionEditor extends FormApplication {
       const promises = [];
 
       // Clear all descriptions using foundry.utils
-      ["general", "spell", "ability"].forEach((category) => {
+      ["general", "spell", "ability", "condition"].forEach((category) => {
         const categoryEffects = foundry.utils.getProperty(
           this.effectsData,
           category
@@ -337,7 +337,7 @@ export class StatusEffectDescriptionEditor extends FormApplication {
       // Collect all current descriptions using foundry.utils
       const descriptions = {};
 
-      ["general", "spell", "ability"].forEach((category) => {
+      ["general", "spell", "ability", "condition"].forEach((category) => {
         const categoryEffects = foundry.utils.getProperty(
           this.effectsData,
           category
@@ -480,7 +480,7 @@ export class StatusEffectDescriptionEditor extends FormApplication {
     try {
       // First clear all existing descriptions using foundry.utils
       const clearPromises = [];
-      ["general", "spell", "ability"].forEach((category) => {
+      ["general", "spell", "ability", "condition"].forEach((category) => {
         const categoryEffects = foundry.utils.getProperty(
           this.effectsData,
           category
