@@ -193,8 +193,9 @@
 
 ### **Community Contributors**
 
-- **xdy** - Swedish language improvements and localization fixes
 - **dgladkov** - Attribute conditions addtion to custom description editor
+- **LuckyFrico** - Italian language localization
+- **xdy** - Swedish language improvements and localization fixes
 
 ### **Attribution**
 

@@ -1,0 +1,240 @@
+{
+  "DRAGONBANE_STATUS": {
+    "settings": {
+      "replaceAll": {
+        "name": "Sostituisci effetti di stato predefiniti",
+        "hint": "Sostituisce tutti gli effetti di stato predefiniti di Foundry con effetti a tema Dragonbane. Dragonbane e YZE Combat aggiungono i propri effetti separatamente. Richiede ricarica."
+      },
+      "showSpellEffects": {
+        "name": "Mostra effetti degli incantesimi",
+        "hint": "Includi gli effetti di stato legati agli incantesimi nell’elenco degli effetti disponibili. Richiede ricarica."
+      },
+      "showHeroicAbilities": {
+        "name": "Mostra abilità eroiche",
+        "hint": "Includi gli effetti di stato delle abilità eroiche nell’elenco degli effetti disponibili. Richiede ricarica."
+      },
+      "enableTokenHudStyling": {
+        "name": "Layout avanzato HUD dei token",
+        "hint": "Abilita layout a griglia di 6 colonne con intestazioni di sezione per gli effetti di stato dell’HUD dei token. Disabilita se preferisci il layout predefinito di Foundry o se vuoi usare CSS personalizzato."
+      },
+      "customEffectsEditor": {
+        "name": "Gestisci effetti di stato personalizzati",
+        "hint": "Apri l’editor visuale per creare, modificare e gestire effetti di stato personalizzati. Molto più semplice che modificare manualmente il JSON.",
+        "label": "Apri editor effetti personalizzati"
+      },
+      "descriptionEditor": {
+        "name": "Modifica descrizioni effetti di stato",
+        "hint": "Apri l’editor delle descrizioni per aggiungere descrizioni personalizzate agli effetti di stato. Utile per moduli come Visual Active Effects.",
+        "label": "Apri editor descrizioni"
+      }
+    },
+    "sections": {
+      "attributeConditions": "CONDIZIONI ATTRIBUTO",
+      "generalEffects": "EFFETTI GENERALI",
+      "spellEffects": "EFFETTI DEGLI INCANTESIMI",
+      "heroicAbilities": "ABILITÀ EROICHE"
+    },
+    "actions": {
+      "label": "Azioni"
+    },
+    "clearAll": {
+      "title": "Rimuovi tutti gli effetti di stato",
+      "content": "Sei sicuro di voler rimuovere tutti gli effetti di stato da {name}?",
+      "button": "Rimuovi tutto"
+    },
+    "customEditor": {
+      "title": "Editor effetti di stato personalizzati",
+      "instructions": "Crea e gestisci i tuoi effetti di stato personalizzati usando questo editor visuale. Aggiungi nuovi effetti, modifica quelli esistenti e organizza la tua collezione. Le modifiche vengono salvate automaticamente nelle impostazioni del tuo mondo. Puoi aggiungere descrizioni agli effetti salvati nell’Editor descrizioni.",
+      "effectsList": "I tuoi effetti personalizzati",
+      "addEffect": "Aggiungi effetto",
+      "editEffect": "Modifica",
+      "deleteEffect": "Elimina",
+      "noEffects": "Nessun effetto personalizzato ancora. Clicca 'Aggiungi effetto' per crearne uno!",
+      "addNewEffect": "Aggiungi nuovo effetto",
+      "editExistingEffect": "Modifica effetto",
+      "selectOrAdd": "Seleziona un effetto da modificare o usa il pulsante Aggiungi effetto qui sopra",
+      "addFirstEffect": "Aggiungi il tuo primo effetto",
+      "effectId": "ID effetto",
+      "effectName": "Nome effetto",
+      "effectCategory": "Categoria",
+      "effectDuration": "Durata",
+      "durationTooltip": "Durata in secondi (es. 900 = 15 minuti). Lascia vuoto o 0 per nessuna durata.",
+      "effectImage": "Seleziona icona",
+      "browse": "Sfoglia",
+      "saveEffect": "Salva effetto",
+      "saveEffectShort": "Salva",
+      "cancel": "Annulla",
+      "resetToDefault": "Ripristina predefinito",
+      "resetToDefaultShort": "Ripristina",
+      "saveAll": "Salva tutti gli effetti",
+      "resetAll": "Ripristina tutti gli effetti",
+      "clearAll": "Cancella tutti gli effetti",
+      "import": "Importa",
+      "export": "Esporta",
+      "showBuiltinEffects": "Mostra effetti integrati",
+      "showBuiltinHint": "Modifica icone, nomi, durate e categorie",
+      "builtin": "Integrato",
+      "modified": "Modificato",
+      "hidden": "Nascosto",
+      "custom": "Personalizzato",
+      "hideEffect": "Nascondi effetto",
+      "showEffect": "Mostra effetto",
+      "editingBuiltin": "Modifica di un effetto integrato. Sovrascriverà i valori predefiniti.",
+      "noEffectsVisible": "Nessun effetto da mostrare. Prova a selezionare 'Mostra effetti integrati' o ad aggiungere effetti personalizzati.",
+      "validation": {
+        "required": "ID effetto, Nome e Immagine sono obbligatori.",
+        "duplicateId": "Esiste già un effetto con questo ID."
+      },
+      "dialogs": {
+        "delete": {
+          "title": "Elimina effetto personalizzato",
+          "content": "Sei sicuro di voler eliminare l’effetto '{name}'? Questa azione non può essere annullata.<br/><br/>Assicurati di salvare tutti gli effetti quando hai finito di modificarli.<div style=\"height: 15px;\"></div>"
+        },
+        "resetAll": {
+          "title": "Ripristina tutti gli effetti",
+          "content": "Sei sicuro di voler ripristinare tutti gli effetti ai valori predefiniti? Questo eliminerà tutti gli effetti personalizzati e ripristinerà gli effetti integrati modificati alle impostazioni originali. Questa azione non può essere annullata."
+        },
+        "clearAll": {
+          "title": "Cancella tutti gli effetti personalizzati",
+          "content": "Sei sicuro di voler eliminare tutti gli effetti personalizzati? Questa azione non può essere annullata."
+        },
+        "reset": {
+          "title": "Ripristina effetto integrato",
+          "content": "Sei sicuro di voler ripristinare l’effetto '{name}' alle impostazioni predefinite? Questo rimuoverà tutte le tue personalizzazioni per questo effetto."
+        },
+        "import": {
+          "title": "Importa effetti di stato personalizzati",
+          "warning": "Questo <strong>sostituirà tutti gli effetti personalizzati attuali</strong> con quelli importati.",
+          "details": "Dettagli importazione:",
+          "totalEffects": "Totale effetti:",
+          "modifiedBuiltins": "Effetti integrati modificati:",
+          "hiddenBuiltins": "Effetti integrati nascosti:",
+          "source": "Fonte:",
+          "confirm": "Sei sicuro di voler continuare?"
+        }
+      },
+      "notifications": {
+        "saved": "Effetto salvato con successo! Assicurati di salvare tutti gli effetti!",
+        "allSaved": "Tutti gli effetti salvati con successo!",
+        "allReset": "Tutti gli effetti sono stati ripristinati ai valori predefiniti! Assicurati di salvare tutti gli effetti!",
+        "deleted": "Effetto '{name}' eliminato con successo! Assicurati di salvare tutti gli effetti!",
+        "reset": "Effetto '{name}' ripristinato alle impostazioni predefinite.",
+        "hidden": "Effetto nascosto dall’HUD dei token.",
+        "shown": "Effetto ora visibile nell’HUD dei token.",
+        "saveError": "Impossibile salvare gli effetti personalizzati. Riprova.",
+        "exportFailed": "Impossibile esportare gli effetti personalizzati. Riprova.",
+        "importSuccess": "Importati con successo {count} effetti personalizzati!",
+        "importFailed": "Impossibile importare gli effetti personalizzati: {error}",
+        "importError": "Impossibile importare gli effetti personalizzati. Riprova."
+      },
+      "errors": {
+        "invalidFile": "Formato file non valido: array di effetti mancante o non valido"
+      }
+    },
+    "editor": {
+      "title": "Editor descrizioni effetti di stato",
+      "instructions": "Aggiungi descrizioni personalizzate ai tuoi effetti di stato. Queste descrizioni saranno utilizzate da Visual Active Effects e da altri moduli che mostrano informazioni sugli effetti di stato. Puoi trascinare oggetti, attori o voci di diario da Foundry direttamente nei campi di descrizione per creare link cliccabili. Nota: dopo il salvataggio, gli effetti esistenti sui token devono essere rimossi e riapplicati per mostrare le nuove descrizioni.",
+      "placeholder": "Inserisci una descrizione per questo effetto di stato... Puoi anche trascinare oggetti, incantesimi o voci di diario qui per creare link.",
+      "save": "Salva tutte le descrizioni",
+      "clearAll": "Cancella tutte le descrizioni",
+      "import": "Importa",
+      "export": "Esporta",
+      "buttons": {
+        "close": "Chiudi"
+      },
+      "dialogs": {
+        "import": {
+          "title": "Importa descrizioni effetti di stato",
+          "warning": "Questo <strong>sostituirà tutte le descrizioni attuali</strong> con quelle importate.",
+          "details": "Dettagli importazione:",
+          "totalEffects": "Totale effetti:",
+          "withDescriptions": "Con descrizioni:",
+          "emptyTemplates": "Template vuoti:",
+          "source": "Fonte:",
+          "confirm": "Sei sicuro di voler continuare?"
+        },
+        "clearAll": {
+          "title": "Cancella tutte le descrizioni",
+          "content": "Sei sicuro di voler cancellare tutte le descrizioni degli effetti di stato? Questa azione non può essere annullata."
+        }
+      },
+      "notifications": {
+        "saved": "Tutte le descrizioni salvate con successo!",
+        "cleared": "Tutte le descrizioni cancellate.",
+        "exportFailed": "Impossibile esportare le descrizioni. Riprova.",
+        "importSuccess": "Importati con successo {count} effetti ({nonEmpty} con descrizioni)! Assicurati di salvare tutti gli effetti!",
+        "importFailed": "Impossibile importare le descrizioni: {error}",
+        "importError": "Impossibile importare le descrizioni. Riprova.",
+        "linkAdded": "Aggiunto link a {name}",
+        "linkFailed": "Impossibile creare link dall’oggetto trascinato"
+      },
+      "errors": {
+        "invalidFile": "Formato file non valido: oggetto descrizioni mancante o non valido"
+      }
+    },
+    "validation": {
+      "errors": {
+        "notArray": "Effetti di stato personalizzati: deve essere un array di effetti",
+        "invalidFormat": "Effetti di stato personalizzati: formato non valido - deve essere un array di effetti",
+        "invalidJSON": "Effetti di stato personalizzati: formato JSON non valido"
+      }
+    },
+    "warnings": {
+      "systemCompatibility": "Il modulo Dragonbane Status Effects è progettato per il sistema Dragonbane. Alcuni effetti di stato potrebbero non funzionare come previsto."
+    },
+    "notifications": {
+      "customEffectsCleared": "Effetti personalizzati cancellati. Ricarica il mondo per applicare le modifiche."
+    }
+  },
+  "EFFECT": {
+    "_comment": "Nomi degli effetti di stato - alcuni potrebbero usare chiavi DoD.* in futuro se aggiunti al core di Dragonbane",
+
+    "_general_effects": "=== EFFETTI DI STATO GENERALI ===",
+    "StatusAmnesia": "Amnesia",
+    "StatusBlind": "Cecità",
+    "StatusBurning": "In Fiamme",
+    "StatusChill": "Brivido",
+    "StatusCold": "Freddo",
+    "StatusConcentration": "Concentrazione",
+    "StatusDead": "Morto",
+    "StatusDeafened": "Assordato",
+    "StatusDisease": "Malattia",
+    "StatusDrowning": "Annegamento",
+    "StatusEncumbered": "Sovraccarico",
+    "StatusEnsnared": "Intrappolato",
+    "StatusFamished": "Affamato",
+    "StatusFlying": "Volare",
+    "StatusGrappled": "Afferrato",
+    "StatusInvisible": "Invisibile",
+    "StatusMounted": "Cavalcatura",
+    "StatusNightmares": "Incubi",
+    "StatusParalyzed": "Paralizzato",
+    "StatusPetrified": "Pietrificato",
+    "StatusPoisonLethal": "Veleno (Letale)",
+    "StatusPoisonParalyzing": "Veleno (Paralizzante)",
+    "StatusPoisonSleeping": "Veleno (Sonnifero)",
+    "StatusProne": "Prono",
+    "StatusRage": "Furia",
+    "StatusAsleep": "Addormentato",
+    "StatusSleepDeprived": "Privazione del sonno",
+    "StatusUnconscious": "Incosciente",
+    "StatusWildPanic": "Panico Selvaggio",
+
+    "_spell_effects": "=== EFFETTI DI STATO DA INCANTESIMI ===",
+    "StatusBirdsong": "Canto degli uccelli",
+    "StatusEnchantedWeapon": "Arma Incantata",
+    "StatusFrozen": "Congelato",
+    "StatusHeat": "Calore",
+    "StatusLongstrider": "Lungopasso",
+    "StatusPowerFist": "Pugno Potente",
+    "StatusProtector": "Protettore",
+    "StatusStoneSkin": "Pelle di Pietra",
+
+    "_ability_effects": "=== EFFETTI DI STATO DA ABILITÀ ===",
+    "StatusBerserk": "Furia Berserk",
+    "StatusDisguised": "Travestito",
+    "StatusMusicianBane": "Musicista (Svantaggio)",
+    "StatusMusicianBoon": "Musicista (Vantaggio)",
+    "StatusWolfkinPrey": "Preda dei Lupi"
+  }
+}
