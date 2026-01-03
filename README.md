@@ -108,7 +108,7 @@
 4. **Line Breaks**: Use `<br>` tags for formatting
 5. **Instant Save**: Changes apply immediately to new effects
 
-**📥 Example Import**: [English descriptions file](https://www.dropbox.com/scl/fi/ei2rvsgxfaynkligrhgj2/dragonbane-status-descriptions-2025-12-22.json?rlkey=i97wknkfvhdogvqev7rsqw00o&dl=0)
+**📥 Example Import**: [English descriptions file](https://github.com/Kergalli/dragonbane_macros/blob/main/status-effect-descriptions)
 
 ---
 
