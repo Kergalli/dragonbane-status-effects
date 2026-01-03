@@ -183,7 +183,7 @@ export function getAllEffectsWithDescriptions() {
       description: descriptions[effect.id] || "",
     };
     groupedEffects.condition.push(effectData);
-  })
+  });
 
   // Sort each category alphabetically
   Object.keys(groupedEffects).forEach((category) => {
