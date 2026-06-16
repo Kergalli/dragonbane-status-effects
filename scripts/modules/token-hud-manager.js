@@ -66,7 +66,7 @@ export function initializeTokenHudStyling() {
         background: rgba(233, 48, 49, 0.35) !important;
     }
 
-    /* V13 Compatible - Section headers */
+    /* Section headers */
     #token-hud .palette.status-effects .status-section-header {
         grid-column: 1 / -1 !important;
         background: linear-gradient(135deg, #2c5530, #4a7c59) !important;
