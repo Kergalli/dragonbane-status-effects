@@ -260,7 +260,7 @@ export function initializeTokenHudStyling() {
 }
 
 /**
- * Apply defensive filtering to remove empty status IDs that break V13 Token HUD
+ * Apply defensive filtering to remove empty status IDs that break the Token HUD
  */
 function applyDefensiveFiltering(html) {
   const $html = html.jquery ? html : $(html);
@@ -277,7 +277,7 @@ function applyDefensiveFiltering(html) {
     const statusId =
       $element.data("status-id") || $element.attr("data-status-id");
 
-    // Remove effects with empty status ID - these cause "Invalid status ID" errors in V13
+    // Remove effects with empty status ID - these cause "Invalid status ID" errors
     if (!statusId || statusId === "") {
       $element.remove();
       return;
@@ -304,7 +304,7 @@ function buildTokenHudSections(container, sections) {
     // Add section header
     const title = game.i18n.localize(section.titleKey);
     container.append(
-      $(`<div class="status-section-header ${section.key}">${title}</div>`)
+      $(`<div class="status-section-header ${section.key}">${title}</div>`),
     );
 
     // Add all effects for this section
@@ -342,7 +342,7 @@ async function clearAllStatusEffects(token) {
     } catch (error) {
       console.warn(
         `${MODULE_ID} | Failed to remove status effect ${statusId}:`,
-        error
+        error,
       );
     }
   }
@@ -407,7 +407,7 @@ function addActionButton(container, token) {
     singleActionEnabled = game.settings.get("yze-combat", "singleAction");
   } catch (error) {
     const hasActionEffects = CONFIG.statusEffects?.some((e) =>
-      e.id?.match(/^action\d+$/)
+      e.id?.match(/^action\d+$/),
     );
     singleActionEnabled = hasActionEffects;
   }
@@ -447,7 +447,7 @@ function addActionButton(container, token) {
     } catch (error) {
       console.warn(
         `${MODULE_ID} | Failed to toggle action effect ${actionToToggle}:`,
-        error
+        error,
       );
     }
   });
@@ -464,7 +464,7 @@ function addActionButton(container, token) {
       } catch (error) {
         console.warn(
           `${MODULE_ID} | Failed to clear action effect ${actionId}:`,
-          error
+          error,
         );
       }
     }
@@ -474,7 +474,7 @@ function addActionButton(container, token) {
 }
 
 /**
- * Add section headers and organize status effects in the Token HUD - V13 Compatible
+ * Add section headers and organize status effects in the Token HUD
  * Note: Defensive filtering is now handled separately, this focuses on enhancement
  */
 function enhanceTokenHUD(html) {
@@ -560,7 +560,7 @@ function enhanceTokenHUD(html) {
       effects: groupedEffects.ability,
       titleKey: "DRAGONBANE_STATUS.sections.heroicAbilities",
       requiresSetting: "showHeroicAbilities",
-    }
+    },
   );
 
   buildTokenHudSections(statusEffectsContainer, sections);
@@ -577,10 +577,10 @@ function enhanceTokenHUD(html) {
  */
 export function setupTokenHudEnhancement() {
   /**
-   * V13 Compatibility: Always apply defensive filtering, conditionally apply enhancements
+   * Always apply defensive filtering, conditionally apply enhancements
    */
   Hooks.on("renderTokenHUD", (hud, html, data) => {
-    // ALWAYS apply defensive filtering to prevent V13 empty status ID errors
+    // ALWAYS apply defensive filtering to prevent empty status ID errors
     applyDefensiveFiltering(html);
 
     // Only apply enhanced styling and organization if setting is enabled

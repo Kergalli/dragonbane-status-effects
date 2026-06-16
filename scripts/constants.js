@@ -1,6 +1,6 @@
 /**
  * Constants and Data for Dragonbane Status Effects Module
- * VFoundry V14 / Dragonbane v4 - Effect IDs use hyphens instead of dots to avoid HandlebarsApplicationMixin nested object conversion
+ * Foundry V14 / Dragonbane v4 - Effect IDs use hyphens instead of dots to avoid HandlebarsApplicationMixin nested object conversion
  */
 
 export const MODULE_ID = "dragonbane-status-effects";
