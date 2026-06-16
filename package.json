@@ -1,6 +1,6 @@
 {
   "name": "dragonbane-status-effects",
-  "version": "2.0.9",
+  "version": "3.0.0",
   "description": "A comprehensive Foundry VTT module that enhances the status effects system for the Dragonbane RPG with sleek theming, visual editors, organized Token HUD, and seamless system integration.",
   "main": "index.js",
   "scripts": {
@@ -13,8 +13,17 @@
     "type": "git",
     "url": "git+https://github.com/kergalli/dragonbane-status-effects.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "foundry-vtt",
+    "foundryvtt",
+    "fvtt",
+    "dragonbane",
+    "drakar-och-demoner",
+    "status-effects",
+    "active-effects",
+    "token-hud"
+  ],
+  "author": "Matthias Weeks",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/kergalli/dragonbane-status-effects/issues"

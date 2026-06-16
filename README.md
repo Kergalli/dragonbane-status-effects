@@ -1,10 +1,10 @@
 # 🐉 Dragonbane Status Effects
 
-[![Foundry Version](https://img.shields.io/badge/Foundry-V13-informational)](https://foundryvtt.com/)
-[![Module Version](https://img.shields.io/badge/Version-2.0.9-brightgreen)](https://github.com/Kergalli/dragonbane-status-effects/releases)
+[![Foundry Version](https://img.shields.io/badge/Foundry-V14-informational)](https://foundryvtt.com/)
+[![Module Version](https://img.shields.io/badge/Version-3.0.0-brightgreen)](https://github.com/Kergalli/dragonbane-status-effects/releases)
 [![License](https://img.shields.io/badge/License-MIT-green)](https://github.com/Kergalli/dragonbane-status-effects/blob/main/LICENSE)
 
-**Dragonbane Status Effects** provides a comprehensive status effects library with visual editors, enhanced Token HUD styling, and seamless system integration for the Dragonbane RPG system in Foundry VTT V13.
+**Dragonbane Status Effects** provides a comprehensive status effects library with visual editors, enhanced Token HUD styling, and seamless system integration for the Dragonbane RPG system in Foundry VTT V14.
 
 ---
 
@@ -29,7 +29,7 @@
 
 - **Beautiful 6-column grid layout** with color-coded section headers
 - **Visual organization** by effect categories (General, Spell, Heroic Abilities)
-- **Seamless integration** with Foundry V13's modern interface
+- **Seamless integration** with Foundry V14's modern interface
 - **Customizable display** options for different effect types
 
 ### 📚 **Comprehensive Status Library**
@@ -46,12 +46,12 @@
 - **Rich description support** compatible with Visual Active Effects and Dfreds Effects Panel
 - **Import/Export system** for backup and sharing between worlds
 
-### 🔄 **Foundry V13 Compatibility**
+### 🔄 **Foundry V14 Compatibility**
 
-- **Full V13 architecture support** with modern APIs
+- **Full V14 architecture support** with modern APIs
 - **Enhanced stability** with defensive error handling
-- **Template compatibility** with updated ID format (hyphens vs dots)
-- **Seamless migration** from V12 versions (v1.x → v2.x)
+- **V14 Active Effect schema** (string-typed change modes, `system.changes`)
+- **Updated for Dragonbane v4.0.1**
 
 ---
 
@@ -118,8 +118,8 @@
 
 | Requirement           | Version | Notes                                        |
 | --------------------- | ------- | -------------------------------------------- |
-| **Foundry VTT**       | v13+    | v2.x for V13; v1.x for V12                   |
-| **Dragonbane System** | v2.0.0+ | Required for attribute condition integration |
+| **Foundry VTT**       | v14+    | v3.x for V14; v2.x for V13; v1.x for V12     |
+| **Dragonbane System** | v4.0.0+ | Required for attribute condition integration |
 
 ### **Recommended Integrations**
 
@@ -144,21 +144,20 @@
 
 ---
 
-## 🔧 **V13 Migration & Compatibility**
+## 🔧 **V14 Migration & Compatibility**
 
-### **Upgrading from V12**
+### **Upgrading to V14**
 
-- **Version Path**: V12 users should stay on v1.x; V13 users use v2.x
-- **Migration Notes**:
-  - **From v1.0.2**: Seamless upgrade, no breaking changes
-  - **From v1.0.1**: Breaking changes due to ID format differences
-- **Effect ID Changes**: Dots (v1.0.1) → Hyphens (v1.0.2+) for V13 template compatibility
+- **Version Path**: V14 users use v3.x; V13 users stay on v2.x; V12 users stay on v1.x
+- **Foundry & System**: v3.0.0 targets Foundry V14 and Dragonbane v4.0.1 (a clean cut — there is no build spanning V13 and V14)
+- **Active Effects**: Effect change data migrated to the V14 schema (numeric `mode` → string `type`, changes stored on `system.changes`). Built-in effects (e.g. Longstrider) are updated automatically
+- **Custom Effects**: Any custom effect you authored with a functional change array under the old `mode` format must be re-saved in the Custom Effects Editor to apply under v3.0.0
 
-### **V13 Improvements**
+### **V14 Improvements**
 
-- **Modern APIs**: V13 namespaced functions with enhanced error handling
-- **Enhanced Stability**: Defensive filtering prevents V13-specific rendering issues
-- **Template Compatibility**: Updated effect IDs work properly with V13 templates
+- **Modern APIs**: V14 namespaced functions with enhanced error handling
+- **Enhanced Stability**: Defensive filtering prevents rendering issues
+- **Active Effect Support**: Custom keys now apply natively under the rewritten Dragonbane v4 effects pipeline
 
 ---
 
@@ -170,7 +169,7 @@
 | ----------------------------------------- | ----------------------------------------------------- |
 | **Custom effects not appearing**          | Click "Save All Effects" in editor → Reload world     |
 | **Token HUD not styled**                  | Enable "Enhanced Token HUD Layout" in module settings |
-| **Effects disappeared after V13 upgrade** | Expected due to ID format change - reapply effects    |
+| **Effects disappeared after V14 upgrade** | Expected — reapply effects after upgrading            |
 | **Token HUD conflicts**                   | Disable Monk's Little Details Token HUD options       |
 
 ### **Known Conflicts**

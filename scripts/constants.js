@@ -1,6 +1,6 @@
 /**
  * Constants and Data for Dragonbane Status Effects Module
- * V13 Compatible - Effect IDs use hyphens instead of dots to avoid HandlebarsApplicationMixin nested object conversion
+ * VFoundry V14 / Dragonbane v4 - Effect IDs use hyphens instead of dots to avoid HandlebarsApplicationMixin nested object conversion
  */
 
 export const MODULE_ID = "dragonbane-status-effects";
@@ -31,7 +31,7 @@ export const DRAGONBANE_CONDITION_ICONS = {
   cha: "systems/dragonbane/art/icons/worried-eyes.webp",
 };
 
-// DOM Selectors - V13 Compatible
+// DOM Selectors
 export const SELECTORS = {
   STATUS_EFFECTS: ".palette.status-effects",
   EFFECT_CONTROL: ".effect-control",
@@ -39,7 +39,7 @@ export const SELECTORS = {
   TOKEN_HUD: "#token-hud",
 };
 
-// Custom Status Effects Data - V13 Compatible IDs (hyphens instead of dots)
+// Custom Status Effects Data - IDs use hyphens instead of dots
 export const CUSTOM_STATUS_EFFECTS = [
   // General Effects (alphabetical order)
   {
@@ -265,7 +265,7 @@ export const CUSTOM_STATUS_EFFECTS = [
     changes: [
       {
         key: "system.movement.value",
-        mode: CONST.ACTIVE_EFFECT_MODES.MULTIPLY,
+        type: "multiply",
         value: "2",
       },
     ],

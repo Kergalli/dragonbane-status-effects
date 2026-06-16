@@ -21,10 +21,10 @@ import {
 function validateSystem() {
   if (game.system.id !== "dragonbane") {
     console.error(
-      `${MODULE_ID} | This module requires the Dragonbane system. Current system: ${game.system.id}`
+      `${MODULE_ID} | This module requires the Dragonbane system. Current system: ${game.system.id}`,
     );
     ui.notifications.error(
-      game.i18n.localize("DRAGONBANE_STATUS.errors.systemRequired")
+      game.i18n.localize("DRAGONBANE_STATUS.errors.systemRequired"),
     );
   }
 }
@@ -35,7 +35,7 @@ function validateSystem() {
 function showSystemCompatibilityWarning() {
   if (game.system.id !== "dragonbane") {
     ui.notifications.warn(
-      game.i18n.localize("DRAGONBANE_STATUS.warnings.systemCompatibility")
+      game.i18n.localize("DRAGONBANE_STATUS.warnings.systemCompatibility"),
     );
   }
 }
@@ -83,9 +83,9 @@ Hooks.on("preCreateActiveEffect", (effect, data, options, userId) => {
 
     // If the status effect has changes defined, copy them to the effect being created
     if (statusEffect?.changes && statusEffect.changes.length > 0) {
-      effect.updateSource({ changes: statusEffect.changes });
+      effect.updateSource({ system: { changes: statusEffect.changes } });
       console.log(
-        `${MODULE_ID} | Injected ${statusEffect.changes.length} changes into ${statusEffect.name}`
+        `${MODULE_ID} | Injected ${statusEffect.changes.length} changes into ${statusEffect.name}`,
       );
     }
 

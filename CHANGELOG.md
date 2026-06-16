@@ -2,6 +2,37 @@
 
 All notable changes to the Dragonbane Status Effects module will be documented in this file.
 
+## [3.0.0] - 2026-06-16
+
+### 🚀 Major Release - Foundry V14 & Dragonbane v4.x Compatibility
+
+This major release brings full Foundry V14 compatibility and updates the module to the Dragonbane system v4.0.1. This is a clean cut to V14 — v3.x targets Foundry V14 only.
+
+### ✨ Added - V14 Compatibility
+
+**Active Effect Schema Migration**
+
+- **V14 Active Effect Format**: Effect changes migrated to the Foundry V14 schema — string-typed change modes (`type`) replace the numeric `mode`, and changes are stored on `system.changes`
+  - **Longstrider**: The movement-doubling active effect is updated to the new format and applies natively through the rewritten Dragonbane v4 effects pipeline
+- **Native Custom Keys**: Custom active-effect keys now apply correctly under Dragonbane v4, which removed the previous hardcoded key restrictions
+
+### 🔧 Technical Improvements
+
+- **Effect Injection Updated**: The `preCreateActiveEffect` hook now writes injected changes to `system.changes` (V14) instead of the legacy top-level `changes` array
+- **Compatibility Band**: Foundry minimum/verified/maximum set to V14 (14.364); Dragonbane system requirement raised to v4.0.0+ (verified 4.0.1)
+
+### 📋 Breaking Changes
+
+**Foundry V14 Required**
+
+- **Minimum Foundry**: Now requires Foundry V14 and Dragonbane v4.x
+  - **Impact**: Not compatible with Foundry V13 / Dragonbane v3.x. There is no build spanning both
+  - **Impact**: V13 users should stay on the v2.x line; V12 users on v1.x
+- **Custom Effects with Functional Changes**: Any custom effect authored with a change array in the old numeric `mode` format must be re-saved in the Custom Effects Editor to apply under v3.0.0
+  - **Impact**: Built-in effects (including Longstrider) are updated automatically — this only affects user-authored custom effects that defined a functional `changes` array
+
+---
+
 ## [2.0.9] - 2025-01-03
 
 ### 🐛 Bug Fixes
@@ -92,7 +123,6 @@ All notable changes to the Dragonbane Status Effects module will be documented i
 **Active Effect Integration (V13 Only)**
 
 - **Basic Architecture**: Added the ability to create active effects via contants.js
-
   - Not many spells or effects easily lend themselves to simple active effects, but perhaps we will see more in the Book of Magic
   - Power level scaling and skill-specific limitations make simple active effects difficult
 
