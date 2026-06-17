@@ -83,9 +83,14 @@ Hooks.on("preCreateActiveEffect", (effect, data, options, userId) => {
 
     // If the status effect has changes defined, copy them to the effect being created
     if (statusEffect?.changes && statusEffect.changes.length > 0) {
-      effect.updateSource({ system: { changes: statusEffect.changes } });
+      const attrs = CONFIG.DoD?.activeEffectAttributes ?? [];
+      const changes = statusEffect.changes.map((c) => ({
+        ...c,
+        phase: attrs.find((a) => a.key === c.key)?.phase ?? "initial",
+      }));
+      effect.updateSource({ system: { changes } });
       console.log(
-        `${MODULE_ID} | Injected ${statusEffect.changes.length} changes into ${statusEffect.name}`,
+        `${MODULE_ID} | Injected ${changes.length} changes into ${statusEffect.name}`,
       );
     }
 

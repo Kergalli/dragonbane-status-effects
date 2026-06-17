@@ -19,6 +19,8 @@ export function initializeTokenHudStyling() {
     /* V13 Compatible - Target .palette.status-effects instead of .col.right .status-effects */
     #token-hud .palette.status-effects {
         display: grid !important;
+        overflow: visible !important;
+        height: auto !important;
         grid-template-columns: repeat(${UI_CONFIG.COLUMNS}, minmax(${UI_CONFIG.ICON_SIZE}px, 1fr)) !important;
         gap: ${UI_CONFIG.GAP}px !important;
         padding: ${UI_CONFIG.PADDING} !important;
@@ -322,12 +324,9 @@ async function clearAllStatusEffects(token) {
   const tokenName = token.name || token.actor.name || "Unknown";
 
   // Confirm with user
-  const confirm = await Dialog.confirm({
-    title: game.i18n.localize("DRAGONBANE_STATUS.clearAll.title"),
-    content: `<p>${game.i18n.format("DRAGONBANE_STATUS.clearAll.content", {
-      name: tokenName,
-    })}</p>`,
-    defaultYes: false,
+  const confirm = await foundry.applications.api.DialogV2.confirm({
+    window: { title: game.i18n.localize("DRAGONBANE_STATUS.clearAll.title") },
+    content: `<p>${game.i18n.format("DRAGONBANE_STATUS.clearAll.content", { name: tokenName })}</p>`,
   });
 
   if (!confirm) return;

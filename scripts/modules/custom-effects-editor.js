@@ -58,7 +58,7 @@ export class CustomStatusEffectsEditor extends FormApplication {
         sensitivity: "base",
         numeric: true,
         caseFirst: "lower",
-      })
+      }),
     );
 
     // Get the effect being edited
@@ -67,7 +67,7 @@ export class CustomStatusEffectsEditor extends FormApplication {
       if (this.editingBuiltin) {
         // Find the built-in effect by ID
         editingEffect = this.builtinEffects.find(
-          (e) => e._originalIndex === this.editingIndex
+          (e) => e._originalIndex === this.editingIndex,
         );
       } else {
         // Find the custom effect
@@ -83,7 +83,7 @@ export class CustomStatusEffectsEditor extends FormApplication {
         {
           key: "general",
           label: game.i18n.localize(
-            "DRAGONBANE_STATUS.sections.generalEffects"
+            "DRAGONBANE_STATUS.sections.generalEffects",
           ),
         },
         {
@@ -93,7 +93,7 @@ export class CustomStatusEffectsEditor extends FormApplication {
         {
           key: "ability",
           label: game.i18n.localize(
-            "DRAGONBANE_STATUS.sections.heroicAbilities"
+            "DRAGONBANE_STATUS.sections.heroicAbilities",
           ),
         },
       ],
@@ -281,7 +281,7 @@ export class CustomStatusEffectsEditor extends FormApplication {
         onclick: async (ev) => {
           this._onExport(ev);
         },
-      }
+      },
     );
 
     return buttons;
@@ -317,7 +317,7 @@ export class CustomStatusEffectsEditor extends FormApplication {
     initializeStatusEffects();
 
     ui.notifications.info(
-      game.i18n.localize("DRAGONBANE_STATUS.customEditor.notifications.hidden")
+      game.i18n.localize("DRAGONBANE_STATUS.customEditor.notifications.hidden"),
     );
     this.render(true);
   }
@@ -339,7 +339,7 @@ export class CustomStatusEffectsEditor extends FormApplication {
     initializeStatusEffects();
 
     ui.notifications.info(
-      game.i18n.localize("DRAGONBANE_STATUS.customEditor.notifications.shown")
+      game.i18n.localize("DRAGONBANE_STATUS.customEditor.notifications.shown"),
     );
     this.render(true);
   }
@@ -357,11 +357,11 @@ export class CustomStatusEffectsEditor extends FormApplication {
 
     const confirm = await Dialog.confirm({
       title: game.i18n.localize(
-        "DRAGONBANE_STATUS.customEditor.dialogs.reset.title"
+        "DRAGONBANE_STATUS.customEditor.dialogs.reset.title",
       ),
       content: game.i18n.format(
         "DRAGONBANE_STATUS.customEditor.dialogs.reset.content",
-        { name: effect.name }
+        { name: effect.name },
       ),
     });
 
@@ -375,7 +375,9 @@ export class CustomStatusEffectsEditor extends FormApplication {
       initializeStatusEffects();
 
       ui.notifications.info(
-        game.i18n.localize("DRAGONBANE_STATUS.customEditor.notifications.reset")
+        game.i18n.localize(
+          "DRAGONBANE_STATUS.customEditor.notifications.reset",
+        ),
       );
 
       // Cancel editing mode and refresh
@@ -406,7 +408,7 @@ export class CustomStatusEffectsEditor extends FormApplication {
     if (isBuiltin) {
       // Find the built-in effect
       const builtinIndex = this.builtinEffects.findIndex(
-        (effect) => effect.id === effectId
+        (effect) => effect.id === effectId,
       );
       if (builtinIndex >= 0) {
         this.editingIndex = this.builtinEffects[builtinIndex]._originalIndex;
@@ -416,7 +418,7 @@ export class CustomStatusEffectsEditor extends FormApplication {
     } else {
       // Find the custom effect
       const actualIndex = this.customEffects.findIndex(
-        (effect) => effect.id === effectId
+        (effect) => effect.id === effectId,
       );
       if (actualIndex >= 0) {
         this.editingIndex = actualIndex;
@@ -438,7 +440,7 @@ export class CustomStatusEffectsEditor extends FormApplication {
 
       // Find the actual index and effect in the original customEffects array
       const actualIndex = this.customEffects.findIndex(
-        (effect) => effect.id === effectId
+        (effect) => effect.id === effectId,
       );
 
       if (actualIndex < 0) {
@@ -449,13 +451,15 @@ export class CustomStatusEffectsEditor extends FormApplication {
 
       const effect = this.customEffects[actualIndex];
 
-      const confirm = await Dialog.confirm({
-        title: game.i18n.localize(
-          "DRAGONBANE_STATUS.customEditor.dialogs.delete.title"
-        ),
+      const confirm = await foundry.applications.api.DialogV2.confirm({
+        window: {
+          title: game.i18n.localize(
+            "DRAGONBANE_STATUS.customEditor.dialogs.delete.title",
+          ),
+        },
         content: game.i18n.format(
           "DRAGONBANE_STATUS.customEditor.dialogs.delete.content",
-          { name: effect.name }
+          { name: effect.name },
         ),
       });
 
@@ -471,15 +475,15 @@ export class CustomStatusEffectsEditor extends FormApplication {
           ui.notifications.info(
             game.i18n.format(
               "DRAGONBANE_STATUS.customEditor.notifications.deleted",
-              { name: effect.name }
-            )
+              { name: effect.name },
+            ),
           );
         } catch (saveError) {
           console.error("Error saving after delete:", saveError);
           ui.notifications.error(
             game.i18n.localize(
-              "DRAGONBANE_STATUS.customEditor.notifications.saveError"
-            )
+              "DRAGONBANE_STATUS.customEditor.notifications.saveError",
+            ),
           );
           return;
         }
@@ -561,7 +565,9 @@ export class CustomStatusEffectsEditor extends FormApplication {
       initializeStatusEffects();
 
       ui.notifications.info(
-        game.i18n.localize("DRAGONBANE_STATUS.customEditor.notifications.saved")
+        game.i18n.localize(
+          "DRAGONBANE_STATUS.customEditor.notifications.saved",
+        ),
       );
 
       // Exit editing mode completely - this restores the Add Effect button
@@ -573,12 +579,12 @@ export class CustomStatusEffectsEditor extends FormApplication {
     } catch (error) {
       console.error(
         "Dragonbane Status Effects | Error saving built-in override:",
-        error
+        error,
       );
       ui.notifications.error(
         game.i18n.localize(
-          "DRAGONBANE_STATUS.customEditor.notifications.saveError"
-        )
+          "DRAGONBANE_STATUS.customEditor.notifications.saveError",
+        ),
       );
     }
   }
@@ -595,20 +601,22 @@ export class CustomStatusEffectsEditor extends FormApplication {
       !formData["effect-img"]
     ) {
       ui.notifications.error(
-        game.i18n.localize("DRAGONBANE_STATUS.customEditor.validation.required")
+        game.i18n.localize(
+          "DRAGONBANE_STATUS.customEditor.validation.required",
+        ),
       );
       return;
     }
 
     // Check for duplicate IDs (but allow editing the same effect)
     const existingIndex = this.customEffects.findIndex(
-      (effect) => effect.id === formData["effect-id"]
+      (effect) => effect.id === formData["effect-id"],
     );
     if (existingIndex >= 0 && existingIndex !== this.editingIndex) {
       ui.notifications.error(
         game.i18n.localize(
-          "DRAGONBANE_STATUS.customEditor.validation.duplicateId"
-        )
+          "DRAGONBANE_STATUS.customEditor.validation.duplicateId",
+        ),
       );
       return;
     }
@@ -651,7 +659,9 @@ export class CustomStatusEffectsEditor extends FormApplication {
       initializeStatusEffects();
 
       ui.notifications.info(
-        game.i18n.localize("DRAGONBANE_STATUS.customEditor.notifications.saved")
+        game.i18n.localize(
+          "DRAGONBANE_STATUS.customEditor.notifications.saved",
+        ),
       );
 
       // Cancel editing mode and refresh the form
@@ -661,12 +671,12 @@ export class CustomStatusEffectsEditor extends FormApplication {
     } catch (error) {
       console.error(
         "Dragonbane Status Effects | Error saving custom effect to settings:",
-        error
+        error,
       );
       ui.notifications.error(
         game.i18n.localize(
-          "DRAGONBANE_STATUS.customEditor.notifications.saveError"
-        )
+          "DRAGONBANE_STATUS.customEditor.notifications.saveError",
+        ),
       );
     }
   }
@@ -697,8 +707,8 @@ export class CustomStatusEffectsEditor extends FormApplication {
       // Show Foundry's built-in reload confirmation dialog
       ui.notifications.info(
         game.i18n.localize(
-          "DRAGONBANE_STATUS.customEditor.notifications.allSaved"
-        )
+          "DRAGONBANE_STATUS.customEditor.notifications.allSaved",
+        ),
       );
       foundry.applications.settings.SettingsConfig.reloadConfirm({
         world: true,
@@ -706,12 +716,12 @@ export class CustomStatusEffectsEditor extends FormApplication {
     } catch (error) {
       console.error(
         "Dragonbane Status Effects | Error saving custom effects:",
-        error
+        error,
       );
       ui.notifications.error(
         game.i18n.localize(
-          "DRAGONBANE_STATUS.customEditor.notifications.saveError"
-        )
+          "DRAGONBANE_STATUS.customEditor.notifications.saveError",
+        ),
       );
     }
   }
@@ -722,12 +732,14 @@ export class CustomStatusEffectsEditor extends FormApplication {
   async _onResetAll(event) {
     event.preventDefault();
 
-    const confirm = await Dialog.confirm({
-      title: game.i18n.localize(
-        "DRAGONBANE_STATUS.customEditor.dialogs.resetAll.title"
-      ),
+    const confirm = await foundry.applications.api.DialogV2.confirm({
+      window: {
+        title: game.i18n.localize(
+          "DRAGONBANE_STATUS.customEditor.dialogs.resetAll.title",
+        ),
+      },
       content: game.i18n.localize(
-        "DRAGONBANE_STATUS.customEditor.dialogs.resetAll.content"
+        "DRAGONBANE_STATUS.customEditor.dialogs.resetAll.content",
       ),
     });
 
@@ -755,18 +767,18 @@ export class CustomStatusEffectsEditor extends FormApplication {
 
         ui.notifications.info(
           game.i18n.localize(
-            "DRAGONBANE_STATUS.customEditor.notifications.allReset"
-          )
+            "DRAGONBANE_STATUS.customEditor.notifications.allReset",
+          ),
         );
       } catch (error) {
         console.error(
           "Dragonbane Status Effects | Error resetting all effects:",
-          error
+          error,
         );
         ui.notifications.error(
           game.i18n.localize(
-            "DRAGONBANE_STATUS.customEditor.notifications.saveError"
-          )
+            "DRAGONBANE_STATUS.customEditor.notifications.saveError",
+          ),
         );
       }
     }
@@ -778,12 +790,14 @@ export class CustomStatusEffectsEditor extends FormApplication {
   async _onClearAll(event) {
     event.preventDefault();
 
-    const confirm = await Dialog.confirm({
-      title: game.i18n.localize(
-        "DRAGONBANE_STATUS.customEditor.dialogs.clearAll.title"
-      ),
+    const confirm = await foundry.applications.api.DialogV2.confirm({
+      window: {
+        title: game.i18n.localize(
+          "DRAGONBANE_STATUS.customEditor.dialogs.clearAll.title",
+        ),
+      },
       content: game.i18n.localize(
-        "DRAGONBANE_STATUS.customEditor.dialogs.clearAll.content"
+        "DRAGONBANE_STATUS.customEditor.dialogs.clearAll.content",
       ),
     });
 
@@ -863,12 +877,12 @@ export class CustomStatusEffectsEditor extends FormApplication {
     } catch (error) {
       console.error(
         "Dragonbane Status Effects | Error exporting custom effects:",
-        error
+        error,
       );
       ui.notifications.error(
         game.i18n.localize(
-          "DRAGONBANE_STATUS.customEditor.notifications.exportFailed"
-        )
+          "DRAGONBANE_STATUS.customEditor.notifications.exportFailed",
+        ),
       );
     }
   }
@@ -908,18 +922,18 @@ export class CustomStatusEffectsEditor extends FormApplication {
       if (!effects || !Array.isArray(effects)) {
         throw new Error(
           game.i18n.localize(
-            "DRAGONBANE_STATUS.customEditor.errors.invalidFile"
-          )
+            "DRAGONBANE_STATUS.customEditor.errors.invalidFile",
+          ),
         );
       }
 
       // Show confirmation dialog
       const effectCount = effects.length;
       const overrideCount = Object.keys(
-        importData.builtinOverrides || {}
+        importData.builtinOverrides || {},
       ).length;
       const hiddenCount = Object.keys(
-        importData.hiddenBuiltinEffects || {}
+        importData.hiddenBuiltinEffects || {},
       ).length;
       const sourceModule = foundry.utils.getProperty(importData, "module");
       const sourceVersion =
@@ -933,12 +947,12 @@ export class CustomStatusEffectsEditor extends FormApplication {
           hiddenCount,
           sourceModule,
           sourceVersion,
-        }
+        },
       );
 
       const confirm = await Dialog.confirm({
         title: game.i18n.localize(
-          "DRAGONBANE_STATUS.customEditor.dialogs.import.title"
+          "DRAGONBANE_STATUS.customEditor.dialogs.import.title",
         ),
         content,
       });
@@ -956,7 +970,7 @@ export class CustomStatusEffectsEditor extends FormApplication {
           await game.settings.set(
             MODULE_ID,
             "builtinEffectOverrides",
-            importData.builtinOverrides
+            importData.builtinOverrides,
           );
         }
 
@@ -965,7 +979,7 @@ export class CustomStatusEffectsEditor extends FormApplication {
           await game.settings.set(
             MODULE_ID,
             "hiddenBuiltinEffects",
-            importData.hiddenBuiltinEffects
+            importData.hiddenBuiltinEffects,
           );
         }
 
@@ -981,8 +995,8 @@ export class CustomStatusEffectsEditor extends FormApplication {
             "DRAGONBANE_STATUS.customEditor.notifications.importSuccess",
             {
               count: effectCount,
-            }
-          )
+            },
+          ),
         );
       }
 
@@ -991,15 +1005,15 @@ export class CustomStatusEffectsEditor extends FormApplication {
     } catch (error) {
       console.error(
         "Dragonbane Status Effects | Error importing custom effects:",
-        error
+        error,
       );
       ui.notifications.error(
         game.i18n.format(
           "DRAGONBANE_STATUS.customEditor.notifications.importFailed",
           {
             error: error.message,
-          }
-        )
+          },
+        ),
       );
 
       // Clear the file input

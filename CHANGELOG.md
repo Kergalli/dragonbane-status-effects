@@ -13,7 +13,7 @@ This major release brings full Foundry V14 compatibility and updates the module 
 **Active Effect Schema Migration**
 
 - **V14 Active Effect Format**: Effect changes migrated to the Foundry V14 schema — string-typed change modes (`type`) replace the numeric `mode`, and changes are stored on `system.changes`
-  - **Longstrider**: The movement-doubling active effect is updated to the new format and applies natively through the rewritten Dragonbane v4 effects pipeline
+  - **Longstrider**: The movement-doubling active effect is updated to apply correctly through the rewritten Dragonbane v4 effects pipeline
 - **Native Custom Keys**: Custom active-effect keys now apply correctly under Dragonbane v4, which removed the previous hardcoded key restrictions
 
 ### 🔧 Technical Improvements
