@@ -19,6 +19,9 @@ This major release brings full Foundry V14 compatibility and updates the module 
 ### 🔧 Technical Improvements
 
 - **Effect Injection Updated**: The `preCreateActiveEffect` hook now writes injected changes to `system.changes` (V14) instead of the legacy top-level `changes` array
+- **Active Effect Phase Handling**: Injected changes are now stamped with the correct application phase (matching Dragonbane v4's pipeline) at creation time, so attribute modifiers like Longstrider's movement doubling apply correctly
+- **Token HUD V14 Layout**: Adjusted Token HUD styling for V14's status-effects palette so the full effect grid displays without scrolling or background clipping
+- **DialogV2 Migration**: Converted confirmation dialogs (Token HUD Clear All, custom effects editor) from the deprecated V1 `Dialog` to `DialogV2`
 - **Compatibility Band**: Foundry minimum/verified/maximum set to V14 (14.364); Dragonbane system requirement raised to v4.0.0+ (verified 4.0.1)
 
 ### 📋 Breaking Changes
